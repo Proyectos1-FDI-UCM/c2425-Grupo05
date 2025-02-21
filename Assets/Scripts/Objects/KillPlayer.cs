@@ -22,9 +22,11 @@ public class KillPlayer : MonoBehaviour
     // públicos y de inspector se nombren en formato PascalCase
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
+    [SerializeField]
+    private GameObject Player;
 
     #endregion
-    
+
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
     // Documentar cada atributo que aparece aquí.
@@ -33,6 +35,7 @@ public class KillPlayer : MonoBehaviour
     // primera palabra en minúsculas y el resto con la 
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
+    private Vector2 _levelPlayerPos = new Vector2(-7,0);
 
     #endregion
     
@@ -83,7 +86,8 @@ public class KillPlayer : MonoBehaviour
 
         if (playerMovement != null)
         {
-            Destroy(collision.gameObject);
+            Player.transform.position = _levelPlayerPos;
+            
         }
     }
 
