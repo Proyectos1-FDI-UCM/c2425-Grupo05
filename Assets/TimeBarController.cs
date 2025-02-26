@@ -71,7 +71,7 @@ public class TimeBarController : MonoBehaviour
         {
             Debug.Log("TiempoFinalizado");
             LevelManager.Instance.ResetPlayer();
-            _timeRemaning = 1;
+            _timeRemaning = maxTime;
             timeScrollBar.size = 1;
 
         }
