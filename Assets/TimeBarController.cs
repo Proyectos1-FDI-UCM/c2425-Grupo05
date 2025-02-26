@@ -54,8 +54,8 @@ public class TimeBarController : MonoBehaviour
     /// </summary>
     void Start()
     {
-        _timeRemaning = 0;
-        timeScrollBar.size = 0;
+        _timeRemaning = maxTime;
+        timeScrollBar.size = 1;
     }
 
     /// <summary>
@@ -63,14 +63,17 @@ public class TimeBarController : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (_timeRemaning<maxTime)
+        if (_timeRemaning>0)
         {
-            _timeRemaning += Time.deltaTime;
-            timeScrollBar.size = _timeRemaning / maxTime;
+            _timeRemaning -= Time.deltaTime;
+            timeScrollBar.size =_timeRemaning / maxTime;
         } else
         {
             Debug.Log("TiempoFinalizado");
             LevelManager.Instance.ResetPlayer();
+            _timeRemaning = 1;
+            timeScrollBar.size = 1;
+
         }
     }
     #endregion
