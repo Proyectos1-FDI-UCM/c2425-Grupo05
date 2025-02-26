@@ -6,6 +6,7 @@
 //---------------------------------------------------------
 
 using UnityEngine;
+using System.Collections.Generic;
 // Añadir aquí el resto de directivas using
 
 
@@ -13,7 +14,7 @@ using UnityEngine;
 /// Antes de cada class, descripción de qué es y para qué sirve,
 /// usando todas las líneas que sean necesarias.
 /// </summary>
-public class KillPlayer : MonoBehaviour
+public class RescaleCamera : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
@@ -22,10 +23,9 @@ public class KillPlayer : MonoBehaviour
     // públicos y de inspector se nombren en formato PascalCase
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
-    [SerializeField]
-    private GameObject Player;
 
     #endregion
+
 
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
@@ -35,9 +35,10 @@ public class KillPlayer : MonoBehaviour
     // primera palabra en minúsculas y el resto con la 
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
-    private Vector2 _levelPlayerPos = new Vector2(-7,0);
 
     #endregion
+    private int screenSizeX = 0;
+    private int screenSizeY = 0;
     
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
     #region Métodos de MonoBehaviour
@@ -52,7 +53,7 @@ public class KillPlayer : MonoBehaviour
     /// </summary>
     void Start()
     {
-        
+        ResizeCamera();
     }
 
     /// <summary>
@@ -60,9 +61,23 @@ public class KillPlayer : MonoBehaviour
     /// </summary>
     void Update()
     {
-        
+        ResizeCamera();
     }
     #endregion
+   
+    void OnPreCull() 
+    {
+        if (Application.isEditor) return;
+        Rect wp = Camera.main.rect;
+        Rect nr = new Rect(0, 0, 1, 1);
+
+        Camera.main.rect = nr;
+        GL.Clear(true, true, Color.black);
+
+        Camera.main.rect = wp;
+
+    }
+   
 
     // ---- MÉTODOS PÚBLICOS ----
     #region Métodos públicos
@@ -80,17 +95,46 @@ public class KillPlayer : MonoBehaviour
     // El convenio de nombres de Unity recomienda que estos métodos
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        PlayerMovement playerMovement = collision.gameObject.GetComponent<PlayerMovement>();
 
-        if (playerMovement != null)
+    #endregion
+    private void ResizeCamera() //Cambiar el tamaño de la cámara para que encapsule el nivel
+    {
+
+        if (Screen.width == screenSizeX && Screen.height == screenSizeY) return;
+
+        float targetaspect = 16.0f / 9.0f;
+        float windowaspect = (float)Screen.width / (float)Screen.height;
+        float scaleheight = windowaspect / targetaspect;
+        Camera camera = GetComponent<Camera>();
+
+        if (scaleheight < 1.0f)
         {
-            LevelManager.Instance.ResetPlayer();
+            Rect rect = camera.rect;
+
+            rect.width = 1.0f;
+            rect.height = scaleheight;
+            rect.x = 0;
+            rect.y = (1.0f - scaleheight) / 2.0f;
+
+            camera.rect = rect;
         }
+        else // add pillarbox
+        {
+            float scalewidth = 1.0f / scaleheight;
+
+            Rect rect = camera.rect;
+
+            rect.width = scalewidth;
+            rect.height = 1.0f;
+            rect.x = (1.0f - scalewidth) / 2.0f;
+            rect.y = 0;
+
+            camera.rect = rect;
+        }
+
+        screenSizeX = Screen.width;
+        screenSizeY = Screen.height;
     }
 
-    #endregion   
-
-} // class KillPlayer 
+} // class RescaleCamera 
 // namespace

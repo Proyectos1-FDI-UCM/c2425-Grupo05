@@ -5,6 +5,7 @@
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
+using System.Runtime.Serialization.Formatters;
 using UnityEngine;
 using UnityEngine.InputSystem;
 // Añadir aquí el resto de directivas using
@@ -27,6 +28,11 @@ public class PlayerMovement : MonoBehaviour
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
 
+    public float speed = 5;
+    public float jumpForce = 2;
+    public Transform feetPos;
+    public float checkRadius;
+    public LayerMask ground;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -42,7 +48,11 @@ public class PlayerMovement : MonoBehaviour
     // primera palabra en minúsculas y el resto con la 
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
-
+    private Rigidbody2D rb;
+    private bool isGrounded;
+    private float jumpTimeCounter;
+    private float jumpTime;
+    private bool isJumping;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -69,6 +79,33 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     void Update()
     {
+        isGrounded = Physics2D.OverlapCircle(feetPos.position, checkRadius, ground);
+
+        if (isGrounded == true && Input.GetKeyDown(KeyCode.Space))
+        {
+            isJumping = true;
+            jumpTimeCounter = jumpTime;
+            rb.velocity = Vector2.up * jumpForce;
+        }
+
+        if(Input.GetKey(KeyCode.Space) && isJumping == true)
+        {
+            if (jumpTimeCounter > 0)
+            {
+                 rb.velocity = Vector2.up * jumpForce;
+                 jumpTimeCounter +=Time.deltaTime;
+            } 
+            else
+            {
+                isJumping = false;
+            }
+
+        }
+
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            isJumping = false;
+        }
        float moveInput = Input.GetAxisRaw("Horizontal");
        if (isMoving)
         {
