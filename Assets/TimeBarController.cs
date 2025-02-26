@@ -54,7 +54,7 @@ public class TimeBarController : MonoBehaviour
     /// </summary>
     void Start()
     {
-        _timeRemaning = maxTime;
+        _timeRemaning = 0;
         timeScrollBar.size = 0;
     }
 
@@ -63,9 +63,9 @@ public class TimeBarController : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (_timeRemaning>0)
+        if (_timeRemaning<maxTime)
         {
-            _timeRemaning -= Time.deltaTime;
+            _timeRemaning += Time.deltaTime;
             timeScrollBar.size = _timeRemaning / maxTime;
         } else
         {
