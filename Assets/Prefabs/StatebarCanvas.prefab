@@ -214,7 +214,7 @@ GameObject:
   - component: {fileID: 4954435789659761790}
   - component: {fileID: 6410209032813614766}
   - component: {fileID: 6474809389599454860}
-  - component: {fileID: 4785382323636868955}
+  - component: {fileID: 8302298071132997201}
   m_Layer: 5
   m_Name: StatebarCanvas
   m_TagString: Untagged
@@ -305,7 +305,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &4785382323636868955
+--- !u!114 &8302298071132997201
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -314,11 +314,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 6309473167555735504}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e90fbfba3cac353429c5a22ce087ffda, type: 3}
+  m_Script: {fileID: 11500000, guid: 162fdd97bb829a547bd343e9a6fe8458, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   timeScrollBar: {fileID: 2914998487024827918}
-  maxTime: 5
+  maxTime: 10
+  filler: {fileID: 906496071500193120}
+  statebarBackground: {fileID: 4325787095402290102}
 --- !u!1 &6841974710720912092
 GameObject:
   m_ObjectHideFlags: 0
