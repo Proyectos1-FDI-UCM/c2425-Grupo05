@@ -20,7 +20,6 @@ public class PlayerMovement : MonoBehaviour
     #region Atributos del Inspector (serialized fields)
     [SerializeField] private float speed = 7f;
     [SerializeField] private Rigidbody2D rb;
-    private SpriteRenderer spriteRenderer;
 
     // Documentar cada atributo que aparece aquí.
     // El convenio de nombres de Unity recomienda que los atributos
@@ -36,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 moveInput;
     private Vector2 dir { get; set; }
     private Vector2 lastDir { get; set; }
+    private SpriteRenderer spriteRenderer;
     // Documentar cada atributo que aparece aquí.
     // El convenio de nombres de Unity recomienda que los atributos
     // privados se nombren en formato _camelCase (comienza con _, 
@@ -59,7 +59,8 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        dir = lastDir = Vector2.zero;
+        dir = Vector2.zero;
+        lastDir = Vector2.right;
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
@@ -68,6 +69,7 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     void Update()
     {
+       float moveInput = Input.GetAxisRaw("Horizontal");
        if (isMoving)
         {
             dir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
