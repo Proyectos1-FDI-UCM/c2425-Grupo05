@@ -28,7 +28,6 @@ public class PlayerMovement : MonoBehaviour
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
 
-    public float speed = 5;
     public float jumpForce = 2;
     public Transform feetPos;
     public float checkRadius;
@@ -37,8 +36,8 @@ public class PlayerMovement : MonoBehaviour
 
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
-    private bool isMoving = true;
-    private Vector2 moveInput;
+    //private bool isMoving = true;
+    //private Vector2 moveInput;
     private Vector2 dir { get; set; }
     private Vector2 lastDir { get; set; }
     private SpriteRenderer spriteRenderer;
@@ -48,7 +47,6 @@ public class PlayerMovement : MonoBehaviour
     // primera palabra en minúsculas y el resto con la 
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
-    private Rigidbody2D rb;
     private bool isGrounded;
     private float jumpTimeCounter;
     private float jumpTime;
@@ -106,10 +104,14 @@ public class PlayerMovement : MonoBehaviour
         {
             isJumping = false;
         }
-       float moveInput = Input.GetAxisRaw("Horizontal");
-       if (isMoving)
+        float moveInput = Input.GetAxisRaw("Horizontal");
+        dir = new Vector2(moveInput, 0).normalized;
+
+        // Si hay movimiento, actualizamos lastDir
+        if (dir != Vector2.zero)
         {
-            dir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+            lastDir = dir;
+            spriteRenderer.flipX = (lastDir.x < 0);
         }
     }
     #endregion
@@ -126,10 +128,7 @@ public class PlayerMovement : MonoBehaviour
 
     // ---- MÉTODOS PRIVADOS ----
     #region Métodos Privados
-    public Vector2 getLastDir()
-    {
-        return lastDir;
-    }
+
     /*private void OnCollisionEnter2D(Collision2D collision)
     {
         // Detectar si el jugador está sobre una plataforma en movimiento
