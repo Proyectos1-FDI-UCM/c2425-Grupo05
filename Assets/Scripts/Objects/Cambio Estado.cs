@@ -1,12 +1,11 @@
 //---------------------------------------------------------
-// Script para cambiar el ratio de la cámara al correcto
-// Adrián de Miguel Cerezo
-// I´m losing it
+// Breve descripción del contenido del archivo
+// Responsable de la creación de este archivo
+// Nombre del juego
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
 using UnityEngine;
-using System.Collections.Generic;
 // Añadir aquí el resto de directivas using
 
 
@@ -14,7 +13,7 @@ using System.Collections.Generic;
 /// Antes de cada class, descripción de qué es y para qué sirve,
 /// usando todas las líneas que sean necesarias.
 /// </summary>
-public class RescaleCamera : MonoBehaviour
+public class CambioEstado : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
@@ -27,6 +26,19 @@ public class RescaleCamera : MonoBehaviour
     #endregion
 
 
+    [SerializeField]
+    private float ChangeTime = 3.5f;// el tiempo que tarda en cambiar de estado
+    [SerializeField]
+    private float ChangeTimeTrasluz = 3f;//el tiempo que tarda en poner una imagen translúcida del siguiente estado
+    [SerializeField]
+    private bool State1 = false;//indica si se encuentra en el estado que empieza ya presente
+    [SerializeField]
+    private bool Trasluz = false;//indica si va a ser la imagen translúcida que aparece antes de cambiar de estado
+    [SerializeField]
+    private bool OnRoom = false;//indica si está en la sala de estos prefabs y, por lo tanto, si deberían funcionar
+    [SerializeField]
+    private PlayerMovement Player;//referencia al jugador para controlar la muerte por estar dentro de un bloque
+
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
     // Documentar cada atributo que aparece aquí.
@@ -37,23 +49,42 @@ public class RescaleCamera : MonoBehaviour
     // Ejemplo: _maxHealthPoints
 
     #endregion
-    private int screenSizeX = 0;
-    private int screenSizeY = 0;
-    
+
+
+    private float time = 0f;
+    private SpriteRenderer _sprite;
+    private Collider2D _collider;
+    private Rigidbody2D _body;
+
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
     #region Métodos de MonoBehaviour
-    
+
     // Por defecto están los típicos (Update y Start) pero:
     // - Hay que añadir todos los que sean necesarios
     // - Hay que borrar los que no se usen 
-    
+
     /// <summary>
     /// Start is called on the frame when a script is enabled just before 
     /// any of the Update methods are called the first time.
     /// </summary>
     void Start()
     {
-        ResizeCamera();
+        Player = FindObjectOfType<PlayerMovement>();
+        _sprite = GetComponent<SpriteRenderer>();
+        _body = GetComponent<Rigidbody2D>();
+        _collider = GetComponent<Collider2D>();
+
+        if (!State1)
+        {
+            SetComponentsActive(State1);
+        }
+        else if (Trasluz)
+        {
+            SetComponentsActive(false);
+        }
+
+
+
     }
 
     /// <summary>
@@ -61,23 +92,30 @@ public class RescaleCamera : MonoBehaviour
     /// </summary>
     void Update()
     {
-        ResizeCamera();
+        time += Time.deltaTime;
+        if (OnRoom)
+        {
+            if (time > ChangeTime)
+            {
+               
+                    SetComponentsActive(State1);
+                
+               
+                if (State1) State1 = false;
+                else State1 = true;
+                time = 0f;
+            }
+            else if (time > ChangeTimeTrasluz && time < ChangeTime)
+            {
+                if (Trasluz)
+                {
+                    SetComponentsActive(State1);
+
+                }
+            }
+        }
     }
     #endregion
-   
-    void OnPreCull() 
-    {
-        if (Application.isEditor) return;
-        Rect wp = Camera.main.rect;
-        Rect nr = new Rect(0, 0, 1, 1);
-
-        Camera.main.rect = nr;
-        GL.Clear(true, true, Color.black);
-
-        Camera.main.rect = wp;
-
-    }
-   
 
     // ---- MÉTODOS PÚBLICOS ----
     #region Métodos públicos
@@ -97,44 +135,22 @@ public class RescaleCamera : MonoBehaviour
     // mayúscula, incluida la primera letra)
 
     #endregion
-    private void ResizeCamera() //Cambiar el tamaño de la cámara para que encapsule el nivel
+
+
+    private void SetComponentsActive(bool isActive) //Activa el objeto cuando pasa a un estado en el que se debe activar
     {
-
-        if (Screen.width == screenSizeX && Screen.height == screenSizeY) return;
-
-        float targetaspect = 16.0f / 9.0f;
-        float windowaspect = (float)Screen.width / (float)Screen.height;
-        float scaleheight = windowaspect / targetaspect;
-        Camera camera = GetComponent<Camera>();
-
-        if (scaleheight < 1.0f)
+        if (_sprite != null)
+            _sprite.enabled = isActive;
+        if (!Trasluz)
         {
-            Rect rect = camera.rect;
+            if (_collider != null)
+                _collider.enabled = isActive;
 
-            rect.width = 1.0f;
-            rect.height = scaleheight;
-            rect.x = 0;
-            rect.y = (1.0f - scaleheight) / 2.0f;
-
-            camera.rect = rect;
-        }
-        else // add pillarbox
-        {
-            float scalewidth = 1.0f / scaleheight;
-
-            Rect rect = camera.rect;
-
-            rect.width = scalewidth;
-            rect.height = 1.0f;
-            rect.x = (1.0f - scalewidth) / 2.0f;
-            rect.y = 0;
-
-            camera.rect = rect;
+            if (_body != null)
+                _body.isKinematic = !isActive;
         }
 
-        screenSizeX = Screen.width;
-        screenSizeY = Screen.height;
     }
 
-} // class RescaleCamera 
+} // class CambioEstado 
 // namespace
