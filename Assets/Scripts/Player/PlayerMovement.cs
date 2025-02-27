@@ -8,6 +8,7 @@
 using System.Globalization;
 using System.Runtime.Serialization.Formatters;
 using UnityEngine;
+using UnityEngine.InputSystem;
 // Añadir aquí el resto de directivas using
 
 
@@ -40,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
     // Ejemplo: _maxHealthPoints
     private Rigidbody2D rb;
     private bool isGrounded;
+    private GameObject child;
     private Collider2D childCollider;    
     private float jumpTimeCounter;
     private float jumpTime;
@@ -60,7 +62,8 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        childCollider = GetComponentInChildren<Collider2D>();
+        child = transform.GetChild(0).gameObject; // Obtiene el primer hijo directamente
+        childCollider = child.GetComponent<Collider2D>(); // Obtiene su Collider2D
     }
 
     /// <summary>
@@ -70,13 +73,10 @@ public class PlayerMovement : MonoBehaviour
     {
         if (childCollider == null) return;
 
-        // Detecta si el hijo está colisionando con algo
+        //Detecta si el hijo está colisionando con algo
         Collider2D[] hitColliders = Physics2D.OverlapBoxAll(childCollider.bounds.center, childCollider.bounds.size , 0);
 
-        if (hitColliders.Length > 1) // Más de 1 porque uno será el propio hijo
-        {
-            Debug.Log($"El hijo {childCollider.gameObject.name} está colisionando con {hitColliders[1].gameObject.name}");
-        }
+        isGrounded = hitColliders.Length > 1 ;
 
         // if (isGrounded == true && Input.GetKeyDown(KeyCode.Space))
         // {
@@ -84,7 +84,7 @@ public class PlayerMovement : MonoBehaviour
         //     jumpTimeCounter = jumpTime;
         //     rb.velocity = Vector2.up * jumpForce;
         // }
-
+        
         // if(Input.GetKey(KeyCode.Space) && isJumping == true)
         // {
         //     if (jumpTimeCounter > 0)
@@ -123,7 +123,17 @@ public class PlayerMovement : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
     //como hipoteticamente podría hacer que el jugador pueda volver a saltar del suelo con un collider como hijo
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        Debug.Log("Jump");
+        if (context.performed && isGrounded) // Solo salta si está en el suelo
+        {
 
+            isJumping = true;
+            jumpTimeCounter = jumpTime;
+            rb.velocity = Vector2.up * jumpForce;
+        }
+    }
 
 
     #endregion   
