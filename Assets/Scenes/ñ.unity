@@ -1722,6 +1722,18 @@ PrefabInstance:
       value: TimebarCanvas
       objectReference: {fileID: 0}
     - target: {fileID: 8523824144700053292, guid: 61a819e8ea4452943a458185332296f1, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8523824144700053292, guid: 61a819e8ea4452943a458185332296f1, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 8523824144700053292, guid: 61a819e8ea4452943a458185332296f1, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1080
+      objectReference: {fileID: 0}
+    - target: {fileID: 8523824144700053292, guid: 61a819e8ea4452943a458185332296f1, type: 3}
       propertyPath: m_ReferencePixelsPerUnit
       value: 10
       objectReference: {fileID: 0}
@@ -2001,6 +2013,18 @@ PrefabInstance:
     - target: {fileID: 6309473167555735504, guid: 9c6e01328f72ea541b126a6a737bdbc1, type: 3}
       propertyPath: m_Name
       value: StatebarCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 6410209032813614766, guid: 9c6e01328f72ea541b126a6a737bdbc1, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6410209032813614766, guid: 9c6e01328f72ea541b126a6a737bdbc1, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 6410209032813614766, guid: 9c6e01328f72ea541b126a6a737bdbc1, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1080
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4785382323636868955, guid: 9c6e01328f72ea541b126a6a737bdbc1, type: 3}
