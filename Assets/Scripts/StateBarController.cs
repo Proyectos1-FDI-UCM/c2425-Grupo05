@@ -24,7 +24,6 @@ public class StateBarController : MonoBehaviour
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
     [SerializeField] private Scrollbar timeScrollBar;
-    [SerializeField] private float maxTime = 10f;
     [SerializeField] private Image filler;
     [SerializeField] private Image statebarBackground;
 
@@ -38,8 +37,6 @@ public class StateBarController : MonoBehaviour
     // primera palabra en minúsculas y el resto con la 
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
-    private float _timeRemaning;
-    private bool _stateColor1 = true;
 
     #endregion
 
@@ -56,7 +53,7 @@ public class StateBarController : MonoBehaviour
     /// </summary>
     void Start()
     {
-        _timeRemaning = 0;
+        LevelManager.Instance.StateTimeRemaning = 0;
         timeScrollBar.size = 0;
         filler.color = Color.magenta;
         statebarBackground.color = Color.yellow;
@@ -67,28 +64,24 @@ public class StateBarController : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (_timeRemaning < maxTime)
+        if (LevelManager.Instance.StateTimeRemaning < LevelManager.Instance.StateMaxTime)
         {
-            _timeRemaning += Time.deltaTime;
-            timeScrollBar.size = _timeRemaning / maxTime;
+            timeScrollBar.size = LevelManager.Instance.StateTimeRemaning / LevelManager.Instance.StateMaxTime;
         }
         else
         {
-            Debug.Log("TiempoFinalizado");
-            LevelManager.Instance.ResetPlayer();
-            _timeRemaning = 0;
             timeScrollBar.size = 0;
-            if (_stateColor1)
+            if (LevelManager.Instance.State == 0)
             {
                 filler.color = Color.yellow;
                 statebarBackground.color = Color.magenta;
-                _stateColor1 = false;
+                LevelManager.Instance.ChangeState(LevelManager.Instance.State);
             }
             else
             {
                 filler.color = Color.magenta;
                 statebarBackground.color = Color.yellow;
-                _stateColor1 = true;
+                LevelManager.Instance.ChangeState(LevelManager.Instance.State);
             }
         }
     }

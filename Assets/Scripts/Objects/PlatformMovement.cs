@@ -20,7 +20,7 @@ public class PlatformMovement : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
 
-    [SerializeField]
+
 
     //Las componentes x,y del vector indican posición a la que se viaja.
     //La componente z indica tiempo que se tarda en llegar a (x,y).
@@ -33,7 +33,7 @@ public class PlatformMovement : MonoBehaviour
       - Si el tiempo(z) == 0, este se calcula automáticamente a partir de la velocidad introducida.
 
     */
-    private Vector4[] waypoints;
+    [SerializeField] private Vector4[] waypoints;
 
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -43,6 +43,9 @@ public class PlatformMovement : MonoBehaviour
 
     //Indica el waypoint hacia el que me estoy moviendo la plataforma.
     private int n = 0;
+
+    //Pos ini de la plataforma
+    
 
     #region Atributos Privados (private fields)
     // Documentar cada atributo que aparece aquí.
@@ -59,13 +62,19 @@ public class PlatformMovement : MonoBehaviour
     {
         //autocompleta las velocidades y/o los tiempos de los waypoints;
 
-        if (waypoints[0].z != 0)
+        if(waypoints[0].z == 0 && waypoints[0].w == 0)
+        {
+        } 
+        else if (waypoints[0].z != 0 && waypoints[0].w == 0)
         {
             waypoints[0].w = Vector2.Distance(waypoints[waypoints.Length - 1], waypoints[0]) / waypoints[0].z; // velocidad = espacio / tiempo
         }
-        else
+        else if (waypoints[0].w != 0 && waypoints[0].z == 0)
         {
             waypoints[0].z = Vector2.Distance(waypoints[waypoints.Length - 1], waypoints[0]) / waypoints[0].w; // tiempo = espacio / velocidad
+        } else
+        {
+            Debug.Log("Tiempo(z) y Velocidad(w) de la plataforma móvil no pueden ser manipuladas al mismo tiempo");
         }
 
         for (int i = 1; i < waypoints.Length; i++) 
@@ -87,9 +96,14 @@ public class PlatformMovement : MonoBehaviour
     }
     private void FixedUpdate()
     {
-
-        transform.position =Vector2.MoveTowards(transform.position, waypoints[n], Time.fixedDeltaTime * waypoints[n].w);
-
+        if (waypoints[n].w == 0)
+        {
+            transform.position = new Vector2 (waypoints[n].x, waypoints[n].y);
+        }
+        else
+        {
+            transform.position = Vector2.MoveTowards(transform.position, waypoints[n], Time.fixedDeltaTime * waypoints[n].w);
+        }
         if (Time.fixedTime > lastWaypointTime + waypoints[n].z)
         {
             if (n + 1 < waypoints.Length) n++;

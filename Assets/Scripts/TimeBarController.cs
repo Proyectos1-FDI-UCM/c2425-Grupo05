@@ -24,7 +24,6 @@ public class TimeBarController : MonoBehaviour
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
     [SerializeField] private Scrollbar timeScrollBar;
-    [SerializeField] private float maxTime = 10f;
 
 
     #endregion
@@ -37,7 +36,6 @@ public class TimeBarController : MonoBehaviour
     // primera palabra en minúsculas y el resto con la 
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
-    private float _timeRemaning;
 
     #endregion
     
@@ -54,7 +52,6 @@ public class TimeBarController : MonoBehaviour
     /// </summary>
     void Start()
     {
-        _timeRemaning = maxTime;
         timeScrollBar.size = 1;
     }
 
@@ -63,16 +60,12 @@ public class TimeBarController : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (_timeRemaning > 0)
+        if (LevelManager.Instance.RoomTimeRemaining > 0)
         {
-            _timeRemaning -= Time.deltaTime;
-            timeScrollBar.size = _timeRemaning / maxTime;
+            timeScrollBar.size = LevelManager.Instance.RoomTimeRemaining / LevelManager.Instance.RoomMaxTime;
         }
         else
         {
-            Debug.Log("TiempoFinalizado");
-            LevelManager.Instance.ResetPlayer();
-            _timeRemaning = maxTime;
             timeScrollBar.size = 1;
 
         }
