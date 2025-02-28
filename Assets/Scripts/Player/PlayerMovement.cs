@@ -26,8 +26,8 @@ public class PlayerMovement : MonoBehaviour
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
 
-    public float speed = 5;
-    public float jumpForce = 2;
+    public float speed = 5f;
+    public float jumpForce = 2f;
     public LayerMask ground;
     #endregion
     
@@ -71,6 +71,17 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     void Update()
     {
+        if (Input.GetKey(KeyCode.D))
+        {
+            transform.position = transform.position + new Vector3 (speed, 0 , 0) * Time.deltaTime;
+        }
+
+        // Detectar entrada para moverse a la izquierda (tecla "A")
+        if (Input.GetKey(KeyCode.A))
+        {
+            transform.position = transform.position + new Vector3(-speed, 0, 0) * Time.deltaTime;
+        }
+     
         if (childCollider == null) return;
 
         //Detecta si el hijo está colisionando con algo
@@ -84,7 +95,7 @@ public class PlayerMovement : MonoBehaviour
         //     jumpTimeCounter = jumpTime;
         //     rb.velocity = Vector2.up * jumpForce;
         // }
-        
+
         // if(Input.GetKey(KeyCode.Space) && isJumping == true)
         // {
         //     if (jumpTimeCounter > 0)
