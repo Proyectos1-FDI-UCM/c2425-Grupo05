@@ -36,12 +36,14 @@ public class LevelManager : MonoBehaviour
     private GameObject player;
     [SerializeField]
     private GameObject levelPlayerPos;
+    [SerializeField] 
+    private GrayZone _grayZone;
     // Variables del contador de tiempo de la sala
     public float RoomMaxTime = 10f;
     public float RoomTimeRemaining;
     // Variables del contador de tiempo del estado
     public float StateMaxTime = 4f;
-    public float StateTimeRemaning;
+    public float StateTime;
     // Variables de cambios de estado
     public int State = 0;
 
@@ -76,26 +78,34 @@ public class LevelManager : MonoBehaviour
     private void Start()
     {
         _platformMovement = FindObjectsByType<PlatformMovement>(FindObjectsSortMode.None);
+        
     }
+
+    
     private void Update()
     {
-        if (RoomTimeRemaining > 0)
+        if (!_grayZone.IsTimeStopped())
         {
-            RoomTimeRemaining -= Time.deltaTime;
-        } else
-        {
-            Debug.Log("TiempoFinalizado");
-            ResetPlayer();
-            RoomTimeRemaining = RoomMaxTime;
-        }
+            if (RoomTimeRemaining > 0)
+            {
+                RoomTimeRemaining -= Time.deltaTime;
+            }
+            else
+            {
+                Debug.Log("TiempoFinalizado");
+                ResetPlayer();
+                RoomTimeRemaining = RoomMaxTime;
+            }
 
-        if (StateTimeRemaning < StateMaxTime)
+        }
+        if (StateTime < StateMaxTime)
         {
-            StateTimeRemaning += Time.deltaTime;
-        } else
+            StateTime += Time.deltaTime;
+        }
+        else
         {
             Debug.Log("TiempoFinalizado");
-            StateTimeRemaning = 0;
+            StateTime = 0;
         }
     }
 
@@ -169,6 +179,7 @@ public class LevelManager : MonoBehaviour
     {
         // De momento no hay nada que inicializar
     }
+
 
     #endregion
 } // class LevelManager 

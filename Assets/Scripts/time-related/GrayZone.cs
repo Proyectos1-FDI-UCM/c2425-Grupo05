@@ -1,12 +1,12 @@
 //---------------------------------------------------------
-// Breve descripción del contenido del archivo
-// Responsable de la creación de este archivo
-// Nombre del juego
+// Script componente de la parte del tilemap con la zona gris del fondo.
+// La zona gris en la que el tiempo está pausado viene determinada por las tiles colocadas en este tilemap.
+// Adrián Erustes Martín
+// I'm Loosing It
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
 using UnityEngine;
-using UnityEngine.UI;
 // Añadir aquí el resto de directivas using
 
 
@@ -14,7 +14,7 @@ using UnityEngine.UI;
 /// Antes de cada class, descripción de qué es y para qué sirve,
 /// usando todas las líneas que sean necesarias.
 /// </summary>
-public class StateBarController : MonoBehaviour
+public class GrayZone : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
@@ -23,9 +23,6 @@ public class StateBarController : MonoBehaviour
     // públicos y de inspector se nombren en formato PascalCase
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
-    [SerializeField] private Scrollbar timeScrollBar;
-    [SerializeField] private Image filler;
-    [SerializeField] private Image statebarBackground;
 
     #endregion
 
@@ -37,6 +34,8 @@ public class StateBarController : MonoBehaviour
     // primera palabra en minúsculas y el resto con la 
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
+
+    private bool _timeStopped;
 
     #endregion
 
@@ -53,10 +52,7 @@ public class StateBarController : MonoBehaviour
     /// </summary>
     void Start()
     {
-        LevelManager.Instance.StateTimeRemaning = 0;
-        timeScrollBar.size = 0;
-        filler.color = Color.magenta;
-        statebarBackground.color = Color.yellow;
+
     }
 
     /// <summary>
@@ -64,26 +60,19 @@ public class StateBarController : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (LevelManager.Instance.StateTimeRemaning < LevelManager.Instance.StateMaxTime)
-        {
-            timeScrollBar.size = LevelManager.Instance.StateTimeRemaning / LevelManager.Instance.StateMaxTime;
-        }
-        else
-        {
-            timeScrollBar.size = 0;
-            if (LevelManager.Instance.State == 0)
-            {
-                filler.color = Color.yellow;
-                statebarBackground.color = Color.magenta;
-                LevelManager.Instance.ChangeState(LevelManager.Instance.State);
-            }
-            else
-            {
-                filler.color = Color.magenta;
-                statebarBackground.color = Color.yellow;
-                LevelManager.Instance.ChangeState(LevelManager.Instance.State);
-            }
-        }
+
+    }
+
+
+    private void OnTriggerEnter2D()
+    {
+        _timeStopped = true;
+        Debug.Log("Stop");
+    }
+    private void OnTriggerExit2D()
+    {
+        _timeStopped = false;
+        Debug.Log("Resume");
     }
     #endregion
 
@@ -94,9 +83,13 @@ public class StateBarController : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
+    public bool IsTimeStopped()
+    {
+    return _timeStopped;
+    }
 
     #endregion
-    
+
     // ---- MÉTODOS PRIVADOS ----
     #region Métodos Privados
     // Documentar cada método que aparece aquí
@@ -104,7 +97,7 @@ public class StateBarController : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
 
-    #endregion   
+    #endregion
 
-} // class StateBarController 
+} // class GrayZone 
 // namespace
