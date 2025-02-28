@@ -28,7 +28,7 @@ public class TimeBarController : MonoBehaviour
 
 
     #endregion
-    
+
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
     // Documentar cada atributo que aparece aquí.
@@ -54,8 +54,8 @@ public class TimeBarController : MonoBehaviour
     /// </summary>
     void Start()
     {
-        _timeRemaning = 0;
-        timeScrollBar.size = 0;
+        _timeRemaning = maxTime;
+        timeScrollBar.size = 1;
     }
 
     /// <summary>
@@ -63,14 +63,18 @@ public class TimeBarController : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (_timeRemaning<maxTime)
+        if (_timeRemaning > 0)
         {
-            _timeRemaning += Time.deltaTime;
+            _timeRemaning -= Time.deltaTime;
             timeScrollBar.size = _timeRemaning / maxTime;
-        } else
+        }
+        else
         {
             Debug.Log("TiempoFinalizado");
             LevelManager.Instance.ResetPlayer();
+            _timeRemaning = maxTime;
+            timeScrollBar.size = 1;
+
         }
     }
     #endregion
@@ -95,4 +99,4 @@ public class TimeBarController : MonoBehaviour
     #endregion   
 
 } // class TimeBarController 
-// namespace
+  // namespace

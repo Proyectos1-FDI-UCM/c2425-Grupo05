@@ -31,7 +31,9 @@ public class LevelManager : MonoBehaviour
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
     [SerializeField]
-    private GameObject Player;
+    private GameObject player;
+    [SerializeField]
+    private GameObject levelPlayerPos;
 
     #endregion
 
@@ -43,7 +45,7 @@ public class LevelManager : MonoBehaviour
     /// Instancia única de la clase (singleton).
     /// </summary>
     private static LevelManager _instance;
-    private Vector2 _levelPlayerPos = new Vector2(-7,0);
+    
 
     #endregion
 
@@ -94,7 +96,7 @@ public class LevelManager : MonoBehaviour
 
     public void ResetPlayer()
     {
-        Player.transform.position = _levelPlayerPos;
+        player.transform.position = levelPlayerPos.transform.position;
     }
 
     #endregion

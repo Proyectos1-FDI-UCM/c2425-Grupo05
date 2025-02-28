@@ -5,10 +5,8 @@
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
-using System.Globalization;
-using System.Runtime.Serialization.Formatters;
 using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine.UI;
 // Añadir aquí el resto de directivas using
 
 
@@ -16,7 +14,7 @@ using UnityEngine.InputSystem;
 /// Antes de cada class, descripción de qué es y para qué sirve,
 /// usando todas las líneas que sean necesarias.
 /// </summary>
-public class PlayerMovement : MonoBehaviour
+public class StateBarController : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
@@ -25,12 +23,13 @@ public class PlayerMovement : MonoBehaviour
     // públicos y de inspector se nombren en formato PascalCase
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
+    [SerializeField] private Scrollbar timeScrollBar;
+    [SerializeField] private float maxTime = 10f;
+    [SerializeField] private Image filler;
+    [SerializeField] private Image statebarBackground;
 
-    public float speed = 5;
-    public float jumpForce = 2;
-    public LayerMask ground;
     #endregion
-    
+
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
     // Documentar cada atributo que aparece aquí.
@@ -39,31 +38,28 @@ public class PlayerMovement : MonoBehaviour
     // primera palabra en minúsculas y el resto con la 
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
-    private Rigidbody2D rb;
-    private bool isGrounded;
-    private GameObject child;
-    private Collider2D childCollider;    
-    private float jumpTimeCounter;
-    private float jumpTime;
-    private bool isJumping;
+    private float _timeRemaning;
+    private bool _stateColor1 = true;
+
     #endregion
-    
+
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
     #region Métodos de MonoBehaviour
-    
+
     // Por defecto están los típicos (Update y Start) pero:
     // - Hay que añadir todos los que sean necesarios
     // - Hay que borrar los que no se usen 
-    
+
     /// <summary>
     /// Start is called on the frame when a script is enabled just before 
     /// any of the Update methods are called the first time.
     /// </summary>
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        child = transform.GetChild(0).gameObject; // Obtiene el primer hijo directamente
-        childCollider = child.GetComponent<Collider2D>(); // Obtiene su Collider2D
+        _timeRemaning = 0;
+        timeScrollBar.size = 0;
+        filler.color = Color.magenta;
+        statebarBackground.color = Color.yellow;
     }
 
     /// <summary>
@@ -71,38 +67,30 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (childCollider == null) return;
-
-        //Detecta si el hijo está colisionando con algo
-        Collider2D[] hitColliders = Physics2D.OverlapBoxAll(childCollider.bounds.center, childCollider.bounds.size , 0);
-
-        isGrounded = hitColliders.Length > 1 ;
-
-        // if (isGrounded == true && Input.GetKeyDown(KeyCode.Space))
-        // {
-        //     isJumping = true;
-        //     jumpTimeCounter = jumpTime;
-        //     rb.velocity = Vector2.up * jumpForce;
-        // }
-        
-        // if(Input.GetKey(KeyCode.Space) && isJumping == true)
-        // {
-        //     if (jumpTimeCounter > 0)
-        //     {
-        //          rb.velocity = Vector2.up * jumpForce;
-        //          jumpTimeCounter +=Time.deltaTime;
-        //     } 
-        //     else
-        //     {
-        //         isJumping = false;
-        //     }
-
-        // }
-
-        // if (Input.GetKeyUp(KeyCode.Space))
-        // {
-        //     isJumping = false;
-        // }
+        if (_timeRemaning < maxTime)
+        {
+            _timeRemaning += Time.deltaTime;
+            timeScrollBar.size = _timeRemaning / maxTime;
+        }
+        else
+        {
+            Debug.Log("TiempoFinalizado");
+            LevelManager.Instance.ResetPlayer();
+            _timeRemaning = 0;
+            timeScrollBar.size = 0;
+            if (_stateColor1)
+            {
+                filler.color = Color.yellow;
+                statebarBackground.color = Color.magenta;
+                _stateColor1 = false;
+            }
+            else
+            {
+                filler.color = Color.magenta;
+                statebarBackground.color = Color.yellow;
+                _stateColor1 = true;
+            }
+        }
     }
     #endregion
 
@@ -122,21 +110,8 @@ public class PlayerMovement : MonoBehaviour
     // El convenio de nombres de Unity recomienda que estos métodos
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
-    //como hipoteticamente podría hacer que el jugador pueda volver a saltar del suelo con un collider como hijo
-    public void OnJump(InputAction.CallbackContext context)
-    {
-        Debug.Log("Jump");
-        if (context.performed && isGrounded) // Solo salta si está en el suelo
-        {
-
-            isJumping = true;
-            jumpTimeCounter = jumpTime;
-            rb.velocity = Vector2.up * jumpForce;
-        }
-    }
-
 
     #endregion   
 
-} // class PlayerMovement 
+} // class StateBarController 
 // namespace
