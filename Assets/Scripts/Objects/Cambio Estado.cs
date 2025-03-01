@@ -1,7 +1,7 @@
 //---------------------------------------------------------
-// Breve descripción del contenido del archivo
-// Responsable de la creación de este archivo
-// Nombre del juego
+// cambiador del estado
+// Adrián de Miguel Cerezo
+// I´m losing it
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
@@ -26,16 +26,9 @@ public class CambioEstado : MonoBehaviour
     #endregion
 
 
-    [SerializeField]
-    private float ChangeTime = 3.5f;// el tiempo que tarda en cambiar de estado
-    [SerializeField]
-    private float ChangeTimeTrasluz = 3f;//el tiempo que tarda en poner una imagen translúcida del siguiente estado
+   
     [SerializeField]
     private bool State1 = false;//indica si se encuentra en el estado que empieza ya presente
-    [SerializeField]
-    private bool Trasluz = false;//indica si va a ser la imagen translúcida que aparece antes de cambiar de estado
-    [SerializeField]
-    private bool OnRoom = false;//indica si está en la sala de estos prefabs y, por lo tanto, si deberían funcionar
     [SerializeField]
     private PlayerMovement Player;//referencia al jugador para controlar la muerte por estar dentro de un bloque
 
@@ -51,7 +44,7 @@ public class CambioEstado : MonoBehaviour
     #endregion
 
 
-    private float time = 0f;
+   
     private SpriteRenderer _sprite;
     private Collider2D _collider;
     private Rigidbody2D _body;
@@ -73,48 +66,14 @@ public class CambioEstado : MonoBehaviour
         _sprite = GetComponent<SpriteRenderer>();
         _body = GetComponent<Rigidbody2D>();
         _collider = GetComponent<Collider2D>();
-
-        if (!State1)
-        {
-            SetComponentsActive(State1);
-        }
-        else if (Trasluz)
-        {
-            SetComponentsActive(false);
-        }
-
-
+       
+        SetComponentsActive(State1);
 
     }
 
     /// <summary>
     /// Update is called every frame, if the MonoBehaviour is enabled.
     /// </summary>
-    void Update()
-    {
-        time += Time.deltaTime;
-        if (OnRoom)
-        {
-            if (time > ChangeTime)
-            {
-               
-                    SetComponentsActive(State1);
-                
-               
-                if (State1) State1 = false;
-                else State1 = true;
-                time = 0f;
-            }
-            else if (time > ChangeTimeTrasluz && time < ChangeTime)
-            {
-                if (Trasluz)
-                {
-                    SetComponentsActive(State1);
-
-                }
-            }
-        }
-    }
     #endregion
 
     // ---- MÉTODOS PÚBLICOS ----
@@ -125,6 +84,26 @@ public class CambioEstado : MonoBehaviour
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
 
+
+    public void CambiaEstado()
+    {
+        SetComponentsActive(State1);
+        ChangeAlpha(1f);
+        if (State1) State1 = false;
+        else State1 = true;
+        
+        Debug.Log("LOL!!!!");
+    }
+    public void CambiaEstadoTrasLuz()
+    {
+        if (State1)
+        {
+            if (_sprite != null)
+                _sprite.enabled = true;
+            ChangeAlpha(0.2f);
+            Debug.Log("Bien!!!!");
+        }
+    }
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
@@ -141,15 +120,19 @@ public class CambioEstado : MonoBehaviour
     {
         if (_sprite != null)
             _sprite.enabled = isActive;
-        if (!Trasluz)
+
+        if (_collider != null)
+            _collider.enabled = isActive;
+    }
+
+    private void ChangeAlpha(float alpha)//Cambia el alfa del sprite
+    {
+        if (_sprite != null)
         {
-            if (_collider != null)
-                _collider.enabled = isActive;
-
-            if (_body != null)
-                _body.isKinematic = !isActive;
+            Color color = _sprite.color;
+            color.a = alpha;
+            _sprite.color = color;
         }
-
     }
 
 } // class CambioEstado 

@@ -31,6 +31,11 @@ public class LevelManager : MonoBehaviour
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
 
+
+    [SerializeField]
+    private float ChangeTime = 3.5f;// el tiempo que tarda en cambiar de estado
+    [SerializeField]
+    private float ChangeTimeTrasluz = 3f;//el tiempo que tarda en poner una imagen translúcida del siguiente estado
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -41,6 +46,8 @@ public class LevelManager : MonoBehaviour
     /// Instancia única de la clase (singleton).
     /// </summary>
     private static LevelManager _instance;
+    private float time = 0f;
+    private CambioEstado[] estados;//llama a los prefabs que pueden cambiar de estado
 
     #endregion
 
@@ -55,6 +62,31 @@ public class LevelManager : MonoBehaviour
             // Somos la primera y única instancia
             _instance = this;
             Init();
+        }
+    }
+
+
+    void Start()
+    {
+        estados = FindObjectsOfType <CambioEstado>();//llama a todos los prefabs que contienen este script
+    }
+    void Update()
+    {
+        time += Time.deltaTime;
+        if (time > ChangeTime)
+        {
+            for(int i = 0; i < estados.Length; i++)
+            {
+                estados[i].CambiaEstado();
+            }
+           time = 0f;
+        }
+        else if (time > ChangeTimeTrasluz && time < ChangeTime)
+        {
+            for (int i = 0; i < estados.Length; i++)
+            {
+                estados[i].CambiaEstadoTrasLuz();
+            }
         }
     }
 
