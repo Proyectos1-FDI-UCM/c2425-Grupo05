@@ -71,19 +71,14 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (Input.GetKey(KeyCode.D))
-        {
-            transform.position = transform.position + new Vector3 (speed, 0 , 0) * Time.deltaTime;
-        }
-
-        // Detectar entrada para moverse a la izquierda (tecla "A")
-        if (Input.GetKey(KeyCode.A))
-        {
-            transform.position = transform.position + new Vector3(-speed, 0, 0) * Time.deltaTime;
-        }
-     
         if (childCollider == null) return;
+        if (InputManager.Instance == null) return;
 
+        //Obtener el vector de movimiento desde el InputManager.
+        Vector2 moveInput = InputManager.Instance.MovementVector;
+        Vector3 move = new Vector3(moveInput.x, 0, 0) * speed *Time.deltaTime;
+        transform.position += move;
+     
         //Detecta si el hijo está colisionando con algo
         Collider2D[] hitColliders = Physics2D.OverlapBoxAll(childCollider.bounds.center, childCollider.bounds.size , 0);
 
