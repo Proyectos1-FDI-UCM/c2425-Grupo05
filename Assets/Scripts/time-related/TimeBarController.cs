@@ -14,7 +14,7 @@ using UnityEngine.UI;
 /// Antes de cada class, descripción de qué es y para qué sirve,
 /// usando todas las líneas que sean necesarias.
 /// </summary>
-public class StateBarController : MonoBehaviour
+public class TimeBarController : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
@@ -24,9 +24,7 @@ public class StateBarController : MonoBehaviour
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
     [SerializeField] private Scrollbar timeScrollBar;
-    [SerializeField] private float maxTime = 10f;
-    [SerializeField] private Image filler;
-    [SerializeField] private Image statebarBackground;
+
 
     #endregion
 
@@ -38,28 +36,23 @@ public class StateBarController : MonoBehaviour
     // primera palabra en minúsculas y el resto con la 
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
-    private float _timeRemaning;
-    private bool _stateColor1 = true;
 
     #endregion
-
+    
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
     #region Métodos de MonoBehaviour
-
+    
     // Por defecto están los típicos (Update y Start) pero:
     // - Hay que añadir todos los que sean necesarios
     // - Hay que borrar los que no se usen 
-
+    
     /// <summary>
     /// Start is called on the frame when a script is enabled just before 
     /// any of the Update methods are called the first time.
     /// </summary>
     void Start()
     {
-        _timeRemaning = 0;
-        timeScrollBar.size = 0;
-        filler.color = Color.magenta;
-        statebarBackground.color = Color.yellow;
+        timeScrollBar.size = 1;
     }
 
     /// <summary>
@@ -67,29 +60,14 @@ public class StateBarController : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (_timeRemaning < maxTime)
+        if (LevelManager.Instance.RoomTimeRemaining > 0)
         {
-            _timeRemaning += Time.deltaTime;
-            timeScrollBar.size = _timeRemaning / maxTime;
+            timeScrollBar.size = LevelManager.Instance.RoomTimeRemaining / LevelManager.Instance.RoomMaxTime;
         }
         else
         {
-            Debug.Log("TiempoFinalizado");
-            LevelManager.Instance.ResetPlayer();
-            _timeRemaning = 0;
-            timeScrollBar.size = 0;
-            if (_stateColor1)
-            {
-                filler.color = Color.yellow;
-                statebarBackground.color = Color.magenta;
-                _stateColor1 = false;
-            }
-            else
-            {
-                filler.color = Color.magenta;
-                statebarBackground.color = Color.yellow;
-                _stateColor1 = true;
-            }
+            timeScrollBar.size = 1;
+
         }
     }
     #endregion
@@ -113,5 +91,5 @@ public class StateBarController : MonoBehaviour
 
     #endregion   
 
-} // class StateBarController 
-// namespace
+} // class TimeBarController 
+  // namespace
