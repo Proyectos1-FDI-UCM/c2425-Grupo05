@@ -75,13 +75,13 @@ public class StateBarController : MonoBehaviour
             {
                 filler.color = Color.yellow;
                 statebarBackground.color = Color.magenta;
-                LevelManager.Instance.ChangeState(LevelManager.Instance.State);
+                
             }
             else
             {
                 filler.color = Color.magenta;
                 statebarBackground.color = Color.yellow;
-                LevelManager.Instance.ChangeState(LevelManager.Instance.State);
+                
             }
         }
     }

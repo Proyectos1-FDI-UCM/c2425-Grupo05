@@ -58,7 +58,7 @@ public class LevelManager : MonoBehaviour
     /// <summary>
     /// Instancia única de la clase (singleton).
     /// </summary>
-    private static LevelManager _instance;
+    public static LevelManager _instance;
     private PlatformMovement[] _platformMovement;
     private CambioEstado[] estados;//llama a los prefabs que pueden cambiar de estado
 
@@ -104,17 +104,19 @@ public class LevelManager : MonoBehaviour
        
             StateTime += Time.deltaTime;
         
-        if (StateTime > StateMaxTime)
+        if (StateTime >= StateMaxTime)
         {
-            Debug.Log("TiempoFinalizado");
+            Debug.Log("StateTime Finalizado");
             for (int i = 0; i < estados.Length; i++)
             {
                 estados[i].CambiaEstado();
+                
             }
+            ChangeState(State);
             StateTime = 0f;
         }
 
-        else if (StateTime > ChangeTimeTrasluz && StateTime < StateMaxTime)
+        else if (StateTime > ChangeTimeTrasluz)
         {
             for (int i = 0; i < estados.Length; i++)
             {
@@ -170,10 +172,11 @@ public class LevelManager : MonoBehaviour
         {
             State = 2;
         }
-        if (state == 2)
+        else if (state == 2)
         {
             State = 0;
         }
+        Console.WriteLine(State);
         //if (state == 2)
         //{
         //    State = 0;

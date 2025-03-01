@@ -92,7 +92,7 @@ public class CambioEstado : MonoBehaviour
         if (State1) State1 = false;
         else State1 = true;
         
-        Debug.Log("LOL!!!!");
+        
     }
     public void CambiaEstadoTrasLuz()
     {
@@ -101,7 +101,7 @@ public class CambioEstado : MonoBehaviour
             if (_sprite != null)
                 _sprite.enabled = true;
             ChangeAlpha(0.2f);
-            Debug.Log("Bien!!!!");
+           
         }
     }
     #endregion
