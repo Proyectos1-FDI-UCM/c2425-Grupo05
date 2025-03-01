@@ -38,12 +38,14 @@ public class LevelManager : MonoBehaviour
     private GameObject levelPlayerPos;
     [SerializeField] 
     private GrayZone _grayZone;
+    [SerializeField]
+    private float ChangeTimeTrasluz = 3.5f;//el tiempo que tarda en poner una imagen translúcida del siguiente estado
     // Variables del contador de tiempo de la sala
     public float RoomMaxTime = 10f;
     public float RoomTimeRemaining;
     // Variables del contador de tiempo del estado
     public float StateMaxTime = 4f;
-    public float StateTime;
+    public float StateTime=0f;
     // Variables de cambios de estado
     public int State = 0;
 
@@ -58,7 +60,8 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     private static LevelManager _instance;
     private PlatformMovement[] _platformMovement;
-    
+    private CambioEstado[] estados;//llama a los prefabs que pueden cambiar de estado
+
 
     #endregion
 
@@ -78,7 +81,7 @@ public class LevelManager : MonoBehaviour
     private void Start()
     {
         _platformMovement = FindObjectsByType<PlatformMovement>(FindObjectsSortMode.None);
-        
+        estados = FindObjectsOfType<CambioEstado>();//llama a todos los prefabs que contienen este script
     }
 
     
@@ -98,14 +101,25 @@ public class LevelManager : MonoBehaviour
             }
 
         }
-        if (StateTime < StateMaxTime)
-        {
+       
             StateTime += Time.deltaTime;
-        }
-        else
+        
+        if (StateTime > StateMaxTime)
         {
             Debug.Log("TiempoFinalizado");
-            StateTime = 0;
+            for (int i = 0; i < estados.Length; i++)
+            {
+                estados[i].CambiaEstado();
+            }
+            StateTime = 0f;
+        }
+
+        else if (StateTime > ChangeTimeTrasluz && StateTime < StateMaxTime)
+        {
+            for (int i = 0; i < estados.Length; i++)
+            {
+                estados[i].CambiaEstadoTrasLuz();
+            }
         }
     }
 

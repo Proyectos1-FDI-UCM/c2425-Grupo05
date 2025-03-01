@@ -143,9 +143,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b80d84705eefbbb40b1f446335ba4e5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ChangeTime: 3.5
-  ChangeTimeTrasluz: 3
   State1: 1
-  Trasluz: 0
-  OnRoom: 1
   Player: {fileID: 0}
