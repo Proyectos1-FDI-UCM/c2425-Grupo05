@@ -6,7 +6,9 @@
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
+using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// Componente que se encarga de la gestión de un nivel concreto.
@@ -30,12 +32,21 @@ public class LevelManager : MonoBehaviour
     // públicos y de inspector se nombren en formato PascalCase
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
-
-
     [SerializeField]
-    private float ChangeTime = 3.5f;// el tiempo que tarda en cambiar de estado
+    private GameObject player;
     [SerializeField]
-    private float ChangeTimeTrasluz = 3f;//el tiempo que tarda en poner una imagen translúcida del siguiente estado
+    private GameObject levelPlayerPos;
+    [SerializeField] 
+    private GrayZone _grayZone;
+    // Variables del contador de tiempo de la sala
+    public float RoomMaxTime = 10f;
+    public float RoomTimeRemaining;
+    // Variables del contador de tiempo del estado
+    public float StateMaxTime = 4f;
+    public float StateTime;
+    // Variables de cambios de estado
+    public int State = 0;
+
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -46,8 +57,8 @@ public class LevelManager : MonoBehaviour
     /// Instancia única de la clase (singleton).
     /// </summary>
     private static LevelManager _instance;
-    private float time = 0f;
-    private CambioEstado[] estados;//llama a los prefabs que pueden cambiar de estado
+    private PlatformMovement[] _platformMovement;
+    
 
     #endregion
 
@@ -64,29 +75,37 @@ public class LevelManager : MonoBehaviour
             Init();
         }
     }
-
-
-    void Start()
+    private void Start()
     {
-        estados = FindObjectsOfType <CambioEstado>();//llama a todos los prefabs que contienen este script
+        _platformMovement = FindObjectsByType<PlatformMovement>(FindObjectsSortMode.None);
+        
     }
-    void Update()
+
+    
+    private void Update()
     {
-        time += Time.deltaTime;
-        if (time > ChangeTime)
+        if (!_grayZone.IsTimeStopped())
         {
-            for(int i = 0; i < estados.Length; i++)
+            if (RoomTimeRemaining > 0)
             {
-                estados[i].CambiaEstado();
+                RoomTimeRemaining -= Time.deltaTime;
             }
-           time = 0f;
+            else
+            {
+                Debug.Log("TiempoFinalizado");
+                ResetPlayer();
+                RoomTimeRemaining = RoomMaxTime;
+            }
+
         }
-        else if (time > ChangeTimeTrasluz && time < ChangeTime)
+        if (StateTime < StateMaxTime)
         {
-            for (int i = 0; i < estados.Length; i++)
-            {
-                estados[i].CambiaEstadoTrasLuz();
-            }
+            StateTime += Time.deltaTime;
+        }
+        else
+        {
+            Debug.Log("TiempoFinalizado");
+            StateTime = 0;
         }
     }
 
@@ -121,6 +140,32 @@ public class LevelManager : MonoBehaviour
         return _instance != null;
     }
 
+    public void ResetPlayer()
+    {
+        player.transform.position = levelPlayerPos.transform.position;
+        
+        for (int i = 0;i<_platformMovement.Length;i++)
+        {
+            _platformMovement[i].ResetPlatform();
+        }
+
+    }
+    public void ChangeState(int state)
+    {
+        if (state == 0)
+        {
+            State = 2;
+        }
+        if (state == 2)
+        {
+            State = 0;
+        }
+        //if (state == 2)
+        //{
+        //    State = 0;
+        //}
+    }
+
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
@@ -134,6 +179,7 @@ public class LevelManager : MonoBehaviour
     {
         // De momento no hay nada que inicializar
     }
+
 
     #endregion
 } // class LevelManager 

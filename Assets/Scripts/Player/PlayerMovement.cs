@@ -5,7 +5,10 @@
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
+using System.Globalization;
+using System.Runtime.Serialization.Formatters;
 using UnityEngine;
+using UnityEngine.InputSystem;
 // Añadir aquí el resto de directivas using
 
 
@@ -23,6 +26,9 @@ public class PlayerMovement : MonoBehaviour
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
 
+    public float speed = 5;
+    public float jumpForce = 2;
+    public LayerMask ground;
     #endregion
     
     // ---- ATRIBUTOS PRIVADOS ----
@@ -33,7 +39,13 @@ public class PlayerMovement : MonoBehaviour
     // primera palabra en minúsculas y el resto con la 
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
-
+    private Rigidbody2D rb;
+    private bool isGrounded;
+    private GameObject child;
+    private Collider2D childCollider;    
+    private float jumpTimeCounter;
+    private float jumpTime;
+    private bool isJumping;
     #endregion
     
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -49,7 +61,9 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody2D>();
+        child = transform.GetChild(0).gameObject; // Obtiene el primer hijo directamente
+        childCollider = child.GetComponent<Collider2D>(); // Obtiene su Collider2D
     }
 
     /// <summary>
@@ -57,7 +71,38 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     void Update()
     {
+        if (childCollider == null) return;
+
+        //Detecta si el hijo está colisionando con algo
+        Collider2D[] hitColliders = Physics2D.OverlapBoxAll(childCollider.bounds.center, childCollider.bounds.size , 0);
+
+        isGrounded = hitColliders.Length > 1 ;
+
+        // if (isGrounded == true && Input.GetKeyDown(KeyCode.Space))
+        // {
+        //     isJumping = true;
+        //     jumpTimeCounter = jumpTime;
+        //     rb.velocity = Vector2.up * jumpForce;
+        // }
         
+        // if(Input.GetKey(KeyCode.Space) && isJumping == true)
+        // {
+        //     if (jumpTimeCounter > 0)
+        //     {
+        //          rb.velocity = Vector2.up * jumpForce;
+        //          jumpTimeCounter +=Time.deltaTime;
+        //     } 
+        //     else
+        //     {
+        //         isJumping = false;
+        //     }
+
+        // }
+
+        // if (Input.GetKeyUp(KeyCode.Space))
+        // {
+        //     isJumping = false;
+        // }
     }
     #endregion
 
@@ -77,6 +122,19 @@ public class PlayerMovement : MonoBehaviour
     // El convenio de nombres de Unity recomienda que estos métodos
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
+    //como hipoteticamente podría hacer que el jugador pueda volver a saltar del suelo con un collider como hijo
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        Debug.Log("Jump");
+        if (context.performed && isGrounded) // Solo salta si está en el suelo
+        {
+
+            isJumping = true;
+            jumpTimeCounter = jumpTime;
+            rb.velocity = Vector2.up * jumpForce;
+        }
+    }
+
 
     #endregion   
 

@@ -6,6 +6,7 @@
 //---------------------------------------------------------
 
 using UnityEngine;
+using UnityEngine.UI;
 // Añadir aquí el resto de directivas using
 
 
@@ -13,7 +14,7 @@ using UnityEngine;
 /// Antes de cada class, descripción de qué es y para qué sirve,
 /// usando todas las líneas que sean necesarias.
 /// </summary>
-public class KillPlayer : MonoBehaviour
+public class TimeBarController : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
@@ -22,8 +23,8 @@ public class KillPlayer : MonoBehaviour
     // públicos y de inspector se nombren en formato PascalCase
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
-    [SerializeField]
-    private GameObject Player;
+    [SerializeField] private Scrollbar timeScrollBar;
+
 
     #endregion
 
@@ -35,7 +36,6 @@ public class KillPlayer : MonoBehaviour
     // primera palabra en minúsculas y el resto con la 
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
-    private Vector2 _levelPlayerPos = new Vector2(-7,0);
 
     #endregion
     
@@ -52,7 +52,7 @@ public class KillPlayer : MonoBehaviour
     /// </summary>
     void Start()
     {
-        
+        timeScrollBar.size = 1;
     }
 
     /// <summary>
@@ -60,7 +60,15 @@ public class KillPlayer : MonoBehaviour
     /// </summary>
     void Update()
     {
-        
+        if (LevelManager.Instance.RoomTimeRemaining > 0)
+        {
+            timeScrollBar.size = LevelManager.Instance.RoomTimeRemaining / LevelManager.Instance.RoomMaxTime;
+        }
+        else
+        {
+            timeScrollBar.size = 1;
+
+        }
     }
     #endregion
 
@@ -73,24 +81,15 @@ public class KillPlayer : MonoBehaviour
     // Ejemplo: GetPlayerController
 
     #endregion
-
+    
     // ---- MÉTODOS PRIVADOS ----
     #region Métodos Privados
     // Documentar cada método que aparece aquí
     // El convenio de nombres de Unity recomienda que estos métodos
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        PlayerMovement playerMovement = collision.gameObject.GetComponent<PlayerMovement>();
-
-        if (playerMovement != null)
-        {
-            LevelManager.Instance.ResetPlayer();
-        }
-    }
 
     #endregion   
 
-} // class KillPlayer 
-// namespace
+} // class TimeBarController 
+  // namespace

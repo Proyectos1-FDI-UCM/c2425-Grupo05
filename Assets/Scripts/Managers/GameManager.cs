@@ -151,6 +151,8 @@ public class GameManager : MonoBehaviour
         System.GC.Collect();
     } // ChangeScene
 
+
+
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
