@@ -87,7 +87,7 @@ public class CambioEstado : MonoBehaviour
 
     public void CambiaEstado()
     {
-        SetComponentsActive(State1);
+        SetComponentsActive(!State1);
         ChangeAlpha(1f);
         if (State1) State1 = false;
         else State1 = true;
@@ -96,7 +96,7 @@ public class CambioEstado : MonoBehaviour
     }
     public void CambiaEstadoTrasLuz()
     {
-        if (State1)
+        if (!State1)
         {
             if (_sprite != null)
                 _sprite.enabled = true;

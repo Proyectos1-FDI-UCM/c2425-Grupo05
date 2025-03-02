@@ -170,7 +170,7 @@ public class LevelManager : MonoBehaviour
         {
             State = 2;
         }
-        if (state == 2)
+        else if (state == 2)
         {
             State = 0;
         }
