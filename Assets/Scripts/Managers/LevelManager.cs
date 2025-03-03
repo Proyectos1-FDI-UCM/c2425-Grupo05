@@ -80,6 +80,7 @@ public class LevelManager : MonoBehaviour
     }
     private void Start()
     {
+        RoomTimeRemaining = RoomMaxTime;
         _platformMovement = FindObjectsByType<PlatformMovement>(FindObjectsSortMode.None);
         estados = FindObjectsOfType<CambioEstado>();//llama a todos los prefabs que contienen este script
     }
@@ -110,6 +111,7 @@ public class LevelManager : MonoBehaviour
             {
                 estados[i].CambiaEstado();
             }
+            ChangeState(State);
             StateTime = 0f;
         }
 
@@ -161,6 +163,8 @@ public class LevelManager : MonoBehaviour
         {
             _platformMovement[i].ResetPlatform();
         }
+        StateTime = 0;
+        State = 0;
 
     }
     public void ChangeState(int state)
