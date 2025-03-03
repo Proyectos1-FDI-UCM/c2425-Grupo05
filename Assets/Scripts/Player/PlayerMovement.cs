@@ -26,8 +26,10 @@ public class PlayerMovement : MonoBehaviour
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
 
-    public float speed = 5f;
-    public float jumpForce = 2f;
+    [SerializeField] public float speed = 5f;
+    [SerializeField] public float jumpForce = 2f;
+    [SerializeField] private Animator animator;
+    [SerializeField] private SpriteRenderer spriteRenderer;
     public LayerMask ground;
     #endregion
     
@@ -78,7 +80,13 @@ public class PlayerMovement : MonoBehaviour
         Vector2 moveInput = InputManager.Instance.MovementVector;
         Vector3 move = new Vector3(moveInput.x, 0, 0) * speed *Time.deltaTime;
         transform.position += move;
-     
+
+        //Voltear el sprite
+        float horizontalMovement = moveInput.x;
+        if (horizontalMovement != 0)
+        {
+            spriteRenderer.flipX = horizontalMovement < 0;
+        }
         //Detecta si el hijo está colisionando con algo
         Collider2D[] hitColliders = Physics2D.OverlapBoxAll(childCollider.bounds.center, childCollider.bounds.size , 0);
 
