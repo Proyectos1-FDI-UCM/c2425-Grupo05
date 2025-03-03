@@ -64,26 +64,24 @@ public class StateBarController : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (LevelManager.Instance.StateTime < LevelManager.Instance.StateMaxTime)
+
+        timeScrollBar.size = LevelManager.Instance.StateTime / LevelManager.Instance.StateMaxTime;
+
+        if (LevelManager.Instance.State == 0)
         {
-            timeScrollBar.size = LevelManager.Instance.StateTime / LevelManager.Instance.StateMaxTime;
+            filler.color = Color.yellow;
+            statebarBackground.color = Color.magenta;
+
+
         }
         else
         {
-            timeScrollBar.size = 0;
-            if (LevelManager.Instance.State == 0)
-            {
-                filler.color = Color.yellow;
-                statebarBackground.color = Color.magenta;
-                LevelManager.Instance.ChangeState(LevelManager.Instance.State);
-            }
-            else
-            {
-                filler.color = Color.magenta;
-                statebarBackground.color = Color.yellow;
-                LevelManager.Instance.ChangeState(LevelManager.Instance.State);
-            }
+            filler.color = Color.magenta;
+            statebarBackground.color = Color.yellow;
+
+
         }
+
     }
     #endregion
 
@@ -96,7 +94,7 @@ public class StateBarController : MonoBehaviour
     // Ejemplo: GetPlayerController
 
     #endregion
-    
+
     // ---- MÉTODOS PRIVADOS ----
     #region Métodos Privados
     // Documentar cada método que aparece aquí
@@ -104,7 +102,7 @@ public class StateBarController : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
 
-    #endregion   
+    #endregion
 
 } // class StateBarController 
 // namespace

@@ -92,12 +92,13 @@ public class PlayerMovement : MonoBehaviour
 
         isGrounded = hitColliders.Length > 1 ;
 
-        // if (isGrounded == true && Input.GetKeyDown(KeyCode.Space))
-        // {
-        //     isJumping = true;
-        //     jumpTimeCounter = jumpTime;
-        //     rb.velocity = Vector2.up * jumpForce;
-        // }
+        if (isGrounded == true && InputManager.Instance.JumpWasPressedThisFrame())
+        {
+            isJumping = true;
+            jumpTimeCounter = jumpTime;
+            rb.velocity = Vector2.up * jumpForce;
+        }
+
 
         // if(Input.GetKey(KeyCode.Space) && isJumping == true)
         // {
@@ -129,7 +130,7 @@ public class PlayerMovement : MonoBehaviour
     // Ejemplo: GetPlayerController
 
     #endregion
-    
+
     // ---- MÉTODOS PRIVADOS ----
     #region Métodos Privados
     // Documentar cada método que aparece aquí

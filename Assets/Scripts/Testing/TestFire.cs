@@ -53,13 +53,13 @@ public class TestFire : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (InputManager.Instance.FireWasPressedThisFrame())
+        if (InputManager.Instance.JumpWasPressedThisFrame())
             Debug.Log($"{Time.frameCount}[{Time.deltaTime}]: Fire was pressed this frame");
 
-        if (InputManager.Instance.FireWasReleasedThisFrame())
+        if (InputManager.Instance.JumpWasReleasedThisFrame())
             Debug.Log($"{Time.frameCount}[{Time.deltaTime}]: Fire was released this frame");
 
-        if (displayIsPressed && InputManager.Instance.FireIsPressed())
+        if (displayIsPressed && InputManager.Instance.JumpIsPressed())
         {
             Debug.Log($"{Time.frameCount}[{Time.deltaTime}]: Fire was pressed");
         }
