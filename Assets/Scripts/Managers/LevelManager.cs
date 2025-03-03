@@ -46,7 +46,7 @@ public class LevelManager : MonoBehaviour
     // Variables del contador de tiempo del estado
     public float StateMaxTime = 4f;
     public float StateTime=0f;
-    // Variables de cambios de estado
+    // Variables de cambios de estado (0-Estado Neutral, 1-Estado 1, 2-Estado 2
     public int State = 0;
 
     #endregion
@@ -106,7 +106,6 @@ public class LevelManager : MonoBehaviour
         
         if (StateTime > StateMaxTime)
         {
-            Debug.Log("TiempoFinalizado");
             for (int i = 0; i < estados.Length; i++)
             {
                 estados[i].CambiaEstado();
@@ -169,8 +168,7 @@ public class LevelManager : MonoBehaviour
         if (state == 0)
         {
             State = 2;
-        }
-        else if (state == 2)
+        } else if (state == 2)
         {
             State = 0;
         }

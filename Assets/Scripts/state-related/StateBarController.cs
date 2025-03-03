@@ -68,7 +68,7 @@ public class StateBarController : MonoBehaviour
         {
             timeScrollBar.size = LevelManager.Instance.StateTime / LevelManager.Instance.StateMaxTime;
         }
-        else
+        if (LevelManager.Instance.StateTime == 0)
         {
             timeScrollBar.size = 0;
             if (LevelManager.Instance.State == 0)
@@ -76,12 +76,14 @@ public class StateBarController : MonoBehaviour
                 filler.color = Color.yellow;
                 statebarBackground.color = Color.magenta;
                 LevelManager.Instance.ChangeState(LevelManager.Instance.State);
+
             }
             else
             {
                 filler.color = Color.magenta;
                 statebarBackground.color = Color.yellow;
                 LevelManager.Instance.ChangeState(LevelManager.Instance.State);
+
             }
         }
     }
@@ -96,7 +98,7 @@ public class StateBarController : MonoBehaviour
     // Ejemplo: GetPlayerController
 
     #endregion
-    
+
     // ---- MÉTODOS PRIVADOS ----
     #region Métodos Privados
     // Documentar cada método que aparece aquí
@@ -104,7 +106,7 @@ public class StateBarController : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
 
-    #endregion   
+    #endregion
 
 } // class StateBarController 
 // namespace
