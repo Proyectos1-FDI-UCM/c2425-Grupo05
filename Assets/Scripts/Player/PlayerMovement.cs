@@ -30,6 +30,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] public float jumpForce = 2f;
     [SerializeField] private Animator animator;
     [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] float distanciaparedizquierda = 7.5f;
+    [SerializeField] float playerwidth = 1f;
+    [SerializeField] float distanciaparedderecha = 23.5f;
     public LayerMask ground;
     #endregion
     
@@ -48,15 +51,16 @@ public class PlayerMovement : MonoBehaviour
     private float jumpTimeCounter;
     private float jumpTime;
     private bool isJumping;
+ 
     #endregion
-    
+
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
     #region Métodos de MonoBehaviour
-    
+
     // Por defecto están los típicos (Update y Start) pero:
     // - Hay que añadir todos los que sean necesarios
     // - Hay que borrar los que no se usen 
-    
+
     /// <summary>
     /// Start is called on the frame when a script is enabled just before 
     /// any of the Update methods are called the first time.
@@ -81,6 +85,14 @@ public class PlayerMovement : MonoBehaviour
         Vector3 move = new Vector3(moveInput.x, 0, 0) * speed *Time.deltaTime;
         transform.position += move;
 
+        if (gameObject.transform.position.x < -distanciaparedizquierda + playerwidth)
+        {
+            transform.position = new Vector3(-distanciaparedizquierda + playerwidth, transform.position.y, transform.position.z);
+        }
+        else if (gameObject.transform.position.x > distanciaparedderecha - playerwidth)
+        {
+            transform.position = new Vector3(distanciaparedderecha - playerwidth, transform.position.y, transform.position.z);
+        }
         //Voltear el sprite
         float horizontalMovement = moveInput.x;
         if (horizontalMovement != 0)
@@ -99,7 +111,17 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = Vector2.up * jumpForce;
         }
 
-
+        /*Vector2 currentPosition = transform.position;
+        Collider2D wallCollider = Physics2D.OverlapBox(currentPosition, childCollider.bounds.size, 0, ground);
+        if (wallCollider != null)
+        {
+            float distanceToWall = Vector2.Distance(currentPosition, wallCollider.ClosestPoint(currentPosition));
+            if (distanceToWall < wallDistanceThreshold)
+            {
+                rb.velocity = new Vector2(0, rb.velocity.y);
+            }
+        }
+        */
         // if(Input.GetKey(KeyCode.Space) && isJumping == true)
         // {
         //     if (jumpTimeCounter > 0)

@@ -2597,6 +2597,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 549911831380807634, guid: d1cb0d22127e60e4699564f46274486b, type: 3}
   m_PrefabInstance: {fileID: 1261694445}
   m_PrefabAsset: {fileID: 0}
+--- !u!212 &197835884 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 1784382361920628952, guid: d1cb0d22127e60e4699564f46274486b, type: 3}
+  m_PrefabInstance: {fileID: 1261694445}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &360998850 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6309473167555735504, guid: 9c6e01328f72ea541b126a6a737bdbc1, type: 3}
@@ -2981,6 +2986,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2078992898098006639, guid: d1cb0d22127e60e4699564f46274486b, type: 3}
+      propertyPath: speed
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078992898098006639, guid: d1cb0d22127e60e4699564f46274486b, type: 3}
+      propertyPath: spriteRenderer
+      value: 
+      objectReference: {fileID: 197835884}
     - target: {fileID: 5471280442647195517, guid: d1cb0d22127e60e4699564f46274486b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
