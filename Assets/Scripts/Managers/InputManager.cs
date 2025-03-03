@@ -72,7 +72,7 @@ public class InputManager : MonoBehaviour
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
 
     #region Métodos de MonoBehaviour
-
+ 
     /// <summary>
     /// Método llamado en un momento temprano de la inicialización.
     /// 

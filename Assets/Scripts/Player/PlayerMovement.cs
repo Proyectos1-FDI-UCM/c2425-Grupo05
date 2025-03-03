@@ -140,7 +140,36 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = Vector2.up * jumpForce;
         }
     }
+    // public Vector 2 MovementVector {get; private set;)
+    /*
+     private void OnMove(InputAction.CallbackContext context)
+    {
+        MovementVector = context.ReadValue<Vector2>();
+    }
 
+    /*
+    void Update()
+    {
+      dashing = GetComponent<PlayerDash>().dash();
+    
+    MoveDirection = (Vector3)InputManager.Instance.MovementVector;
+
+    if ((cD.GetCollisions()[0] && MoveDirection.y > 0) || cD.GetCollisions()[1] && MoveDirection.y < 0) MoveDirection.y = 0;
+
+    MoveDirection = MoveDirection.Normalized
+
+    if (MoveDirection != Vector3.zero)
+    {
+        LastDirection = MoveDirection;
+    }
+    if (!dashing) 
+    rb.velocity = MoveDirection * MoveSpeed * Time.fixedDeltaTime; 
+
+
+
+    }
+    */
+     
 
     #endregion   
 
