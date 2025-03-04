@@ -27,7 +27,8 @@ public class PlayerMovement : MonoBehaviour
     // Ejemplo: MaxHealthPoints
 
     [SerializeField] public float speed = 5f;
-    [SerializeField] public float jumpForce = 2f;
+    [SerializeField] public float jumpForceInitial = 2f;
+    [SerializeField] public float jumpForce = 0.1f;
     [SerializeField] private Animator animator;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] float distanciaparedizquierda = 7.5f;
@@ -48,8 +49,11 @@ public class PlayerMovement : MonoBehaviour
     private bool isGrounded;
     private GameObject child;
     private Collider2D childCollider;    
+    [SerializeField]
     private float jumpTimeCounter;
+    [SerializeField]
     private float jumpTime;
+    [SerializeField]
     private bool isJumping;
  
     #endregion
@@ -102,14 +106,43 @@ public class PlayerMovement : MonoBehaviour
         //Detecta si el hijo está colisionando con algo
         Collider2D[] hitColliders = Physics2D.OverlapBoxAll(childCollider.bounds.center, childCollider.bounds.size , 0);
 
-        isGrounded = hitColliders.Length > 1 ;
+        isGrounded = false;
+        foreach (var hitCollider in hitColliders)
+        {
+            if (hitCollider.gameObject != gameObject && ((1 << hitCollider.gameObject.layer) & ground) != 0)
+            {
+            isGrounded = true;
+            }
+        }
 
-        if (isGrounded == true && InputManager.Instance.JumpWasPressedThisFrame())
+        //SALTO
+        if (isGrounded && InputManager.Instance.JumpWasPressedThisFrame())
         {
             isJumping = true;
-            jumpTimeCounter = jumpTime;
-            rb.velocity = Vector2.up * jumpForce;
+            rb.AddForce(Vector2.up * jumpForceInitial, ForceMode2D.Impulse);
+            jumpTimeCounter = 0;
         }
+
+        if (isJumping && jumpTimeCounter <= jumpTime)
+        {
+            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            jumpTimeCounter += Time.deltaTime;
+            if (jumpTimeCounter >= jumpTime)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, 0);
+            }
+        }
+        else
+        {
+            isJumping = false;
+        }
+
+        if (InputManager.Instance.JumpWasReleasedThisFrame() && isJumping)
+        {
+            isJumping = false;
+            rb.velocity = new Vector2(rb.velocity.x, 0);
+        }
+        
 
         /*Vector2 currentPosition = transform.position;
         Collider2D wallCollider = Physics2D.OverlapBox(currentPosition, childCollider.bounds.size, 0, ground);
@@ -140,6 +173,7 @@ public class PlayerMovement : MonoBehaviour
         // {
         //     isJumping = false;
         // }
+        
     }
     #endregion
 
@@ -160,17 +194,6 @@ public class PlayerMovement : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
     //como hipoteticamente podría hacer que el jugador pueda volver a saltar del suelo con un collider como hijo
-    public void OnJump(InputAction.CallbackContext context)
-    {
-        Debug.Log("Jump");
-        if (context.performed && isGrounded) // Solo salta si está en el suelo
-        {
-
-            isJumping = true;
-            jumpTimeCounter = jumpTime;
-            rb.velocity = Vector2.up * jumpForce;
-        }
-    }
     // public Vector 2 MovementVector {get; private set;)
     /*
      private void OnMove(InputAction.CallbackContext context)
