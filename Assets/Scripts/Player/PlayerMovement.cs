@@ -155,8 +155,8 @@ public class PlayerMovement : MonoBehaviour
 
     void OnCollisionExit2D(Collision2D collision)
     {
-        platform = null;
         rb.velocity += platform.getVel();
+        platform = null;
     }
 
     #endregion
