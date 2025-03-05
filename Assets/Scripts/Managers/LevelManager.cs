@@ -7,6 +7,7 @@
 //---------------------------------------------------------
 
 using System;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -115,7 +116,7 @@ public class LevelManager : MonoBehaviour
             {
                 estados[i].CambiaEstado();
             }
-            ChangeState(State);
+            ChangeState();
             StateTime = 0f;
         }
 
@@ -171,12 +172,12 @@ public class LevelManager : MonoBehaviour
         State = 0;
 
     }
-    public void ChangeState(int state)
+    public void ChangeState()
     {
-        if (state == 0)
+        if (State == 0)
         {
             State = 2;
-        } else if (state == 2)
+        } else if (State == 2)
         {
             State = 0;
         }
