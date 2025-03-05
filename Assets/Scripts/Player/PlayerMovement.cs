@@ -27,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
     // Ejemplo: MaxHealthPoints
 
     [SerializeField] private float speed = 7f;
+    [SerializeField] private float deacceleration = 0.01f;
     [SerializeField] private float jumpForceInitial = 2f;
     [SerializeField] private float jumpForce = 0.1f;
     [SerializeField] private Animator animator;
@@ -50,7 +51,8 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private bool isGrounded;
     private GameObject child;
-    private Collider2D childCollider;    
+    private Collider2D childCollider;
+    PlatformMovement platform;
     [SerializeField]
     private float jumpTimeCounter;
     [SerializeField]
@@ -73,7 +75,7 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rb = gameObject.GetComponent<Rigidbody2D>();
         child = transform.GetChild(0).gameObject; // Obtiene el primer hijo directamente
         childCollider = child.GetComponent<Collider2D>(); // Obtiene su Collider2D
     }
@@ -88,7 +90,10 @@ public class PlayerMovement : MonoBehaviour
 
         //Obtener el vector de movimiento desde el InputManager.
         Vector2 moveInput = InputManager.Instance.MovementVector;
-        rb.velocity = new Vector2(moveInput.x * speed, rb.velocity.y);
+        //moveInput.x != 0 ? moveInput.x * speed : rb.velocity.x --> si se está pulsando input se mueve, si no, arrastra la velocidad
+        // rb.velocity = new Vector2(moveInput.x * speed, rb.velocity.y);
+        // rb.velocity = new Vector2(moveInput.x != 0 ? moveInput.x * speed : rb.velocity.x * deacceleration, rb.velocity.y);
+        rb.velocity = new Vector2(moveInput.x * speed + (platform ? platform.getVel().x : 0), rb.velocity.y);
 
         //Voltear el sprite
         if (moveInput.x != 0)
@@ -145,22 +150,13 @@ public class PlayerMovement : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        PlatformMovement platform = collision.gameObject.GetComponent<PlatformMovement>();
-        if (platform != null)
-        {
-            transform.SetParent(platform.gameObject.transform);
-        }
+        platform = collision.gameObject.GetComponent<PlatformMovement>();
     }
 
     void OnCollisionExit2D(Collision2D collision)
     {
-        PlatformMovement platform = collision.gameObject.GetComponent<PlatformMovement>();
-        if (platform != null)
-        {
-            transform.SetParent(null);
-            // rb.velocity += new Vector2(platform.getVel().x, platform.getVel().y);
-            // Debug.Log(platform.getVel());
-        }
+        platform = null;
+        rb.velocity += platform.getVel();
     }
 
     #endregion

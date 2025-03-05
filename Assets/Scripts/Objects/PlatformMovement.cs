@@ -139,7 +139,7 @@ public class PlatformMovement : MonoBehaviour
 
     #endregion
     
-    public Vector2 GetVel()
+    public Vector2 getVel()
     {
         return speeds[n];
     }
