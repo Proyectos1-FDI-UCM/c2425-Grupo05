@@ -112,10 +112,6 @@ public class PlayerMovement : MonoBehaviour
             if (hitCollider.gameObject != gameObject && ((1 << hitCollider.gameObject.layer) & ground) != 0)
             {
             isGrounded = true;
-            if (!isJumping)
-            {
-                rb.velocity = new Vector2(rb.velocity.x, 0);
-            }
             }
         }
 
@@ -123,56 +119,28 @@ public class PlayerMovement : MonoBehaviour
         if (isGrounded && InputManager.Instance.JumpWasPressedThisFrame())
         {
             isJumping = true;
+            rb.velocity += new Vector2(rb.velocity.x, 0); 
             rb.AddForce(Vector2.up * jumpForceInitial, ForceMode2D.Impulse);
             jumpTimeCounter = 0;
         }
-
-        if (isJumping && jumpTimeCounter <= jumpTime)
+        if (InputManager.Instance.JumpWasReleasedThisFrame())
         {
+            isJumping = false;
+        }
+
+    }
+    void FixedUpdate()
+    {
+        if (isJumping && jumpTimeCounter < jumpTime)
+        {
+            rb.velocity += new Vector2(rb.velocity.x, 0); 
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-            jumpTimeCounter += Time.deltaTime;
+            jumpTimeCounter += Time.fixedDeltaTime;//Time.FixedDeltatime para el FixedUpdate 
         }
         else
         {
             isJumping = false;
         }
-
-        if (InputManager.Instance.JumpWasReleasedThisFrame())
-        {
-            isJumping = false;
-        }
-        
-
-        /*Vector2 currentPosition = transform.position;
-        Collider2D wallCollider = Physics2D.OverlapBox(currentPosition, childCollider.bounds.size, 0, ground);
-        if (wallCollider != null)
-        {
-            float distanceToWall = Vector2.Distance(currentPosition, wallCollider.ClosestPoint(currentPosition));
-            if (distanceToWall < wallDistanceThreshold)
-            {
-                rb.velocity = new Vector2(0, rb.velocity.y);
-            }
-        }
-        */
-        // if(Input.GetKey(KeyCode.Space) && isJumping == true)
-        // {
-        //     if (jumpTimeCounter > 0)
-        //     {
-        //          rb.velocity = Vector2.up * jumpForce;
-        //          jumpTimeCounter +=Time.deltaTime;
-        //     } 
-        //     else
-        //     {
-        //         isJumping = false;
-        //     }
-
-        // }
-
-        // if (Input.GetKeyUp(KeyCode.Space))
-        // {
-        //     isJumping = false;
-        // }
-        
     }
     #endregion
 
