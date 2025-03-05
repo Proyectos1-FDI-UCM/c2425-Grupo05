@@ -36,6 +36,8 @@ public class LevelManager : MonoBehaviour
     private GameObject player;
     [SerializeField]
     private GameObject levelPlayerPos;
+    [SerializeField]
+    private GameObject[] nextRoomPlayerPos;
     [SerializeField] 
     private GrayZone _grayZone;
     [SerializeField]
@@ -61,6 +63,7 @@ public class LevelManager : MonoBehaviour
     private static LevelManager _instance;
     private PlatformMovement[] _platformMovement;
     private CambioEstado[] estados;//llama a los prefabs que pueden cambiar de estado
+    private int _room = 0;
 
 
     #endregion
@@ -80,6 +83,7 @@ public class LevelManager : MonoBehaviour
     }
     private void Start()
     {
+        player.transform.position = levelPlayerPos.transform.position;
         RoomTimeRemaining = RoomMaxTime;
         _platformMovement = FindObjectsByType<PlatformMovement>(FindObjectsSortMode.None);
         estados = FindObjectsOfType<CambioEstado>();//llama a todos los prefabs que contienen este script
@@ -180,6 +184,13 @@ public class LevelManager : MonoBehaviour
         //{
         //    State = 0;
         //}
+    }
+
+    public void NextRoom()
+    {
+        _room++;
+        player.transform.position = nextRoomPlayerPos[_room].transform.position;
+        levelPlayerPos = nextRoomPlayerPos[_room];
     }
 
     #endregion
