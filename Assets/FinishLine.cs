@@ -6,7 +6,6 @@
 //---------------------------------------------------------
 
 using UnityEngine;
-using UnityEngine.UI;
 // Añadir aquí el resto de directivas using
 
 
@@ -14,7 +13,7 @@ using UnityEngine.UI;
 /// Antes de cada class, descripción de qué es y para qué sirve,
 /// usando todas las líneas que sean necesarias.
 /// </summary>
-public class StateBarController : MonoBehaviour
+public class FinishLine : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
@@ -23,12 +22,9 @@ public class StateBarController : MonoBehaviour
     // públicos y de inspector se nombren en formato PascalCase
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
-    [SerializeField] private Scrollbar timeScrollBar;
-    [SerializeField] private Image filler;
-    [SerializeField] private Image statebarBackground;
 
     #endregion
-
+    
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
     // Documentar cada atributo que aparece aquí.
@@ -39,24 +35,21 @@ public class StateBarController : MonoBehaviour
     // Ejemplo: _maxHealthPoints
 
     #endregion
-
+    
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
     #region Métodos de MonoBehaviour
-
+    
     // Por defecto están los típicos (Update y Start) pero:
     // - Hay que añadir todos los que sean necesarios
     // - Hay que borrar los que no se usen 
-
+    
     /// <summary>
     /// Start is called on the frame when a script is enabled just before 
     /// any of the Update methods are called the first time.
     /// </summary>
     void Start()
     {
-        LevelManager.Instance.StateTime = 0;
-        timeScrollBar.size = 0;
-        filler.color = Color.magenta;
-        statebarBackground.color = Color.yellow;
+        
     }
 
     /// <summary>
@@ -64,24 +57,7 @@ public class StateBarController : MonoBehaviour
     /// </summary>
     void Update()
     {
-
-        timeScrollBar.size = LevelManager.Instance.StateTime / LevelManager.Instance.StateMaxTime;
-
-        if (LevelManager.Instance.State == 0)
-        {
-            filler.color = Color.yellow;
-            statebarBackground.color = Color.magenta;
-
-
-        }
-        else
-        {
-            filler.color = Color.magenta;
-            statebarBackground.color = Color.yellow;
-
-
-        }
-
+        
     }
     #endregion
 
@@ -94,15 +70,25 @@ public class StateBarController : MonoBehaviour
     // Ejemplo: GetPlayerController
 
     #endregion
-
+    
     // ---- MÉTODOS PRIVADOS ----
     #region Métodos Privados
     // Documentar cada método que aparece aquí
     // El convenio de nombres de Unity recomienda que estos métodos
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        PlayerMovement playerMovement = collision.gameObject.GetComponent<PlayerMovement>();
+        Debug.Log("Entra");
+        if (playerMovement != null)
+        {
+            Debug.Log("Entra");
+            LevelManager.Instance.NextRoom();
+        }
+    }
 
-    #endregion
+    #endregion   
 
-} // class StateBarController 
+} // class FinishLine 
 // namespace

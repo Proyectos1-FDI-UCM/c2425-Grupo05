@@ -65,14 +65,14 @@ public class InputManager : MonoBehaviour
     /// acciones como esta (y crear los métodos que necesitemos para
     /// conocer el estado del botón)
     /// </summary>
-    private InputAction _fire;
+    private InputAction _jump;
 
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
 
     #region Métodos de MonoBehaviour
-
+ 
     /// <summary>
     /// Método llamado en un momento temprano de la inicialización.
     /// 
@@ -158,9 +158,9 @@ public class InputManager : MonoBehaviour
     /// Devolverá true en todos los frames en los que se mantenga pulsado
     /// <returns>True, si el botón está pulsado</returns>
     /// </summary>
-    public bool FireIsPressed()
+    public bool JumpIsPressed()
     {
-        return _fire.IsPressed();
+        return _jump.IsPressed();
     }
 
     /// <summary>
@@ -169,9 +169,9 @@ public class InputManager : MonoBehaviour
     /// y false, en otro caso
     /// </returns>
     /// </summary>
-    public bool FireWasPressedThisFrame()
+    public bool JumpWasPressedThisFrame()
     {
-        return _fire.WasPressedThisFrame();
+        return _jump.WasPressedThisFrame();
     }
 
     /// <summary>
@@ -181,9 +181,9 @@ public class InputManager : MonoBehaviour
     /// este frame; y false, en otro caso.
     /// </returns>
     /// </summary>
-    public bool FireWasReleasedThisFrame()
+    public bool JumpWasReleasedThisFrame()
     {
-        return _fire.WasReleasedThisFrame();
+        return _jump.WasReleasedThisFrame();
     }
 
     #endregion
@@ -212,7 +212,7 @@ public class InputManager : MonoBehaviour
         // El estado lo consultaremos a través de los métodos públicos que 
         // tenemos (FireIsPressed, FireWasPressedThisFrame 
         // y FireWasReleasedThisFrame)
-        _fire = _theController.Player.Fire;
+        _jump = _theController.Player.Jump;
     }
 
     /// <summary>

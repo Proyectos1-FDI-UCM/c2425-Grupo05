@@ -7,6 +7,7 @@
 //---------------------------------------------------------
 
 using System;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -36,6 +37,8 @@ public class LevelManager : MonoBehaviour
     private GameObject player;
     [SerializeField]
     private GameObject levelPlayerPos;
+    [SerializeField]
+    private GameObject[] nextRoomPlayerPos;
     [SerializeField] 
     private GrayZone _grayZone;
     [SerializeField]
@@ -46,7 +49,7 @@ public class LevelManager : MonoBehaviour
     // Variables del contador de tiempo del estado
     public float StateMaxTime = 4f;
     public float StateTime=0f;
-    // Variables de cambios de estado
+    // Variables de cambios de estado (0-Estado Neutral, 1-Estado 1, 2-Estado 2
     public int State = 0;
 
     #endregion
@@ -58,9 +61,10 @@ public class LevelManager : MonoBehaviour
     /// <summary>
     /// Instancia única de la clase (singleton).
     /// </summary>
-    public static LevelManager _instance;
+    private static LevelManager _instance;
     private PlatformMovement[] _platformMovement;
     private CambioEstado[] estados;//llama a los prefabs que pueden cambiar de estado
+    private int _room = 0;
 
 
     #endregion
@@ -80,6 +84,8 @@ public class LevelManager : MonoBehaviour
     }
     private void Start()
     {
+        player.transform.position = levelPlayerPos.transform.position;
+        RoomTimeRemaining = RoomMaxTime;
         _platformMovement = FindObjectsByType<PlatformMovement>(FindObjectsSortMode.None);
         estados = FindObjectsOfType<CambioEstado>();//llama a todos los prefabs que contienen este script
     }
@@ -104,19 +110,17 @@ public class LevelManager : MonoBehaviour
        
             StateTime += Time.deltaTime;
         
-        if (StateTime >= StateMaxTime)
+        if (StateTime > StateMaxTime)
         {
-            Debug.Log("StateTime Finalizado");
             for (int i = 0; i < estados.Length; i++)
             {
                 estados[i].CambiaEstado();
-                
             }
-            ChangeState(State);
+            ChangeState();
             StateTime = 0f;
         }
 
-        else if (StateTime > ChangeTimeTrasluz)
+        else if (StateTime > ChangeTimeTrasluz && StateTime < StateMaxTime)
         {
             for (int i = 0; i < estados.Length; i++)
             {
@@ -164,23 +168,30 @@ public class LevelManager : MonoBehaviour
         {
             _platformMovement[i].ResetPlatform();
         }
+        StateTime = 0;
+        State = 0;
 
     }
-    public void ChangeState(int state)
+    public void ChangeState()
     {
-        if (state == 0)
+        if (State == 0)
         {
             State = 2;
-        }
-        else if (state == 2)
+        } else if (State == 2)
         {
             State = 0;
         }
-        Console.WriteLine(State);
         //if (state == 2)
         //{
         //    State = 0;
         //}
+    }
+
+    public void NextRoom()
+    {
+        _room++;
+        player.transform.position = nextRoomPlayerPos[_room].transform.position;
+        levelPlayerPos = nextRoomPlayerPos[_room];
     }
 
     #endregion

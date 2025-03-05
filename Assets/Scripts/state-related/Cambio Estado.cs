@@ -6,6 +6,7 @@
 //---------------------------------------------------------
 
 using UnityEngine;
+using UnityEngine.Tilemaps;
 // Añadir aquí el resto de directivas using
 
 
@@ -30,6 +31,8 @@ public class CambioEstado : MonoBehaviour
     [SerializeField]
     private bool State1 = false;//indica si se encuentra en el estado que empieza ya presente
     [SerializeField]
+    private bool Tilemap = false;//indica si se usarán tilemaps para el cambio de estado
+    [SerializeField]
     private PlayerMovement Player;//referencia al jugador para controlar la muerte por estar dentro de un bloque
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -45,7 +48,10 @@ public class CambioEstado : MonoBehaviour
 
 
    
-    private SpriteRenderer _sprite;
+    private Tilemap _spriteTile;
+    private TilemapRenderer _renderer;
+    private TilemapCollider2D _colliderTile;
+    private SpriteRenderer _spriteRenderer;
     private Collider2D _collider;
     private Rigidbody2D _body;
 
@@ -63,8 +69,11 @@ public class CambioEstado : MonoBehaviour
     void Start()
     {
         Player = FindObjectOfType<PlayerMovement>();
-        _sprite = GetComponent<SpriteRenderer>();
+        _spriteTile = GetComponent<Tilemap>();
+        _renderer = GetComponent<TilemapRenderer>();
         _body = GetComponent<Rigidbody2D>();
+        _colliderTile = GetComponent<TilemapCollider2D>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
         _collider = GetComponent<Collider2D>();
        
         SetComponentsActive(State1);
@@ -87,21 +96,28 @@ public class CambioEstado : MonoBehaviour
 
     public void CambiaEstado()
     {
-        SetComponentsActive(State1);
+        SetComponentsActive(!State1);
         ChangeAlpha(1f);
         if (State1) State1 = false;
         else State1 = true;
-        
-        
     }
     public void CambiaEstadoTrasLuz()
     {
-        if (State1)
+        if (!State1)
         {
-            if (_sprite != null)
-                _sprite.enabled = true;
-            ChangeAlpha(0.2f);
-           
+            if (Tilemap)
+            {
+                if (_renderer != null)
+                    _renderer.enabled = true;
+                ChangeAlpha(0.2f);    
+            }
+            else
+            {
+                if (_spriteRenderer != null)
+                    _spriteRenderer.enabled = true;
+                ChangeAlpha(0.2f);
+            }
+
         }
     }
     #endregion
@@ -118,21 +134,43 @@ public class CambioEstado : MonoBehaviour
 
     private void SetComponentsActive(bool isActive) //Activa el objeto cuando pasa a un estado en el que se debe activar
     {
-        if (_sprite != null)
-            _sprite.enabled = isActive;
-
-        if (_collider != null)
-            _collider.enabled = isActive;
+        if (Tilemap)
+        {
+            if (_renderer != null)
+                _renderer.enabled = isActive;
+            if(_colliderTile != null)
+                _colliderTile.enabled = isActive;
+        }
+        else
+        {
+            if(_spriteRenderer != null)
+                _spriteRenderer.enabled = isActive;
+            if (_collider != null)
+                _collider.enabled = isActive;
+        }
     }
 
     private void ChangeAlpha(float alpha)//Cambia el alfa del sprite
     {
-        if (_sprite != null)
+        if (Tilemap)
         {
-            Color color = _sprite.color;
-            color.a = alpha;
-            _sprite.color = color;
+            if (_spriteTile != null)
+            {
+                Color color = _spriteTile.color;
+                color.a = alpha;
+                _spriteTile.color = color;
+            }
         }
+        else
+        {
+            if (_spriteRenderer != null)
+            {
+                Color color = _spriteRenderer.color;
+                color.a = alpha;
+                _spriteRenderer.color = color;
+            }
+        }
+        
     }
 
 } // class CambioEstado 
