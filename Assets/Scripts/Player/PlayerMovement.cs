@@ -129,7 +129,7 @@ public class PlayerMovement : MonoBehaviour
             jumpTimeCounter += Time.deltaTime;
             if (jumpTimeCounter >= jumpTime)
             {
-                rb.velocity = new Vector2(rb.velocity.x, 0);
+                rb.velocity += new Vector2(rb.velocity.x, 0);
             }
         }
         else
@@ -140,7 +140,7 @@ public class PlayerMovement : MonoBehaviour
         if (InputManager.Instance.JumpWasReleasedThisFrame() && isJumping)
         {
             isJumping = false;
-            rb.velocity = new Vector2(rb.velocity.x, 0);
+            rb.velocity += new Vector2(rb.velocity.x, 0);
         }
         
 
@@ -185,6 +185,26 @@ public class PlayerMovement : MonoBehaviour
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
 
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        PlatformMovement platform = collision.gameObject.GetComponent<PlatformMovement>();
+        if (platform != null)
+        {
+            transform.SetParent(platform.gameObject.transform);
+        }
+    }
+
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        PlatformMovement platform = collision.gameObject.GetComponent<PlatformMovement>();
+        if (platform != null)
+        {
+            transform.SetParent(null);
+            // rb.velocity += new Vector2(platform.getVel().x, platform.getVel().y);
+            // Debug.Log(platform.getVel());
+        }
+    }
+
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
@@ -223,9 +243,9 @@ public class PlayerMovement : MonoBehaviour
 
     }
     */
-     
 
-    #endregion   
+
+    #endregion
 
 } // class PlayerMovement 
 // namespace
