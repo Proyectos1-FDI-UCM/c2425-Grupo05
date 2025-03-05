@@ -112,6 +112,10 @@ public class PlayerMovement : MonoBehaviour
             if (hitCollider.gameObject != gameObject && ((1 << hitCollider.gameObject.layer) & ground) != 0)
             {
             isGrounded = true;
+            if (!isJumping)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, 0);
+            }
             }
         }
 
@@ -127,20 +131,15 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             jumpTimeCounter += Time.deltaTime;
-            if (jumpTimeCounter >= jumpTime)
-            {
-                rb.velocity += new Vector2(rb.velocity.x, 0);
-            }
         }
         else
         {
             isJumping = false;
         }
 
-        if (InputManager.Instance.JumpWasReleasedThisFrame() && isJumping)
+        if (InputManager.Instance.JumpWasReleasedThisFrame())
         {
             isJumping = false;
-            rb.velocity += new Vector2(rb.velocity.x, 0);
         }
         
 
