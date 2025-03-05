@@ -26,9 +26,9 @@ public class PlayerMovement : MonoBehaviour
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
 
-    [SerializeField] public float speed = 5f;
-    [SerializeField] public float jumpForceInitial = 2f;
-    [SerializeField] public float jumpForce = 0.1f;
+    [SerializeField] private float speed = 7f;
+    [SerializeField] private float jumpForceInitial = 2f;
+    [SerializeField] private float jumpForce = 0.1f;
     [SerializeField] private Animator animator;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] float distanciaparedizquierda = 7.5f;
@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float distanciaparedderecha = 23.5f;
     public LayerMask ground;
     #endregion
-    
+
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
     // Documentar cada atributo que aparece aquí.
@@ -45,6 +45,8 @@ public class PlayerMovement : MonoBehaviour
     // primera palabra en minúsculas y el resto con la 
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
+    [SerializeField] private float horizontal;
+    [SerializeField] private float vertical;
     private Rigidbody2D rb;
     private bool isGrounded;
     private GameObject child;
@@ -86,22 +88,12 @@ public class PlayerMovement : MonoBehaviour
 
         //Obtener el vector de movimiento desde el InputManager.
         Vector2 moveInput = InputManager.Instance.MovementVector;
-        Vector3 move = new Vector3(moveInput.x, 0, 0) * speed *Time.deltaTime;
-        transform.position += move;
+        rb.velocity = new Vector2(moveInput.x * speed, rb.velocity.y);
 
-        if (gameObject.transform.position.x < -distanciaparedizquierda + playerwidth)
-        {
-            transform.position = new Vector3(-distanciaparedizquierda + playerwidth, transform.position.y, transform.position.z);
-        }
-        else if (gameObject.transform.position.x > distanciaparedderecha - playerwidth)
-        {
-            transform.position = new Vector3(distanciaparedderecha - playerwidth, transform.position.y, transform.position.z);
-        }
         //Voltear el sprite
-        float horizontalMovement = moveInput.x;
-        if (horizontalMovement != 0)
+        if (moveInput.x != 0)
         {
-            spriteRenderer.flipX = horizontalMovement < 0;
+            spriteRenderer.flipX = moveInput.x < 0;
         }
         //Detecta si el hijo está colisionando con algo
         Collider2D[] hitColliders = Physics2D.OverlapBoxAll(childCollider.bounds.center, childCollider.bounds.size , 0);
@@ -176,6 +168,7 @@ public class PlayerMovement : MonoBehaviour
 
     // ---- MÉTODOS PRIVADOS ----
     #region Métodos Privados
+
     // Documentar cada método que aparece aquí
     // El convenio de nombres de Unity recomienda que estos métodos
     // se nombren en formato PascalCase (palabras con primera letra
