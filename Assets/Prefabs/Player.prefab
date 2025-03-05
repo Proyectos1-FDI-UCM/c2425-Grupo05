@@ -104,7 +104,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: b48257514a7bb134697032a59df7b36f, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -173,10 +173,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  jumpForceInitial: 2
   jumpForce: 2
+  animator: {fileID: 0}
+  spriteRenderer: {fileID: 0}
+  distanciaparedizquierda: 7.5
+  playerwidth: 1
+  distanciaparedderecha: 23.5
   ground:
     serializedVersion: 2
     m_Bits: 128
+  jumpTimeCounter: 0
+  jumpTime: 0
+  isJumping: 0
 --- !u!1 &3517308946950158991
 GameObject:
   m_ObjectHideFlags: 0

@@ -88,15 +88,7 @@ public class PlayerMovement : MonoBehaviour
         Vector2 moveInput = InputManager.Instance.MovementVector;
         Vector3 move = new Vector3(moveInput.x, 0, 0) * speed *Time.deltaTime;
         transform.position += move;
-
-        if (gameObject.transform.position.x < -distanciaparedizquierda + playerwidth)
-        {
-            transform.position = new Vector3(-distanciaparedizquierda + playerwidth, transform.position.y, transform.position.z);
-        }
-        else if (gameObject.transform.position.x > distanciaparedderecha - playerwidth)
-        {
-            transform.position = new Vector3(distanciaparedderecha - playerwidth, transform.position.y, transform.position.z);
-        }
+        
         //Voltear el sprite
         float horizontalMovement = moveInput.x;
         if (horizontalMovement != 0)
