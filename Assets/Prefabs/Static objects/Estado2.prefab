@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 187069736861716167}
   - component: {fileID: 1166567121551933314}
   - component: {fileID: 6690584352107410355}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Estado2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -143,9 +143,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b80d84705eefbbb40b1f446335ba4e5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ChangeTime: 3.5
-  ChangeTimeTrasluz: 3
   State1: 0
-  Trasluz: 0
-  OnRoom: 1
   Player: {fileID: 0}
