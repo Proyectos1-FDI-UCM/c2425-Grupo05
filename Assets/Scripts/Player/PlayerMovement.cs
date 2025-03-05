@@ -31,9 +31,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpForce = 0.1f;
     [SerializeField] private Animator animator;
     [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] float distanciaparedizquierda = 7.5f;
-    [SerializeField] float playerwidth = 1f;
-    [SerializeField] float distanciaparedderecha = 23.5f;
     public LayerMask ground;
     #endregion
 
