@@ -77,7 +77,7 @@ public class FinishLine : MonoBehaviour
     // El convenio de nombres de Unity recomienda que estos métodos
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
-    private void OnCollisionEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         PlayerMovement playerMovement = collision.gameObject.GetComponent<PlayerMovement>();
         Debug.Log("Entra");

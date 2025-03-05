@@ -83,6 +83,7 @@ public class LevelManager : MonoBehaviour
     }
     private void Start()
     {
+        player.transform.position = levelPlayerPos.transform.position;
         RoomTimeRemaining = RoomMaxTime;
         _platformMovement = FindObjectsByType<PlatformMovement>(FindObjectsSortMode.None);
         estados = FindObjectsOfType<CambioEstado>();//llama a todos los prefabs que contienen este script
@@ -189,6 +190,7 @@ public class LevelManager : MonoBehaviour
     {
         _room++;
         player.transform.position = nextRoomPlayerPos[_room].transform.position;
+        levelPlayerPos = nextRoomPlayerPos[_room];
     }
 
     #endregion
