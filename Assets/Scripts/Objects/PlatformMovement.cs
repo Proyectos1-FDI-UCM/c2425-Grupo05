@@ -35,7 +35,7 @@ public class PlatformMovement : MonoBehaviour
     */
     [SerializeField] private Vector4[] waypoints;
 
-    
+
     // ---- ATRIBUTOS PRIVADOS ----
 
     //Indica el momento en el que empezaste a moverte hacia el waypoint n / acabaste de moverte hacia el waypoint n-1.
@@ -45,7 +45,7 @@ public class PlatformMovement : MonoBehaviour
     private int n = 0;
     private Vector2[] speeds;
     //Pos ini de la plataforma
-    
+
 
     #region Atributos Privados (private fields)
     // Documentar cada atributo que aparece aquí.
@@ -63,9 +63,9 @@ public class PlatformMovement : MonoBehaviour
         //autocompleta las velocidades y/o los tiempos de los waypoints;
         speeds = new Vector2[waypoints.Length];
 
-        if(waypoints[0].z == 0 && waypoints[0].w == 0)
+        if (waypoints[0].z == 0 && waypoints[0].w == 0)
         {
-        } 
+        }
         else if (waypoints[0].z != 0 && waypoints[0].w == 0)
         {
             waypoints[0].w = Vector2.Distance(waypoints[waypoints.Length - 1], waypoints[0]) / waypoints[0].z; // velocidad = espacio / tiempo
@@ -79,30 +79,32 @@ public class PlatformMovement : MonoBehaviour
             waypoints[0].z = Vector2.Distance(waypoints[waypoints.Length - 1], waypoints[0]) / waypoints[0].w; // tiempo = espacio / velocidad
         }
 
-        for (int i = 1; i < waypoints.Length; i++) 
+        for (int i = 1; i < waypoints.Length; i++)
         {
             if (waypoints[i].z == 0 && waypoints[i].w == 0)
             {
             }
             else if (waypoints[i].z != 0 && waypoints[i].w == 0)
             {
-                waypoints[i].w = Vector2.Distance(waypoints[i - 1], waypoints[i]) / waypoints[i].z; 
+                waypoints[i].w = Vector2.Distance(waypoints[i - 1], waypoints[i]) / waypoints[i].z;
+                waypoints[i].w = Vector2.Distance(waypoints[i - 1], waypoints[i]) / waypoints[i].z; // velocidad = espacio / tiempo
                 if (waypoints[i].w != 0)
                 {
                     Debug.Log("Cuidado: Tiempo(z) y Velocidad(w) de la plataforma móvil no deben ser manipuladas al mismo tiempo");
                 }
-                
+
 
             }
             else if (waypoints[i].w != 0 && waypoints[i].z == 0)
             {
-                waypoints[i].z = Vector2.Distance(waypoints[i - 1], waypoints[i]) / waypoints[i].w; 
+                waypoints[i].z = Vector2.Distance(waypoints[i - 1], waypoints[i]) / waypoints[i].w;
+                waypoints[i].z = Vector2.Distance(waypoints[i - 1], waypoints[i]) / waypoints[i].w; // tiempo = espacio / velocidad
             }
 
             //precalcular velocidades (i,j)
             speeds[0].x = (waypoints[0].x - waypoints[waypoints.Length - 1].x) / waypoints[0].z;
             speeds[0].y = (waypoints[0].y - waypoints[waypoints.Length - 1].y) / waypoints[0].z;
-            speeds[i].x= (waypoints[i].x - waypoints[i-1].x)/ waypoints[i].z;
+            speeds[i].x = (waypoints[i].x - waypoints[i - 1].x) / waypoints[i].z;
             speeds[i].y = (waypoints[i].y - waypoints[i - 1].y) / waypoints[i].z;
         }
 
@@ -115,7 +117,7 @@ public class PlatformMovement : MonoBehaviour
     {
         if (waypoints[n].w == 0)
         {
-            transform.position = new Vector2 (waypoints[n].x, waypoints[n].y);
+            transform.position = new Vector2(waypoints[n].x, waypoints[n].y);
         }
         else
         {
@@ -139,7 +141,7 @@ public class PlatformMovement : MonoBehaviour
     // Ejemplo: GetPlayerController
 
     #endregion
-    
+
     public Vector2 getVel()
     {
         return speeds[n];
@@ -161,6 +163,6 @@ public class PlatformMovement : MonoBehaviour
     }
 
     // ---- MÉTODOS PRIVADOS ----
-    
+
 } // class PlatformMovement 
 // namespace
