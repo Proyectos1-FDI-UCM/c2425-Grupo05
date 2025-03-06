@@ -174,6 +174,8 @@ public class LevelManager : MonoBehaviour
         }
         StateTime = 0;
         State = 0;
+        RoomTimeRemaining = RoomMaxTime;
+
 
     }
     public void ChangeState()
