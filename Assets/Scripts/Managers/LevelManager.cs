@@ -44,6 +44,8 @@ public class LevelManager : MonoBehaviour
     [SerializeField]
     private float ChangeTimeTrasluz = 3.5f;//el tiempo que tarda en poner una imagen translúcida del siguiente estado
     // Variables del contador de tiempo de la sala
+    [SerializeField]
+    Vector3 []CameraPos;
     public float RoomMaxTime = 10f;
     public float RoomTimeRemaining;
     // Variables del contador de tiempo del estado
@@ -64,6 +66,7 @@ public class LevelManager : MonoBehaviour
     private static LevelManager _instance;
     private PlatformMovement[] _platformMovement;
     private CambioEstado[] estados;//llama a los prefabs que pueden cambiar de estado
+    private Camera Camera;
     private int _room = 0;
 
 
@@ -88,6 +91,7 @@ public class LevelManager : MonoBehaviour
         RoomTimeRemaining = RoomMaxTime;
         _platformMovement = FindObjectsByType<PlatformMovement>(FindObjectsSortMode.None);
         estados = FindObjectsOfType<CambioEstado>();//llama a todos los prefabs que contienen este script
+        Camera = FindObjectOfType<Camera>();
     }
 
     
@@ -192,6 +196,7 @@ public class LevelManager : MonoBehaviour
         _room++;
         player.transform.position = nextRoomPlayerPos[_room].transform.position;
         levelPlayerPos = nextRoomPlayerPos[_room];
+        Camera.transform.position = CameraPos[_room];
     }
 
     #endregion
