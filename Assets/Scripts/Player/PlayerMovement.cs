@@ -157,7 +157,7 @@ public class PlayerMovement : MonoBehaviour
             }
 
         }
-        else
+        else if (platform.getVel() != null && !float.IsNaN(platform.getVel().x) && !float.IsNaN(platform.getVel().y))
         {
             rb.velocity = new Vector2(moveInput.x * speed + platform.getVel().x, platform.getVel().y);
         }
