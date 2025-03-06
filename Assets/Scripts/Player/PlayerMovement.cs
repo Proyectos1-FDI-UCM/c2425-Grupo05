@@ -33,9 +33,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpForce = 0.1f;
     [SerializeField] private Animator animator;
     [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] float distanciaparedizquierda = 7.5f;
-    [SerializeField] float playerwidth = 1f;
-    [SerializeField] float distanciaparedderecha = 23.5f;
     public LayerMask ground;
     #endregion
 
@@ -202,28 +199,6 @@ public class PlayerMovement : MonoBehaviour
      private void OnMove(InputAction.CallbackContext context)
     {
         MovementVector = context.ReadValue<Vector2>();
-    }
-
-    /*
-    void Update()
-    {
-      dashing = GetComponent<PlayerDash>().dash();
-    
-    MoveDirection = (Vector3)InputManager.Instance.MovementVector;
-
-    if ((cD.GetCollisions()[0] && MoveDirection.y > 0) || cD.GetCollisions()[1] && MoveDirection.y < 0) MoveDirection.y = 0;
-
-    MoveDirection = MoveDirection.Normalized
-
-    if (MoveDirection != Vector3.zero)
-    {
-        LastDirection = MoveDirection;
-    }
-    if (!dashing) 
-    rb.velocity = MoveDirection * MoveSpeed * Time.fixedDeltaTime; 
-
-
-
     }
     */
 
