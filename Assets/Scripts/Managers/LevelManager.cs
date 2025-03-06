@@ -197,6 +197,7 @@ public class LevelManager : MonoBehaviour
         player.transform.position = nextRoomPlayerPos[_room].transform.position;
         levelPlayerPos = nextRoomPlayerPos[_room];
         Camera.transform.position = CameraPos[_room];
+        RoomTimeRemaining = RoomMaxTime;
     }
 
     #endregion
