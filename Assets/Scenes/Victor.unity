@@ -3490,7 +3490,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2078992898098006639, guid: d1cb0d22127e60e4699564f46274486b, type: 3}
       propertyPath: jumpForce
-      value: 0.12
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 2078992898098006639, guid: d1cb0d22127e60e4699564f46274486b, type: 3}
       propertyPath: spriteRenderer

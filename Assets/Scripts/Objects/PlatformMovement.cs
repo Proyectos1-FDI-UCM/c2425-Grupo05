@@ -68,6 +68,7 @@ public class PlatformMovement : MonoBehaviour
         } 
         else if (waypoints[0].z != 0 && waypoints[0].w == 0)
         {
+            waypoints[0].w = Vector2.Distance(waypoints[waypoints.Length - 1], waypoints[0]) / waypoints[0].z; // velocidad = espacio / tiempo
             if (waypoints[0].w != 0)
             {
                 Debug.Log("Cuidado: Tiempo(z) y Velocidad(w) de la plataforma móvil no deben ser manipuladas al mismo tiempo");
@@ -85,7 +86,7 @@ public class PlatformMovement : MonoBehaviour
             }
             else if (waypoints[i].z != 0 && waypoints[i].w == 0)
             {
-                waypoints[i].w = Vector2.Distance(waypoints[i - 1], waypoints[i]) / waypoints[i].z; // velocidad = espacio / tiempo
+                waypoints[i].w = Vector2.Distance(waypoints[i - 1], waypoints[i]) / waypoints[i].z; 
                 if (waypoints[i].w != 0)
                 {
                     Debug.Log("Cuidado: Tiempo(z) y Velocidad(w) de la plataforma móvil no deben ser manipuladas al mismo tiempo");
@@ -95,7 +96,7 @@ public class PlatformMovement : MonoBehaviour
             }
             else if (waypoints[i].w != 0 && waypoints[i].z == 0)
             {
-                waypoints[i].z = Vector2.Distance(waypoints[i - 1], waypoints[i]) / waypoints[i].w; // tiempo = espacio / velocidad
+                waypoints[i].z = Vector2.Distance(waypoints[i - 1], waypoints[i]) / waypoints[i].w; 
             }
 
             //precalcular velocidades (i,j)
@@ -139,7 +140,7 @@ public class PlatformMovement : MonoBehaviour
 
     #endregion
     
-    public Vector2 GetVel()
+    public Vector2 getVel()
     {
         return speeds[n];
     }
