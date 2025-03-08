@@ -39,10 +39,10 @@ public class PlatformMovement : MonoBehaviour
     // ---- ATRIBUTOS PRIVADOS ----
 
     //Indica el momento en el que empezaste a moverte hacia el waypoint n / acabaste de moverte hacia el waypoint n-1.
-    private float lastWaypointTime;
+    private float _lastWaypointTime;
 
     //Indica el waypoint hacia el que me estoy moviendo la plataforma.
-    private int n = 0;
+    private int _n = 0;
     private Vector2[] speeds;
     //Pos ini de la plataforma
 
@@ -62,52 +62,12 @@ public class PlatformMovement : MonoBehaviour
     {
         //autocompleta las velocidades y/o los tiempos de los waypoints;
         speeds = new Vector2[waypoints.Length];
-
-        if (waypoints[0].z == 0 && waypoints[0].w == 0)
-        {
-        }
-        else if (waypoints[0].z != 0 && waypoints[0].w == 0)
-        {
-            waypoints[0].w = Vector2.Distance(waypoints[waypoints.Length - 1], waypoints[0]) / waypoints[0].z; // velocidad = espacio / tiempo
-            if (waypoints[0].w != 0)
-            {
-                Debug.Log("Cuidado: Tiempo(z) y Velocidad(w) de la plataforma móvil no deben ser manipuladas al mismo tiempo");
-            }
-        }
-        else if (waypoints[0].w != 0 && waypoints[0].z == 0)
-        {
-            waypoints[0].z = Vector2.Distance(waypoints[waypoints.Length - 1], waypoints[0]) / waypoints[0].w; // tiempo = espacio / velocidad
-        }
-
+        AutocompleteWaypoint(waypoints.Length - 1, 0);
+        
         for (int i = 1; i < waypoints.Length; i++)
         {
-            if (waypoints[i].z == 0 && waypoints[i].w == 0)
-            {
-            }
-            else if (waypoints[i].z != 0 && waypoints[i].w == 0)
-            {
-                waypoints[i].w = Vector2.Distance(waypoints[i - 1], waypoints[i]) / waypoints[i].z;
-                waypoints[i].w = Vector2.Distance(waypoints[i - 1], waypoints[i]) / waypoints[i].z; // velocidad = espacio / tiempo
-                if (waypoints[i].w != 0)
-                {
-                    Debug.Log("Cuidado: Tiempo(z) y Velocidad(w) de la plataforma móvil no deben ser manipuladas al mismo tiempo");
-                }
-
-
-            }
-            else if (waypoints[i].w != 0 && waypoints[i].z == 0)
-            {
-                waypoints[i].z = Vector2.Distance(waypoints[i - 1], waypoints[i]) / waypoints[i].w;
-                waypoints[i].z = Vector2.Distance(waypoints[i - 1], waypoints[i]) / waypoints[i].w; // tiempo = espacio / velocidad
-            }
-
-            //precalcular velocidades (i,j)
-            speeds[0].x = (waypoints[0].x - waypoints[waypoints.Length - 1].x) / waypoints[0].z;
-            speeds[0].y = (waypoints[0].y - waypoints[waypoints.Length - 1].y) / waypoints[0].z;
-            speeds[i].x = (waypoints[i].x - waypoints[i - 1].x) / waypoints[i].z;
-            speeds[i].y = (waypoints[i].y - waypoints[i - 1].y) / waypoints[i].z;
+            AutocompleteWaypoint(i-1,i);
         }
-
 
         ResetPlatform();
 
@@ -115,19 +75,19 @@ public class PlatformMovement : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (waypoints[n].w == 0)
+        if (waypoints[_n].w == 0)
         {
-            transform.position = new Vector2(waypoints[n].x, waypoints[n].y);
+            transform.position = new Vector2(waypoints[_n].x, waypoints[_n].y);
         }
         else
         {
-            transform.position = Vector2.MoveTowards(transform.position, waypoints[n], Time.fixedDeltaTime * waypoints[n].w);
+            transform.position = Vector2.MoveTowards(transform.position, waypoints[_n], Time.fixedDeltaTime * waypoints[_n].w);
         }
-        if (Time.fixedTime > lastWaypointTime + waypoints[n].z)
+        if (Time.fixedTime > _lastWaypointTime + waypoints[_n].z)
         {
-            if (n + 1 < waypoints.Length) n++;
-            else n = 0;
-            lastWaypointTime = Time.fixedTime;
+            if (_n + 1 < waypoints.Length) _n++;
+            else _n = 0;
+            _lastWaypointTime = Time.fixedTime;
         }
 
     }
@@ -139,17 +99,14 @@ public class PlatformMovement : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
-
-    #endregion
-
     public Vector2 getVel()
     {
-        return speeds[n];
+        return speeds[_n];
     }
     //reinicia la plataforma a su posición inicial.
     public void ResetPlatform()
     {
-        n = 0;
+        _n = 0;
 
         //Va al waypoint inicial
         transform.position = waypoints[0];
@@ -157,12 +114,48 @@ public class PlatformMovement : MonoBehaviour
           Hace que el momento en el que hayas acabado de moverte hacia el waypoint inicial sea el actual => 
           => en el siguiente FixedUpdate empezará a moverse al siguiente waypoint (el número 1) 
         */
-        lastWaypointTime = Time.fixedTime;
+        _lastWaypointTime = Time.fixedTime;
         //Suma 1 a n para que se empiece a mover hacia el waypoint 1;
-        if (waypoints.Length > 1) n++;
+        if (waypoints.Length > 1) _n++;
     }
+    #endregion
+
+
 
     // ---- MÉTODOS PRIVADOS ----
+    #region Métodos Privados
+    // Documentar cada método que aparece aquí
+    // El convenio de nombres de Unity recomienda que estos métodos
+    // se nombren en formato PascalCase (palabras con primera letra
+    // mayúscula, incluida la primera letra)
+    /// <summary>
+    /// Autocompleta los valores de vel o tiempo de la plataforma y agrega la vel(i,j) al array speeds
+    /// </summary>
+    /// <param name="posPrev"></param>
+    /// <param name="pos"></param>
+    private void AutocompleteWaypoint(int posPrev, int pos)
+    {
+        if (waypoints[pos].z == 0)
+        {
+            if (waypoints[pos].w != 0)
+            {
+                waypoints[pos].z = Vector2.Distance(waypoints[posPrev], waypoints[pos]) / waypoints[pos].w; // tiempo = espacio / velocidad
+            }
+        }
+        else
+        {
 
+            waypoints[pos].w = Vector2.Distance(waypoints[posPrev], waypoints[pos]) / waypoints[pos].z; // velocidad = espacio / tiempo
+
+
+            if (waypoints[pos].w != 0) Debug.Log("Cuidado: Tiempo(z) y Velocidad(w) de la plataforma móvil no deben ser manipuladas a la vez");
+
+        }
+        speeds[pos].x = (waypoints[pos].x - waypoints[posPrev].x) / waypoints[pos].z;
+        speeds[pos].y = (waypoints[pos].y - waypoints[posPrev].y) / waypoints[pos].z;
+
+
+    }
+    #endregion
 } // class PlatformMovement 
 // namespace
