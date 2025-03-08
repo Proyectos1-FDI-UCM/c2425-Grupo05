@@ -48,8 +48,19 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float vertical;
     private Rigidbody2D rb;
     private bool isGrounded;
-    private GameObject child;
-    private Collider2D childCollider;
+
+
+    private GameObject _child;
+    private Collider2D jumpCollider;
+    private Collider2D platformEnterCollider;
+    private Collider2D platformExitCollider;
+    ///se necesitan platformEnter y platformExit porque si se usa solo 1 collider para detectar si estás en la plataforma o no,
+    ///este tiene que ser tan ancho como el jugador(o casi).
+    ///Si este collider se usara también para detectar si entras en la plataforma, si te pegas al lateral de la plataforma que se mueve hacia tí, 
+    ///el collider detectará que la estás pisando aunque solamente estés pegado a una pared, lo que lleva a que te quedes pegado a la pared de la plataforma.
+    /// </summary>
+    
+
     PlatformMovement platform;
     [SerializeField]
     private float jumpTimeCounter;
@@ -58,7 +69,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private bool isJumping;
     Vector2 moveInput;
-    private bool _justJumped = false;
+    private bool justJumped = false;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -75,9 +86,17 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
-        child = transform.GetChild(0).gameObject; // Obtiene el primer hijo directamente
-        childCollider = child.GetComponent<Collider2D>(); // Obtiene su Collider2D
-        _justJumped = false;
+        //collider salto
+        _child = transform.GetChild(0).gameObject; // Obtiene el primer hijo directamente
+        jumpCollider = _child.GetComponent<Collider2D>(); // Obtiene su Collider2D
+        //collider entrado en plataforma
+        _child = transform.GetChild(1).gameObject;
+        platformEnterCollider = _child.GetComponent<Collider2D>();
+        //collider salido de plataforma
+        _child = transform.GetChild(2).gameObject;
+        platformExitCollider = _child.GetComponent<Collider2D>();
+
+        justJumped = false;
     }
 
     /// <summary>
@@ -85,7 +104,7 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (childCollider == null) return;
+        if (jumpCollider == null || platformEnterCollider ==null || platformExitCollider ==null) return;
         if (InputManager.Instance == null) return;
 
         //Obtener el vector de movimiento desde el InputManager.
@@ -114,7 +133,7 @@ public class PlayerMovement : MonoBehaviour
         //SALTO
         if (isGrounded && InputManager.Instance.JumpWasPressedThisFrame())
         {
-            _justJumped = true;
+            justJumped = true;
             
         }
         else if (InputManager.Instance.JumpWasReleasedThisFrame()&&isJumping)
@@ -129,7 +148,7 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         //Detecta si el hijo está colisionando con algo
-        Collider2D[] hitColliders = Physics2D.OverlapBoxAll(childCollider.bounds.center, childCollider.bounds.size, 0);
+        Collider2D[] hitColliders = Physics2D.OverlapBoxAll(jumpCollider.bounds.center, jumpCollider.bounds.size, 0);
 
         isGrounded = false;
         platform = null;
@@ -167,13 +186,13 @@ public class PlayerMovement : MonoBehaviour
         }
 
         #endregion
-        if (_justJumped)
+        if (justJumped)
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y+jumpForceInitial);
             
             isJumping = true;
             jumpTimeCounter = 0;
-            _justJumped = false;
+            justJumped = false;
             
         }
 
