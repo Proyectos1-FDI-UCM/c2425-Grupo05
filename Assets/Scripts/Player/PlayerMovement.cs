@@ -58,7 +58,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private bool isJumping;
     Vector2 moveInput;
- 
+    private bool _justJumped = false;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -77,6 +77,7 @@ public class PlayerMovement : MonoBehaviour
         rb = gameObject.GetComponent<Rigidbody2D>();
         child = transform.GetChild(0).gameObject; // Obtiene el primer hijo directamente
         childCollider = child.GetComponent<Collider2D>(); // Obtiene su Collider2D
+        _justJumped = false;
     }
 
     /// <summary>
@@ -89,49 +90,34 @@ public class PlayerMovement : MonoBehaviour
 
         //Obtener el vector de movimiento desde el InputManager.
         moveInput = InputManager.Instance.MovementVector;
-        //moveInput.x != 0 ? moveInput.x * speed : rb.velocity.x --> si se está pulsando input se mueve, si no, arrastra la velocidad
-        // rb.velocity = new Vector2(moveInput.x * speed, rb.velocity.y);
-        // rb.velocity = new Vector2(moveInput.x != 0 ? moveInput.x * speed : rb.velocity.x * deacceleration, rb.velocity.y);
-        
 
         //Voltear el sprite
         if (moveInput.x != 0)
         {
             spriteRenderer.flipX = moveInput.x < 0;
         }
-        //Detecta si el hijo está colisionando con algo
-        Collider2D[] hitColliders = Physics2D.OverlapBoxAll(childCollider.bounds.center, childCollider.bounds.size , 0);
 
-        isGrounded = false;
-        platform = null;
-        foreach (var hitCollider in hitColliders)
+        
+
+
+        
+        
+        if (isGrounded)
         {
-            if (hitCollider.gameObject != gameObject && ((1 << hitCollider.gameObject.layer) & ground) != 0)
-            {
-                isGrounded = true;
-
-                platform = hitCollider.gameObject.GetComponent<PlatformMovement>();
-                
-            }
+            spriteRenderer.color = Color.white;
         }
-
-        
-        
-        #endregion
+        else
+        {
+            spriteRenderer.color = Color.yellow;
+        }
 
         //SALTO
-        if (isGrounded && InputManager.Instance.JumpWasPressedThisFrame() && !isJumping)
+        if (isGrounded && InputManager.Instance.JumpWasPressedThisFrame())
         {
-            Debug.Log("Jump Aptempt"+ rb.velocity.y);
-            isJumping = true;
-            //rb.velocity += new Vector2(rb.velocity.x, 0); 
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y+ jumpForceInitial);
-            rb.transform.position = new Vector3(transform.position.x,transform.position.y+rb.velocity.y*Time.fixedDeltaTime,transform.position.z);
-            Debug.Log("J: " + rb.velocity.y);
-
-            jumpTimeCounter = 0;
+            _justJumped = true;
+            
         }
-        if (InputManager.Instance.JumpWasReleasedThisFrame()&&isJumping)
+        else if (InputManager.Instance.JumpWasReleasedThisFrame()&&isJumping)
         {
             isJumping = false;
         }
@@ -142,6 +128,22 @@ public class PlayerMovement : MonoBehaviour
     }
     void FixedUpdate()
     {
+        //Detecta si el hijo está colisionando con algo
+        Collider2D[] hitColliders = Physics2D.OverlapBoxAll(childCollider.bounds.center, childCollider.bounds.size, 0);
+
+        isGrounded = false;
+        platform = null;
+        foreach (var hitCollider in hitColliders)
+        {
+            if (hitCollider.gameObject != gameObject && ((1 << hitCollider.gameObject.layer) & ground) != 0) //por qué se usa & y no &&?
+            {
+                isGrounded = true;
+
+                platform = hitCollider.gameObject.GetComponent<PlatformMovement>();
+
+            }
+        }
+
         #region seteo y cambio de velocidad.x, velocidad.y a las correspondientes de base(no contando salto).
         if (platform == null)
         {
@@ -157,11 +159,24 @@ public class PlayerMovement : MonoBehaviour
             }
 
         }
-        else if (platform.getVel() != null && !float.IsNaN(platform.getVel().x) && !float.IsNaN(platform.getVel().y))
+        else if (platform != null )
         {
-            rb.velocity = new Vector2(moveInput.x * speed + platform.getVel().x, platform.getVel().y);
+            rb.velocity = new Vector2(moveInput.x * speed + platform.getVel().x, platform.getVel().y); //el problema está aquí.
+            //el problema (audio)
+
         }
+
         #endregion
+        if (_justJumped)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y+jumpForceInitial);
+            
+            isJumping = true;
+            jumpTimeCounter = 0;
+            _justJumped = false;
+            
+        }
+
         if (isJumping && jumpTimeCounter < jumpTime)
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + jumpForce);
@@ -171,8 +186,9 @@ public class PlayerMovement : MonoBehaviour
         {
             isJumping = false;
         }
+
     }
-    
+    #endregion
 
     // ---- MÉTODOS PÚBLICOS ----
     #region Métodos públicos
@@ -182,7 +198,7 @@ public class PlayerMovement : MonoBehaviour
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
 
-    
+
 
     #endregion
 
