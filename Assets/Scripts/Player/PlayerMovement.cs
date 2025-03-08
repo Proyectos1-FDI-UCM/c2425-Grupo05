@@ -53,7 +53,9 @@ public class PlayerMovement : MonoBehaviour
     private GameObject _child;
     private Collider2D jumpCollider;
     private Collider2D platformEnterCollider;
+    private bool platformEnterBool;
     private Collider2D platformExitCollider;
+    private bool platformExitBool;
     ///se necesitan platformEnter y platformExit porque si se usa solo 1 collider para detectar si estás en la plataforma o no,
     ///este tiene que ser tan ancho como el jugador(o casi).
     ///Si este collider se usara también para detectar si entras en la plataforma, si te pegas al lateral de la plataforma que se mueve hacia tí, 
@@ -147,16 +149,25 @@ public class PlayerMovement : MonoBehaviour
     }
     void FixedUpdate()
     {
-        //Detecta si el hijo está colisionando con algo
+        //Detecta si el jumpCollider está colisionando con algo
         Collider2D[] hitColliders = Physics2D.OverlapBoxAll(jumpCollider.bounds.center, jumpCollider.bounds.size, 0);
-
         isGrounded = false;
-        platform = null;
+        
         foreach (var hitCollider in hitColliders)
         {
             if (hitCollider.gameObject != gameObject && ((1 << hitCollider.gameObject.layer) & ground) != 0) //por qué se usa & y no &&?
             {
                 isGrounded = true;
+            }
+        }
+
+        hitColliders = Physics2D.OverlapBoxAll(platformEnterCollider.bounds.center, platformEnterCollider.bounds.size, 0);
+        platform = null;
+        
+        foreach (var hitCollider in hitColliders)
+        {
+            if (hitCollider.gameObject != gameObject && ((1 << hitCollider.gameObject.layer) & ground) != 0) //por qué se usa & y no &&?
+            {
 
                 platform = hitCollider.gameObject.GetComponent<PlatformMovement>();
 
