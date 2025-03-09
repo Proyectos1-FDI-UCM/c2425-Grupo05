@@ -6,6 +6,7 @@
 //---------------------------------------------------------
 
 using System.Globalization;
+using System.Runtime.CompilerServices;
 using System.Runtime.Serialization.Formatters;
 using Unity.Collections;
 using UnityEngine;
@@ -49,6 +50,10 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private GameObject _child;
     private Collider2D jumpCollider;
+    private Collider2D upLeftCollider;
+    private Collider2D upRightCollider;
+    private Collider2D upCenterCollider;
+
     PlatformMovement platform;
 
 
@@ -78,10 +83,20 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
 
-        //collider salto
+        #region//Coge referencias a los colliders correspondientes a los hijos
+
         _child = transform.GetChild(0).gameObject; // Obtiene el primer hijo directamente
         jumpCollider = _child.GetComponent<Collider2D>(); // Obtiene su Collider2D
 
+        _child = transform.GetChild(1).gameObject; // Obtiene el segundo hijo directamente
+        upLeftCollider = _child.GetComponent<Collider2D>(); // Obtiene su Collider2D
+
+        _child = transform.GetChild(2).gameObject;
+        upRightCollider = _child.GetComponent<Collider2D>();
+
+        _child = transform.GetChild(3).gameObject;
+        upCenterCollider = _child.GetComponent<Collider2D>();
+        #endregion
 
         justJumped = false;
     }
@@ -203,6 +218,51 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity = new Vector2(moveInput.x * speed + platform.getVel().x, platform.getVel().y); //el problema estaba aquí. (solucionado haciendo collider más pequeño)
             //el problema (audio)
+
+        }
+    }
+
+    private void EdgeAlignment()
+    {
+        bool Left = false;
+        bool Right = false;
+        bool Center = false;
+
+        #region Detecta tres colliders de edge alignment y si hay colisión, Lo devuelve en Left, Right y Center
+        Collider2D[] hitColliders = Physics2D.OverlapBoxAll(upLeftCollider.bounds.center, upLeftCollider.bounds.size, 0);
+        foreach (var hitCollider in hitColliders)
+        {
+            if (hitCollider.gameObject != gameObject && ((1 << hitCollider.gameObject.layer) & ground) != 0) //por qué se usa & y no &&?
+            {
+                Left = true;
+            }
+        }
+
+         hitColliders = Physics2D.OverlapBoxAll(upRightCollider.bounds.center, upRightCollider.bounds.size, 0);
+        foreach (var hitCollider in hitColliders)
+        {
+            if (hitCollider.gameObject != gameObject && ((1 << hitCollider.gameObject.layer) & ground) != 0) //por qué se usa & y no &&?
+            {
+                Right = true;
+            }
+        }
+
+        hitColliders = Physics2D.OverlapBoxAll(upCenterCollider.bounds.center, upCenterCollider.bounds.size, 0);
+        foreach (var hitCollider in hitColliders)
+        {
+            if (hitCollider.gameObject != gameObject && ((1 << hitCollider.gameObject.layer) & ground) != 0) //por qué se usa & y no &&?
+            {
+                Center = true;
+            }
+        }
+        #endregion
+
+        if (Left && !(Right || Center))
+        {
+            //estoy pensando en usar un raycast desde aquí para saber la distancia al borde y así colocar al jugador justo en el borde.
+        }
+        else if (Right && !(Left || Center))
+        {
 
         }
     }
