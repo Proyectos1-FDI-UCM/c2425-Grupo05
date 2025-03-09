@@ -47,21 +47,20 @@ public class PlayerMovement : MonoBehaviour
     
     
     private Rigidbody2D rb;
-    private bool isGrounded;
-
-
     private GameObject _child;
     private Collider2D jumpCollider;
-
     PlatformMovement platform;
-    [SerializeField]
-    private float jumpTimeCounter;
-    [SerializeField]
-    private float jumpTime;
-    [SerializeField]
+
+
+    private bool isGrounded;
     private bool isJumping;
-    Vector2 moveInput;
     private bool justJumped = false;
+
+    private float jumpTimeCounter;
+    private float jumpTime;
+    
+    Vector2 moveInput;
+    
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -105,10 +104,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
 
-
-
-
-
+        //debug:
         if (isGrounded)
         {
             spriteRenderer.color = Color.white;
@@ -118,7 +114,7 @@ public class PlayerMovement : MonoBehaviour
             spriteRenderer.color = Color.yellow;
         }
 
-        //SALTO
+        //Detección inputs salto
         if (isGrounded && InputManager.Instance.JumpWasPressedThisFrame())
         {
             justJumped = true;
