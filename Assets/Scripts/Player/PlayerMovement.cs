@@ -44,24 +44,14 @@ public class PlayerMovement : MonoBehaviour
     // primera palabra en minúsculas y el resto con la 
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
-    [SerializeField] private float horizontal;
-    [SerializeField] private float vertical;
+    
+    
     private Rigidbody2D rb;
     private bool isGrounded;
 
 
     private GameObject _child;
     private Collider2D jumpCollider;
-    private Collider2D platformEnterCollider;
-    private bool platformEnterBool;
-    private Collider2D platformExitCollider;
-    private bool platformExitBool;
-    ///se necesitan platformEnter y platformExit porque si se usa solo 1 collider para detectar si estás en la plataforma o no,
-    ///este tiene que ser tan ancho como el jugador(o casi).
-    ///Si este collider se usara también para detectar si entras en la plataforma, si te pegas al lateral de la plataforma que se mueve hacia tí, 
-    ///el collider detectará que la estás pisando aunque solamente estés pegado a una pared, lo que lleva a que te quedes pegado a la pared de la plataforma.
-    /// </summary>
-    
 
     PlatformMovement platform;
     [SerializeField]
@@ -88,15 +78,11 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
+
         //collider salto
         _child = transform.GetChild(0).gameObject; // Obtiene el primer hijo directamente
         jumpCollider = _child.GetComponent<Collider2D>(); // Obtiene su Collider2D
-        //collider entrado en plataforma
-        _child = transform.GetChild(1).gameObject;
-        platformEnterCollider = _child.GetComponent<Collider2D>();
-        //collider salido de plataforma
-        _child = transform.GetChild(2).gameObject;
-        platformExitCollider = _child.GetComponent<Collider2D>();
+
 
         justJumped = false;
     }
@@ -106,7 +92,7 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (jumpCollider == null || platformEnterCollider ==null || platformExitCollider ==null) return;
+        if (jumpCollider == null) return;
         if (InputManager.Instance == null) return;
 
         //Obtener el vector de movimiento desde el InputManager.
@@ -118,11 +104,11 @@ public class PlayerMovement : MonoBehaviour
             spriteRenderer.flipX = moveInput.x < 0;
         }
 
-        
 
 
-        
-        
+
+
+
         if (isGrounded)
         {
             spriteRenderer.color = Color.white;
@@ -136,87 +122,26 @@ public class PlayerMovement : MonoBehaviour
         if (isGrounded && InputManager.Instance.JumpWasPressedThisFrame())
         {
             justJumped = true;
-            
+
         }
-        else if (InputManager.Instance.JumpWasReleasedThisFrame()&&isJumping)
+        else if (InputManager.Instance.JumpWasReleasedThisFrame() && isJumping)
         {
             isJumping = false;
         }
 
-        
+
 
 
     }
     void FixedUpdate()
     {
-        //Detecta si el jumpCollider está colisionando con algo
-        Collider2D[] hitColliders = Physics2D.OverlapBoxAll(jumpCollider.bounds.center, jumpCollider.bounds.size, 0);
-        isGrounded = false;
+
+        CollisionDetection();
+
+        SetInitialVelocity();
+
+        JumpCalculations();
         
-        foreach (var hitCollider in hitColliders)
-        {
-            if (hitCollider.gameObject != gameObject && ((1 << hitCollider.gameObject.layer) & ground) != 0) //por qué se usa & y no &&?
-            {
-                isGrounded = true;
-            }
-        }
-
-        hitColliders = Physics2D.OverlapBoxAll(platformEnterCollider.bounds.center, platformEnterCollider.bounds.size, 0);
-        platform = null;
-        
-        foreach (var hitCollider in hitColliders)
-        {
-            if (hitCollider.gameObject != gameObject && ((1 << hitCollider.gameObject.layer) & ground) != 0) //por qué se usa & y no &&?
-            {
-
-                platform = hitCollider.gameObject.GetComponent<PlatformMovement>();
-
-            }
-        }
-
-        #region seteo y cambio de velocidad.x, velocidad.y a las correspondientes de base(no contando salto).
-        if (platform == null)
-        {
-            // si la velocidad mia es mayor a la máxima y no estoy pulsando la tecla de la dir contraria o el 0:
-            if (rb.velocity.x > (moveInput.x * speed) && (rb.velocity.x * moveInput.x) > 0)
-            {
-                //va al fixedUpdate porque si va a más fps, se resta la deceleración más veces/segundo
-                rb.velocity = new Vector2(rb.velocity.x - deceleration, rb.velocity.y);
-            }
-            else
-            {
-                rb.velocity = new Vector2(moveInput.x * speed, rb.velocity.y);
-            }
-
-        }
-        else if (platform != null )
-        {
-            rb.velocity = new Vector2(moveInput.x * speed + platform.getVel().x, platform.getVel().y); //el problema está aquí.
-            //el problema (audio)
-
-        }
-
-        #endregion
-        if (justJumped)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y+jumpForceInitial);
-            
-            isJumping = true;
-            jumpTimeCounter = 0;
-            justJumped = false;
-            
-        }
-
-        if (isJumping && jumpTimeCounter < jumpTime)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + jumpForce);
-            jumpTimeCounter += Time.fixedDeltaTime;//Time.FixedDeltatime para el FixedUpdate 
-        }
-        else
-        {
-            isJumping = false;
-        }
-
     }
     #endregion
 
@@ -235,19 +160,85 @@ public class PlayerMovement : MonoBehaviour
     // ---- MÉTODOS PRIVADOS ----
     #region Métodos Privados
 
-    // Documentar cada método que aparece aquí
-    // El convenio de nombres de Unity recomienda que estos métodos
-    // se nombren en formato PascalCase (palabras con primera letra
-    // mayúscula, incluida la primera letra)
-    //como hipoteticamente podría hacer que el jugador pueda volver a saltar del suelo con un collider como hijo
-    // public Vector 2 MovementVector {get; private set;)
-    /*
-     private void OnMove(InputAction.CallbackContext context)
+    /// <summary>
+    /// se encarga de detectar si el jugador ha colisionado con una plataforma y con el suelo para futuras comprobaciones.
+    /// </summary>
+    private void CollisionDetection()
     {
-        MovementVector = context.ReadValue<Vector2>();
-    }
-    */
+        
+        isGrounded = false;
+        platform = null;
 
+        //Detecta si el jumpCollider está colisionando con algo
+        Collider2D[] hitColliders = Physics2D.OverlapBoxAll(jumpCollider.bounds.center, jumpCollider.bounds.size, 0);
+        foreach (var hitCollider in hitColliders)
+        {
+            if (hitCollider.gameObject != gameObject && ((1 << hitCollider.gameObject.layer) & ground) != 0) //por qué se usa & y no &&?
+            {
+                isGrounded = true;
+                if (hitCollider.gameObject.GetComponent<PlatformMovement>() != null && hitCollider.isTrigger)
+                {
+                    platform = hitCollider.gameObject.GetComponent<PlatformMovement>();
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// Setea la velocidad inicial a la correspondiente, dependiendo del input del jugador, de la velocidad previa, y de si está en una plataforma o no.
+    /// </summary>
+    private void SetInitialVelocity()
+    {
+        if(platform == null)
+        {
+            // si la velocidad mia es mayor a la máxima y no estoy pulsando la tecla de la dir contraria o el 0:
+            if ((moveInput.x < 0 && rb.velocity.x < moveInput.x * speed) || (moveInput.x > 0 && rb.velocity.x > moveInput.x * speed))
+            {
+                //va al fixedUpdate porque si va a más fps, se resta la deceleración más veces/segundo
+                rb.velocity = new Vector2(rb.velocity.x - deceleration, rb.velocity.y);
+            }
+            else
+            {
+                rb.velocity = new Vector2(moveInput.x * speed, rb.velocity.y);
+            }
+
+        }
+        else if (platform != null)
+        {
+            rb.velocity = new Vector2(moveInput.x * speed + platform.getVel().x, platform.getVel().y); //el problema estaba aquí. (solucionado haciendo collider más pequeño)
+            //el problema (audio)
+
+        }
+    }
+
+    /// <summary>
+    /// Añade las velocidades necesarias para que el jugador salte.
+    /// </summary>
+    private void JumpCalculations()
+    {
+        //salto(inicial)
+        //JustJumped sirve para que se ejecute el impulso de salto inicial una sola vez.
+        if (justJumped)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + jumpForceInitial);
+            isJumping = true;
+            jumpTimeCounter = 0;
+            justJumped = false;
+
+        }
+
+        //salto(continuación)
+        if (isJumping && jumpTimeCounter < jumpTime)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + jumpForce);
+            jumpTimeCounter += Time.fixedDeltaTime;//Time.FixedDeltatime para el FixedUpdate 
+        }
+        else
+        {
+            isJumping = false;
+        }
+
+    }
 
     #endregion
 
