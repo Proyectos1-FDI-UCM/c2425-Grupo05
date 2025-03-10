@@ -46,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
     // primera palabra en minúsculas y el resto con la 
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
-    private float physicsComparationDistance = 0.001f;
+    private float physicsComparationDistance = 0.01f;
     
     private Rigidbody2D rb;
     private GameObject _child;
@@ -60,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool isGrounded;
     private bool isJumping;
-    private bool justJumped = false;
+    private bool justJumped = false; //cuando pasa a true, salta y justo depués se pone a false para no saltar varias veces con un input.
 
     private float jumpTimeCounter;
     
@@ -133,6 +133,7 @@ public class PlayerMovement : MonoBehaviour
         //Detección inputs salto
         if (isGrounded && InputManager.Instance.JumpWasPressedThisFrame())
         {
+
             justJumped = true;
 
         }
