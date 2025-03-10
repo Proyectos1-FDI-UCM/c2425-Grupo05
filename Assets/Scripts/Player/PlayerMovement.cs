@@ -46,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
     // primera palabra en minúsculas y el resto con la 
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
-    private float physicsComparationDistance = 0.01f;
+    private float physicsComparationDistance = 0.001f;
     
     private Rigidbody2D rb;
     private GameObject _child;
