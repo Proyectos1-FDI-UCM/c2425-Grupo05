@@ -179,14 +179,12 @@ MonoBehaviour:
   deceleration: 0.01
   jumpForceInitial: 5
   jumpForce: 0.35
+  jumpTime: 0.2
   animator: {fileID: 0}
   spriteRenderer: {fileID: 1784382361920628952}
   ground:
     serializedVersion: 2
     m_Bits: 128
-  jumpTimeCounter: 0
-  jumpTime: 0.2
-  isJumping: 0
 --- !u!1 &1070368702417725502
 GameObject:
   m_ObjectHideFlags: 0
@@ -251,7 +249,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.465, y: 0.425}
+  m_Offset: {x: -0.445, y: 0.425}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -262,7 +260,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.05, y: 0.05}
+  m_Size: {x: 0.09, y: 0.05}
   m_EdgeRadius: 0
 --- !u!1 &3200015687438023566
 GameObject:
@@ -328,7 +326,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.465, y: 0.425}
+  m_Offset: {x: 0.445, y: 0.425}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -339,7 +337,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.05, y: 0.05}
+  m_Size: {x: 0.09, y: 0.05}
   m_EdgeRadius: 0
 --- !u!1 &3517308946950158991
 GameObject:
@@ -493,5 +491,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.88, y: 0.05}
+  m_Size: {x: 0.8, y: 0.05}
   m_EdgeRadius: 0
