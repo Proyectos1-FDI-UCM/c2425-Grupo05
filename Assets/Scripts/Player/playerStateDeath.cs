@@ -80,10 +80,11 @@ public class playerStateDeath : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
 
-    void OnTriggerEnter2D(Collider2D other)
+    void OnCollisionEnter2D(Collision2D other)
     {
         if (other.GetComponent<CambioEstado>())
         {
+            Debug.Log("Muerte por cambio de estado")
             LevelManager.Instance.ResetPlayer();
         }
     }
