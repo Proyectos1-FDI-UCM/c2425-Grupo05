@@ -129,7 +129,7 @@ public class PlayerMovement : MonoBehaviour
         {
             spriteRenderer.flipX = moveInput.x < 0;
         }
-        Debug.Log(new Vector2(upLeftCollider.bounds.center.x + upLeftCollider.bounds.extents.x,0.5f));
+        // Debug.Log(new Vector2(upLeftCollider.bounds.center.x + upLeftCollider.bounds.extents.x,0.5f));
         Debug.DrawRay(new Vector2(upLeftCollider.bounds.center.x + upLeftCollider.bounds.extents.x,transform.position.y), new Vector2(-1 * upLeftCollider.bounds.size.x, 0.5f), Color.red);
         //debug:
         //if (isGrounded)
@@ -308,7 +308,7 @@ public class PlayerMovement : MonoBehaviour
         {
             
             RaycastHit2D hit = Physics2D.Raycast(new Vector2(upLeftCollider.bounds.center.x+upLeftCollider.bounds.extents.x, upLeftCollider.bounds.center.y + upLeftCollider.bounds.extents.y+physicsComparationDistance),new Vector2(-1,0), upLeftCollider.bounds.size.x, ground);
-            Debug.Log("Left ray casted");
+            // Debug.Log("Left ray casted");
             if (hit)
             {
                 rb.velocity =lastPhisicsFrameVelocity;
@@ -319,7 +319,7 @@ public class PlayerMovement : MonoBehaviour
         {
             
             RaycastHit2D hit = Physics2D.Raycast(new Vector2(upRightCollider.bounds.center.x - upRightCollider.bounds.extents.x, upRightCollider.bounds.center.y + upRightCollider.bounds.extents.y+physicsComparationDistance), new Vector2(1, 0), upRightCollider.bounds.size.x, ground);
-            Debug.Log("Right ray casted");
+            // Debug.Log("Right ray casted");
             if (hit)
             {
                 rb.velocity = lastPhisicsFrameVelocity;

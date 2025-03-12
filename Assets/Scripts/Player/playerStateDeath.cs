@@ -89,6 +89,15 @@ public class playerStateDeath : MonoBehaviour
         }
     }
 
+    void OnCollisionStay2D(Collision2D other)
+    {
+        if (other.gameObject.GetComponent<CambioEstado>())
+        {
+            Debug.Log("Muerte por cambio de estado");
+            LevelManager.Instance.ResetPlayer();
+        }
+    }
+
     #endregion   
 
 } // class playerStateDeath 

@@ -222,7 +222,14 @@ public class LevelManager : MonoBehaviour
     {
         // De momento no hay nada que inicializar
     }
-
+    private void OnGUI()
+    {
+        Event e = Event.current;
+        if (e.type == EventType.KeyDown && e.keyCode == KeyCode.N)
+        {
+            NextRoom();
+        }
+    }
 
     #endregion
 } // class LevelManager 
