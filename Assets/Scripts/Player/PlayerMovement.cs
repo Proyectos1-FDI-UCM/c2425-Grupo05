@@ -1,7 +1,7 @@
 //---------------------------------------------------------
-// Breve descripción del contenido del archivo
-// Responsable de la creación de este archivo
-// Nombre del juego
+// Contiene lo referente al movimiento del jugador.
+// Edición y o creación: Víctor, Óscar, Adrián Erustes, Amiel
+// I'm Loosing It
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
@@ -33,8 +33,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpForceInitial = 2f;
     [SerializeField] private float jumpForce = 0.1f;
     [SerializeField] private float jumpTime;
+    [SerializeField] private float bufferTime = 0.2f;
     [SerializeField] private Animator animator;
     [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private float tiempocoyotetime; // en segundos 
     public LayerMask ground;
     #endregion
 
@@ -46,8 +48,9 @@ public class PlayerMovement : MonoBehaviour
     // primera palabra en minúsculas y el resto con la 
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
-    private float physicsComparationDistance = 0.001f;
+    private float physicsComparationDistance = 0.05f;
     
+    //para comprobar colisiones
     private Rigidbody2D rb;
     private GameObject _child;
     private Collider2D jumpCollider;
@@ -55,16 +58,22 @@ public class PlayerMovement : MonoBehaviour
     private Collider2D upRightCollider;
     private Collider2D upCenterCollider;
 
+    //para efectuar salto
     PlatformMovement platform;
-
-
     private bool isGrounded;
     private bool isJumping;
     private bool justJumped = false; //cuando pasa a true, salta y justo depués se pone a false para no saltar varias veces con un input.
-
+    private bool coyotetime = false;
+    private float tiempocoyote = 0f;
     private float jumpTimeCounter;
-    
-    
+    private float jumpBufferCounter;
+
+    //para corner correction
+    private Vector3 lastPhisicsFrameVelocity;
+    private bool cornerCorrectedLastFrame;
+
+
+    //input del inputManager
     Vector2 moveInput;
     
     #endregion
@@ -100,6 +109,8 @@ public class PlayerMovement : MonoBehaviour
         #endregion
 
         justJumped = false;
+
+        cornerCorrectedLastFrame = false;
     }
 
     /// <summary>
@@ -129,12 +140,30 @@ public class PlayerMovement : MonoBehaviour
         //{
         //    spriteRenderer.color = Color.yellow;
         //}
+        if (InputManager.Instance.JumpWasPressedThisFrame())
+        {
+            jumpBufferCounter = bufferTime;
+        }else
+        {
+            jumpBufferCounter -= Time.deltaTime;
+        }
 
+        //CoyoteTime
+        if (!isGrounded && coyotetime)
+        {
+            tiempocoyote += Time.deltaTime;  // Incrementa el tiempo temporizador
+
+            if (tiempocoyote > tiempocoyotetime)
+            {
+                coyotetime = false;  // Termina el Coyote Time cuando temporizador supera el límite
+            }
+        }
         //Detección inputs salto
-        if (isGrounded && InputManager.Instance.JumpWasPressedThisFrame())
+        if ((coyotetime || isGrounded) && jumpBufferCounter > 0f)
         {
 
             justJumped = true;
+            jumpBufferCounter = 0f;
 
         }
         else if (InputManager.Instance.JumpWasReleasedThisFrame() && isJumping)
@@ -156,8 +185,9 @@ public class PlayerMovement : MonoBehaviour
         JumpCalculations();
 
 
-        EdgeAlignment();
-        
+        CornerCorrection();
+
+        lastPhisicsFrameVelocity=rb.velocity;
     }
     #endregion
 
@@ -192,6 +222,9 @@ public class PlayerMovement : MonoBehaviour
             if (hitCollider.gameObject != gameObject && ((1 << hitCollider.gameObject.layer) & ground) != 0) //por qué se usa & y no &&?
             {
                 isGrounded = true;
+                coyotetime = true;
+                tiempocoyote = 0f;
+
                 if (hitCollider.gameObject.GetComponent<PlatformMovement>() != null && hitCollider.isTrigger)
                 {
                     platform = hitCollider.gameObject.GetComponent<PlatformMovement>();
@@ -227,13 +260,22 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void EdgeAlignment()
+    /// <summary>
+    /// Aplica la corner correction.
+    /// Siempre guarda la velocidad al inicio del frame de físicas anterior (antes de que si te chocas, te reste velocidad).
+    /// Si te chocas conta una esquina(como te chocas, tu velocidad pasa a ser 0), te recoloca y te vuelve a aplicar la velocidad que tenías antes de chocar contra la esquina.
+    /// </summary>
+    private void CornerCorrection()
     {
         bool Left = false;
         bool Right = false;
         bool Center = false;
 
-        #region Detecta tres colliders de edge alignment y si hay colisión, Lo devuelve en Left, Right y Center
+
+            
+
+
+        #region Detecta tres colliders de corner correction y si hay colisión, Lo devuelve en Left, Right y Center
         Collider2D[] hitColliders = Physics2D.OverlapBoxAll(upLeftCollider.bounds.center, upLeftCollider.bounds.size, 0);
         foreach (var hitCollider in hitColliders)
         {
@@ -269,9 +311,8 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("Left ray casted");
             if (hit)
             {
+                rb.velocity =lastPhisicsFrameVelocity;
                 transform.Translate (new Vector2(upLeftCollider.bounds.size.x - hit.distance + physicsComparationDistance,0));
-
-
             }
         }
         else if (Right && !(Left || Center))
@@ -281,12 +322,12 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("Right ray casted");
             if (hit)
             {
-
+                rb.velocity = lastPhisicsFrameVelocity;
                 transform.Translate(new Vector2( -(upRightCollider.bounds.size.x - hit.distance+physicsComparationDistance), 0));
-
             }
         }
         
+
         
         spriteRenderer.color = Color.white;
 
@@ -329,6 +370,11 @@ public class PlayerMovement : MonoBehaviour
             isJumping = true;
             jumpTimeCounter = 0;
             justJumped = false;
+
+            if (coyotetime)
+            {
+                coyotetime = false;
+            }
 
         }
 
