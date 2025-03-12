@@ -35,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpTime;
     [SerializeField] private Animator animator;
     [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private float tiempocoyotetime;
     public LayerMask ground;
     #endregion
 
@@ -61,7 +62,8 @@ public class PlayerMovement : MonoBehaviour
     private bool isGrounded;
     private bool isJumping;
     private bool justJumped = false; //cuando pasa a true, salta y justo depués se pone a false para no saltar varias veces con un input.
-
+    private bool coyotetime = false;
+    private float tiempocoyote = 0f;
     private float jumpTimeCounter;
 
     //para corner correction
@@ -137,8 +139,18 @@ public class PlayerMovement : MonoBehaviour
         //    spriteRenderer.color = Color.yellow;
         //}
 
+        //CoyoteTime
+        if (!isGrounded && coyotetime)
+        {
+            tiempocoyote += Time.deltaTime;  // Incrementa el tiempo temporizador
+
+            if (tiempocoyote > tiempocoyotetime)
+            {
+                coyotetime = false;  // Termina el Coyote Time cuando temporizador supera el límite
+            }
+        }
         //Detección inputs salto
-        if (isGrounded && InputManager.Instance.JumpWasPressedThisFrame())
+        if ((isGrounded||coyotetime) && InputManager.Instance.JumpWasPressedThisFrame())
         {
 
             justJumped = true;
@@ -200,6 +212,9 @@ public class PlayerMovement : MonoBehaviour
             if (hitCollider.gameObject != gameObject && ((1 << hitCollider.gameObject.layer) & ground) != 0) //por qué se usa & y no &&?
             {
                 isGrounded = true;
+                coyotetime = true;
+                tiempocoyote = 0f;
+
                 if (hitCollider.gameObject.GetComponent<PlatformMovement>() != null && hitCollider.isTrigger)
                 {
                     platform = hitCollider.gameObject.GetComponent<PlatformMovement>();
@@ -345,6 +360,11 @@ public class PlayerMovement : MonoBehaviour
             isJumping = true;
             jumpTimeCounter = 0;
             justJumped = false;
+
+            if (coyotetime)
+            {
+                coyotetime = false;
+            }
 
         }
 
