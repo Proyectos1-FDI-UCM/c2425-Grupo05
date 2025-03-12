@@ -1,6 +1,6 @@
 //---------------------------------------------------------
 // Contiene lo referente al movimiento del jugador.
-// Edición y o creación: Víctor, Óscar, Adrián Erustes, Amiel(no sé si lo que hizo él ha llegado a la versión final)
+// Edición y o creación: Víctor, Óscar, Adrián Erustes, Amiel
 // I'm Loosing It
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
@@ -35,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpTime;
     [SerializeField] private Animator animator;
     [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private float tiempocoyotetime;
+    [SerializeField] private float tiempocoyotetime; // en segundos 
     public LayerMask ground;
     #endregion
 
