@@ -33,7 +33,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpForceInitial = 2f;
     [SerializeField] private float jumpForce = 0.1f;
     [SerializeField] private float jumpTime;
-    [SerializeField] private float bufferTime = 0.2f;
     [SerializeField] private Animator animator;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private float tiempocoyotetime; // en segundos 
@@ -66,7 +65,6 @@ public class PlayerMovement : MonoBehaviour
     private bool coyotetime = false;
     private float tiempocoyote = 0f;
     private float jumpTimeCounter;
-    private float jumpBufferCounter;
 
     //para corner correction
     private Vector3 lastPhisicsFrameVelocity;
@@ -140,13 +138,6 @@ public class PlayerMovement : MonoBehaviour
         //{
         //    spriteRenderer.color = Color.yellow;
         //}
-        if (InputManager.Instance.JumpWasPressedThisFrame())
-        {
-            jumpBufferCounter = bufferTime;
-        }else
-        {
-            jumpBufferCounter -= Time.deltaTime;
-        }
 
         //CoyoteTime
         if (!isGrounded && coyotetime)
@@ -159,11 +150,10 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         //Detección inputs salto
-        if ((coyotetime || isGrounded) && jumpBufferCounter > 0f)
+        if ((isGrounded||coyotetime) && InputManager.Instance.JumpWasPressedThisFrame())
         {
 
             justJumped = true;
-            jumpBufferCounter = 0f;
 
         }
         else if (InputManager.Instance.JumpWasReleasedThisFrame() && isJumping)
