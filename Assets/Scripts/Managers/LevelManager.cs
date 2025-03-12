@@ -209,6 +209,15 @@ public class LevelManager : MonoBehaviour
         RoomTimeRemaining = RoomMaxTime;
     }
 
+    public CambioEstado[] GetEstados()
+    {
+        return estados;
+    }
+
+    public int EstadoActual(){
+        return State;
+    }
+
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
@@ -222,6 +231,8 @@ public class LevelManager : MonoBehaviour
     {
         // De momento no hay nada que inicializar
     }
+
+    // Botón N para avanzar sala
     private void OnGUI()
     {
         Event e = Event.current;

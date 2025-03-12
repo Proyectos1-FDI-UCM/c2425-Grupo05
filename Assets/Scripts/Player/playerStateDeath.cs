@@ -7,6 +7,7 @@
 
 using UnityEngine;
 // Añadir aquí el resto de directivas using
+using UnityEngine.Tilemaps;
 
 
 /// <summary>
@@ -35,6 +36,8 @@ public class playerStateDeath : MonoBehaviour
     // Ejemplo: _maxHealthPoints
 
     Collider2D stateCol;
+    LevelManager lM;
+    Tilemap tilemapAct;
 
     #endregion
     
@@ -52,6 +55,7 @@ public class playerStateDeath : MonoBehaviour
     void Start()
     {
         stateCol = GetComponent<Collider2D>();
+        lM = LevelManager.Instance;
     }
 
     /// <summary>
@@ -59,7 +63,12 @@ public class playerStateDeath : MonoBehaviour
     /// </summary>
     void Update()
     {
-        
+        // tilemapAct = lM.GetEstados()[lM.EstadoActual() == 0 ? 0 : 1].GetComponent<Tilemap>();
+        // if (stateCol.IsTouching(tilemapAct.GetComponent<Collider2D>()))
+        // {
+        //     Debug.Log("Colision con el tilemap");
+        //     LevelManager.Instance.ResetPlayer();
+        // }
     }
     #endregion
 
@@ -89,14 +98,14 @@ public class playerStateDeath : MonoBehaviour
         }
     }
 
-    void OnCollisionStay2D(Collision2D other)
-    {
-        if (other.gameObject.GetComponent<CambioEstado>())
-        {
-            Debug.Log("Muerte por cambio de estado");
-            LevelManager.Instance.ResetPlayer();
-        }
-    }
+    // void OnCollisionStay2D(Collision2D other)
+    // {
+    //     if (other.gameObject.GetComponent<CambioEstado>())
+    //     {
+    //         Debug.Log("Muerte por cambio de estado");
+    //         LevelManager.Instance.ResetPlayer();
+    //     }
+    // }
 
     #endregion   
 
