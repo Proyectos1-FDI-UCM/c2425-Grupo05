@@ -54,6 +54,7 @@ public class CambioEstado : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
     private Collider2D _collider;
     private Rigidbody2D _body;
+    private float time = 0;
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
     #region Métodos de MonoBehaviour
@@ -101,7 +102,7 @@ public class CambioEstado : MonoBehaviour
         if (State1) State1 = false;
         else State1 = true;
     }
-    public void CambiaEstadoTrasLuz()
+    public void CambiaEstadoTrasLuz(float alphaTime)
     {
         if (!State1)
         {
@@ -109,13 +110,13 @@ public class CambioEstado : MonoBehaviour
             {
                 if (_renderer != null)
                     _renderer.enabled = true;
-                ChangeAlpha(0.2f);    
+                GradualChangeAlpha(alphaTime);    
             }
             else
             {
                 if (_spriteRenderer != null)
                     _spriteRenderer.enabled = true;
-                ChangeAlpha(0.2f);
+                GradualChangeAlpha(alphaTime);
             }
 
         }
@@ -171,6 +172,26 @@ public class CambioEstado : MonoBehaviour
             }
         }
         
+    }
+    private void GradualChangeAlpha(float alphaTime)
+    {
+        if (Tilemap)
+        {
+            if (_spriteTile != null)
+            {
+                Color color = _spriteTile.color;
+
+
+                while (time < alphaTime)
+                {
+                    time += Time.deltaTime;
+                    color.a = time;
+
+                }
+                _spriteTile.color = color;
+                time = 0;
+            }
+        }
     }
 
 } // class CambioEstado 

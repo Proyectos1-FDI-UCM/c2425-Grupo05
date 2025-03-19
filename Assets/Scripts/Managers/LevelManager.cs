@@ -134,7 +134,7 @@ public class LevelManager : MonoBehaviour
             {
                 for (int i = 0; i < estados.Length; i++)
                 {
-                    estados[i].CambiaEstadoTrasLuz();
+                    estados[i].CambiaEstadoTrasLuz(StateTime-ChangeTimeTrasluz);
                 }
             }
         }
@@ -179,8 +179,8 @@ public class LevelManager : MonoBehaviour
         {
             _platformMovement[i].ResetPlatform();
         }
-        StateTime = 0;
-        State = 0;
+        /*StateTime = 0;
+        State = 0;*/
         RoomTimeRemaining = RoomMaxTime;
 
 
