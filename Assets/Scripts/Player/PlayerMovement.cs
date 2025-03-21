@@ -256,7 +256,7 @@ public class PlayerMovement : MonoBehaviour
             }
 
         }
-        else if (platform != null && platform.getVel() != null && !float.IsNaN(platform.getVel().x) && !float.IsNaN(platform.getVel().y))
+        else if (platform != null && platform.getVel() != null)
         {
             rb.velocity = new Vector2(moveInput.x * speed + platform.getVel().x, platform.getVel().y); //el problema estaba aquí. (solucionado haciendo collider más pequeño)
             //el problema (audio)
@@ -316,7 +316,7 @@ public class PlayerMovement : MonoBehaviour
             if (hit)
             {
                 rb.velocity =lastPhisicsFrameVelocity;
-                transform.Translate (new Vector2(upLeftCollider.bounds.size.x - hit.distance + physicsComparationDistance,0));
+                rb.transform.Translate (new Vector2(upLeftCollider.bounds.size.x - hit.distance + physicsComparationDistance,0));
             }
         }
         else if (Right && !(Left || Center))
