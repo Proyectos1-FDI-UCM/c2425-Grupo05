@@ -198,7 +198,10 @@ public class PlayerMovement : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra)
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
-
+    public void Spring (float i)
+    {
+        rb.AddForce(new Vector2(0, i), ForceMode2D.Impulse);
+    }
 
 
     #endregion
@@ -209,6 +212,7 @@ public class PlayerMovement : MonoBehaviour
     /// <summary>
     /// se encarga de detectar si el jugador ha colisionado con una plataforma y con el suelo para futuras comprobaciones.
     /// </summary>
+
     private void CollisionDetection()
     {
         
