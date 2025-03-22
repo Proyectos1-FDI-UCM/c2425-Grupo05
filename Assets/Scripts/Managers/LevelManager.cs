@@ -134,7 +134,7 @@ public class LevelManager : MonoBehaviour
             {
                 for (int i = 0; i < estados.Length; i++)
                 {
-                    estados[i].CambiaEstadoTrasLuz(StateTime-ChangeTimeTrasluz);
+                    estados[i].CambiaEstadoTrasLuz();
                 }
             }
         }
