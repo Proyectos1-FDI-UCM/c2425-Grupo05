@@ -37,6 +37,7 @@ public class playerStateDeath : MonoBehaviour
 
     Collider2D stateCol;
     LevelManager lM;
+    CambioEstado[] estados;
     Tilemap tilemapAct;
 
     #endregion
@@ -56,6 +57,7 @@ public class playerStateDeath : MonoBehaviour
     {
         stateCol = GetComponent<Collider2D>();
         lM = LevelManager.Instance;
+        estados = lM.GetEstados();
     }
 
     /// <summary>
@@ -63,12 +65,14 @@ public class playerStateDeath : MonoBehaviour
     /// </summary>
     void Update()
     {
-        // tilemapAct = lM.GetEstados()[lM.EstadoActual() == 0 ? 0 : 1].GetComponent<Tilemap>();
-        // if (stateCol.IsTouching(tilemapAct.GetComponent<Collider2D>()))
-        // {
-        //     Debug.Log("Colision con el tilemap");
-        //     LevelManager.Instance.ResetPlayer();
-        // }
+        // Devuelves el estado que está activo
+        tilemapAct = lM.GetEstados()[lM.EstadoActual() == 0 ? 1 : 0].GetComponent<Tilemap>();
+    
+        if (IsColliderInsideTilemap(stateCol, tilemapAct))
+        {
+            Debug.Log("El collider está dentro del Tilemap");
+            lM.ResetPlayer();
+        }
     }
     #endregion
 
@@ -89,12 +93,33 @@ public class playerStateDeath : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
 
+    bool IsColliderInsideTilemap(Collider2D col, Tilemap tilemap)
+    {
+        // Coordenadas del collider (sacadas de bounds) en cuanto al tilemap
+        Vector3Int minTile = tilemap.WorldToCell(col.bounds.min);
+        Vector3Int maxTile = tilemap.WorldToCell(col.bounds.max);
+
+        // Recorrer las celdas
+        for (int x = minTile.x; x <= maxTile.x; x++)
+        {
+            for (int y = minTile.y; y <= maxTile.y; y++)
+            {
+                // Si hay un tile en las coordenadas que especifican la celda del tilemap:
+                if (tilemap.GetTile(new Vector3Int(x, y, 0)) != null)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.GetComponent<CambioEstado>())
         {
             Debug.Log("Muerte por cambio de estado colision");
-            LevelManager.Instance.ResetPlayer();
+            lM.ResetPlayer();
         }
     }
 
@@ -103,18 +128,27 @@ public class playerStateDeath : MonoBehaviour
         if (other.gameObject.GetComponent<CambioEstado>())
         {
             Debug.Log("Muerte por cambio de estado trigger");
-            LevelManager.Instance.ResetPlayer();
+            lM.ResetPlayer();
         }
     }
 
-    // void OnCollisionStay2D(Collision2D other)
-    // {
-    //     if (other.gameObject.GetComponent<CambioEstado>())
-    //     {
-    //         Debug.Log("Muerte por cambio de estado");
-    //         LevelManager.Instance.ResetPlayer();
-    //     }
-    // }
+    void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.gameObject.GetComponent<CambioEstado>())
+        {
+            Debug.Log("Muerte por cambio de estado trigger stay");
+            lM.ResetPlayer();
+        }
+    }
+
+    void OnCollisionStay2D(Collision2D other)
+    {
+        if (other.gameObject.GetComponent<CambioEstado>())
+        {
+            Debug.Log("Muerte por cambio de estado");
+            lM.ResetPlayer();
+        }
+    }
 
     #endregion   
 
