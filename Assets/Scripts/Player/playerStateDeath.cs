@@ -35,10 +35,9 @@ public class playerStateDeath : MonoBehaviour
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
 
-    Collider2D stateCol;
-    LevelManager lM;
-    CambioEstado[] estados;
-    Tilemap tilemapAct;
+    Collider2D _statePlayerCollider;
+    Tilemap _tilemapActual;
+    LevelManager _levelManager;
 
     #endregion
     
@@ -55,9 +54,8 @@ public class playerStateDeath : MonoBehaviour
     /// </summary>
     void Start()
     {
-        stateCol = GetComponent<Collider2D>();
-        lM = LevelManager.Instance;
-        estados = lM.GetEstados();
+        _statePlayerCollider = GetComponent<Collider2D>();
+        _levelManager = LevelManager.Instance;
     }
 
     /// <summary>
@@ -65,13 +63,14 @@ public class playerStateDeath : MonoBehaviour
     /// </summary>
     void Update()
     {
+        // Habría que pasar todo esto a realizar la comprobación solo cuando se cambia de estado (eventos?)
         // Devuelves el estado que está activo
-        tilemapAct = lM.GetEstados()[lM.EstadoActual() == 0 ? 1 : 0].GetComponent<Tilemap>();
+        _tilemapActual = _levelManager.GetEstados()[_levelManager.EstadoActual() == 0 ? 1 : 0].GetComponent<Tilemap>();
     
-        if (IsColliderInsideTilemap(stateCol, tilemapAct))
+        if (IsColliderInsideTilemap(_statePlayerCollider, _tilemapActual))
         {
             Debug.Log("El collider está dentro del Tilemap");
-            lM.ResetPlayer();
+            _levelManager.ResetPlayer();
         }
     }
     #endregion
@@ -112,42 +111,6 @@ public class playerStateDeath : MonoBehaviour
             }
         }
         return false;
-    }
-
-    void OnCollisionEnter2D(Collision2D other)
-    {
-        if (other.gameObject.GetComponent<CambioEstado>())
-        {
-            Debug.Log("Muerte por cambio de estado colision");
-            lM.ResetPlayer();
-        }
-    }
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.GetComponent<CambioEstado>())
-        {
-            Debug.Log("Muerte por cambio de estado trigger");
-            lM.ResetPlayer();
-        }
-    }
-
-    void OnTriggerStay2D(Collider2D other)
-    {
-        if (other.gameObject.GetComponent<CambioEstado>())
-        {
-            Debug.Log("Muerte por cambio de estado trigger stay");
-            lM.ResetPlayer();
-        }
-    }
-
-    void OnCollisionStay2D(Collision2D other)
-    {
-        if (other.gameObject.GetComponent<CambioEstado>())
-        {
-            Debug.Log("Muerte por cambio de estado");
-            lM.ResetPlayer();
-        }
     }
 
     #endregion   
