@@ -179,8 +179,9 @@ MonoBehaviour:
   speed: 5
   deceleration: 0.01
   jumpForceInitial: 5
-  jumpForce: 0.35
-  jumpTime: 0.2
+  jumpForce: 0.45
+  jumpTime: 0.35
+  bufferTime: 0.2
   animator: {fileID: 0}
   spriteRenderer: {fileID: 1784382361920628952}
   tiempocoyotetime: 0
