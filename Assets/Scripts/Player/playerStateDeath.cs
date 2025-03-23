@@ -93,7 +93,16 @@ public class playerStateDeath : MonoBehaviour
     {
         if (other.gameObject.GetComponent<CambioEstado>())
         {
-            Debug.Log("Muerte por cambio de estado");
+            Debug.Log("Muerte por cambio de estado colision");
+            LevelManager.Instance.ResetPlayer();
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.GetComponent<CambioEstado>())
+        {
+            Debug.Log("Muerte por cambio de estado trigger");
             LevelManager.Instance.ResetPlayer();
         }
     }
