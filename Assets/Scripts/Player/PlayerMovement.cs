@@ -327,7 +327,7 @@ public class PlayerMovement : MonoBehaviour
             if (hit)
             {
                 rb.velocity = lastPhisicsFrameVelocity;
-                transform.Translate(new Vector2( -(upRightCollider.bounds.size.x - hit.distance+physicsComparationDistance), 0));
+                rb.transform.Translate(new Vector2( -(upRightCollider.bounds.size.x - hit.distance+physicsComparationDistance), 0));
             }
         }
         
