@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3850132320433887330}
   - component: {fileID: 1693636624321830089}
   m_Layer: 0
-  m_Name: VoidFloor
+  m_Name: VoidFloor_Template
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
