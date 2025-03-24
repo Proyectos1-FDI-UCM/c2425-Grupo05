@@ -89,7 +89,7 @@ public class PlatformMovement : MonoBehaviour
             else _n = 0;
             _lastWaypointTime = Time.fixedTime;
         }
-
+        
     }
 
     // ---- MÉTODOS PÚBLICOS ----

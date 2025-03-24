@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private static GameManager _instance;
 
+    private int maxLevel = 0;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -127,6 +128,7 @@ public class GameManager : MonoBehaviour
         return _instance != null;
     }
 
+    public int MaxLevel() { return maxLevel; }
     /// <summary>
     /// Método que cambia la escena actual por la indicada en el parámetro.
     /// </summary>

@@ -5306,9 +5306,25 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1181565384}
     - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
+      propertyPath: grayZone.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
       propertyPath: CameraPos.Array.size
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
+      propertyPath: grayZone.Array.data[0]
+      value: 
+      objectReference: {fileID: 372419142}
+    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
+      propertyPath: grayZone.Array.data[1]
+      value: 
+      objectReference: {fileID: 1951051420}
+    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
+      propertyPath: grayZone.Array.data[2]
+      value: 
+      objectReference: {fileID: 489548311}
     - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
       propertyPath: CameraPos.Array.data[0].x
       value: -75
