@@ -40,7 +40,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField]
     private GameObject[] nextRoomPlayerPos;
     [SerializeField] 
-    private GrayZone _grayZone;
+    private GrayZone[] grayZone;
     [SerializeField]
     private float ChangeTimeTrasluz = 3.5f;//el tiempo que tarda en poner una imagen translúcida del siguiente estado
     // Variables del contador de tiempo de la sala
@@ -102,7 +102,7 @@ public class LevelManager : MonoBehaviour
     private void Update()
     {
         
-        if (!timeLocked && !_grayZone.IsTimeStopped())
+        if (!timeLocked && !grayZone[_room].IsTimeStopped())
         {
             if (RoomTimeRemaining > 0)
             {
