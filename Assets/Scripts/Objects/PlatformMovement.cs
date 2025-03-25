@@ -74,15 +74,15 @@ public class PlatformMovement : MonoBehaviour
     {
         if (waypoints[_currentWaypoint].w == 0)
         {
-            transform.position = new Vector2(waypoints[_currentWaypoint].x, waypoints[_currentWaypoint].y);
+            transform.localPosition = new Vector2(waypoints[_currentWaypoint].x, waypoints[_currentWaypoint].y);
         }
         else
         {
-            transform.position = Vector2.MoveTowards(transform.position, waypoints[_currentWaypoint], Time.deltaTime * waypoints[_currentWaypoint].w);
+            transform.localPosition = Vector2.MoveTowards(transform.localPosition, waypoints[_currentWaypoint], Time.deltaTime * waypoints[_currentWaypoint].w);
         }
         if (Time.time > _lastWaypointTime + waypoints[_currentWaypoint].z)
         {
-            if (_currentWaypoint + 1 < waypoints.Length) _currentWaypoint++;
+            if (_currentWaypoint + 1 < waypoints.Length) _currentWaypoint++; //voy a hacer una encuesta sobre este if
             else _currentWaypoint = 0;
             _lastWaypointTime = Time.time;
         }
@@ -121,10 +121,8 @@ public class PlatformMovement : MonoBehaviour
 
     // ---- MÉTODOS PRIVADOS ----
     #region Métodos Privados
-    // Documentar cada método que aparece aquí
-    // El convenio de nombres de Unity recomienda que estos métodos
-    // se nombren en formato PascalCase (palabras con primera letra
-    // mayúscula, incluida la primera letra)
+
+
     /// <summary>
     /// Autocompleta los valores de vel o tiempo de la plataforma y agrega la vel(i,j) al array speeds
     /// </summary>
@@ -153,6 +151,7 @@ public class PlatformMovement : MonoBehaviour
 
 
     }
+
     #endregion
 } // class PlatformMovement 
 // namespace
