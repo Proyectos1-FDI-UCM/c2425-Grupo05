@@ -5298,6 +5298,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 372419142}
     - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
+      propertyPath: roomsAmount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
       propertyPath: LevelPlayerPos
       value: 
       objectReference: {fileID: 0}

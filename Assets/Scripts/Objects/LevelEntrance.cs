@@ -6,6 +6,7 @@
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 // Añadir aquí el resto de directivas using
@@ -25,9 +26,10 @@ public class LevelEntrance : MonoBehaviour
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
 
-    [SerializeField] int myLevel;
+    [SerializeField] int doorLevel;
+    [SerializeField] SpriteRenderer sprite;
     #endregion
-    
+
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
     // Documentar cada atributo que aparece aquí.
@@ -38,21 +40,21 @@ public class LevelEntrance : MonoBehaviour
     // Ejemplo: _maxHealthPoints
 
     #endregion
-    
+
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
     #region Métodos de MonoBehaviour
-    
+
     // Por defecto están los típicos (Update y Start) pero:
     // - Hay que añadir todos los que sean necesarios
     // - Hay que borrar los que no se usen 
-    
+
     /// <summary>
     /// Start is called on the frame when a script is enabled just before 
     /// any of the Update methods are called the first time.
     /// </summary>
     void Start()
     {
-        
+        ChangeDoorColor(doorLevel <=GameManager.Instance.MaxLevel()+1);
     }
 
     /// <summary>
@@ -66,10 +68,11 @@ public class LevelEntrance : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (myLevel >= GameManager.Instance.MaxLevel()) 
+        //solo puedes entrar en la puerta 2 si ya te has pasado el nivel 1 =>
+        if (doorLevel <= GameManager.Instance.MaxLevel()+1) 
         {
-            //el +1 representa las escenas del hub y el menú.
-            SceneManager.LoadScene(myLevel + 1);
+            //el +1 representa las escenas del hub y el menú -1 porque las puertas empiezan desde el nivel 1 y las escenas desde la escena 0.
+            GameManager.Instance.ChangeScene(doorLevel + 1);
 
         }
     }
@@ -89,6 +92,19 @@ public class LevelEntrance : MonoBehaviour
     // El convenio de nombres de Unity recomienda que estos métodos
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
+
+    private void ChangeDoorColor(bool open)
+    {
+        if (open)
+        {
+            sprite.color = Color.green;
+        }
+        else
+        {
+            sprite.color = Color.red;
+        }
+        
+    }
 
     #endregion
 

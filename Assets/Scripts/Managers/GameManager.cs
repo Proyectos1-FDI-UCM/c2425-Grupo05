@@ -6,6 +6,7 @@
 //---------------------------------------------------------
 
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 /// <summary>
@@ -42,7 +43,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private static GameManager _instance;
 
-    private int maxLevel = 0;
+    private int maxCurrentLvl = 0;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -128,7 +129,13 @@ public class GameManager : MonoBehaviour
         return _instance != null;
     }
 
-    public int MaxLevel() { return maxLevel; }
+    public int MaxLevel() { return maxCurrentLvl; }
+
+    public void LevelCompleted()
+    {
+        if (SceneManager.GetActiveScene().buildIndex >= maxCurrentLvl) { maxCurrentLvl = SceneManager.GetActiveScene().buildIndex;}
+        ChangeScene(1);//el hub es la escena 1.
+    }
     /// <summary>
     /// Método que cambia la escena actual por la indicada en el parámetro.
     /// </summary>

@@ -36,21 +36,21 @@ public class LevelManager : MonoBehaviour
     [SerializeField]
     private GameObject player;
     [SerializeField]
-    private GameObject levelPlayerPos;
-    [SerializeField]
     private GameObject[] nextRoomPlayerPos;
-    [SerializeField] 
+    [SerializeField]
     private GrayZone[] grayZone;
     [SerializeField]
-    private float ChangeTimeTrasluz = 3.5f;//el tiempo que tarda en poner una imagen translúcida del siguiente estado
+    private float ChangeTimeTrasluz = 3.5f;//el tiempo que tarda en poner una imagen translúcida del siguiente estadoç
+
+    [SerializeField] private int roomsAmount = 5;
     // Variables del contador de tiempo de la sala
     [SerializeField]
-    Vector3 []CameraPos;
+    Vector3[] CameraPos;
     public float RoomMaxTime = 10f;
     public float RoomTimeRemaining;
     // Variables del contador de tiempo del estado
     public float StateMaxTime = 4f;
-    public float StateTime=0f;
+    public float StateTime = 0f;
     // Variables de cambios de estado (0-Estado Neutral, 1-Estado 1, 2-Estado 2
     public int State = 0;
     [SerializeField]
@@ -71,8 +71,8 @@ public class LevelManager : MonoBehaviour
     private PlatformMovement[] _platformMovement;
     private CambioEstado[] estados;//llama a los prefabs que pueden cambiar de estado
     private Camera Camera;
-    private int _room = 0;
-
+    private int roomNo = 0; //la primera room es la 0 y la última, la roomsAmount-1
+    private Vector3 roomPlayerPos;
 
     #endregion
 
@@ -91,18 +91,24 @@ public class LevelManager : MonoBehaviour
     }
     private void Start()
     {
-        player.transform.position = levelPlayerPos.transform.position;
+        //setea la pos inicial a la pos del objeto que indica el primer inicio de sala.
+        roomPlayerPos = nextRoomPlayerPos[0].transform.position;
+
+        //Lleva al player al primer inicio de sala.
+        player.transform.position = roomPlayerPos;
+
+
         RoomTimeRemaining = RoomMaxTime;
         _platformMovement = FindObjectsByType<PlatformMovement>(FindObjectsSortMode.None);
         estados = FindObjectsOfType<CambioEstado>();//llama a todos los prefabs que contienen este script
         Camera = FindObjectOfType<Camera>();
     }
 
-    
+
     private void Update()
     {
-        
-        if (!timeLocked && !grayZone[_room].IsTimeStopped())
+
+        if (!timeLocked && !grayZone[roomNo].IsTimeStopped())
         {
             if (RoomTimeRemaining > 0)
             {
@@ -173,9 +179,9 @@ public class LevelManager : MonoBehaviour
 
     public void ResetPlayer()
     {
-        player.transform.position = levelPlayerPos.transform.position;
-        
-        for (int i = 0;i<_platformMovement.Length;i++)
+        player.transform.position = roomPlayerPos;
+
+        for (int i = 0; i < _platformMovement.Length; i++)
         {
             _platformMovement[i].ResetPlatform();
         }
@@ -190,7 +196,8 @@ public class LevelManager : MonoBehaviour
         if (State == 0)
         {
             State = 2;
-        } else if (State == 2)
+        }
+        else if (State == 2)
         {
             State = 0;
         }
@@ -202,11 +209,18 @@ public class LevelManager : MonoBehaviour
 
     public void NextRoom()
     {
-        _room++;
-        player.transform.position = nextRoomPlayerPos[_room].transform.position;
-        levelPlayerPos = nextRoomPlayerPos[_room];
-        Camera.transform.position = CameraPos[_room];
-        RoomTimeRemaining = RoomMaxTime;
+        if (roomNo < roomsAmount-1)
+        {
+            roomNo++;
+            player.transform.position = nextRoomPlayerPos[roomNo].transform.position;
+            roomPlayerPos = nextRoomPlayerPos[roomNo].transform.position;
+            Camera.transform.position = CameraPos[roomNo];
+            RoomTimeRemaining = RoomMaxTime;
+        }
+        else
+        {
+            GameManager.Instance.LevelCompleted();
+        }
     }
 
     public CambioEstado[] GetEstados()
@@ -214,7 +228,8 @@ public class LevelManager : MonoBehaviour
         return estados;
     }
 
-    public int EstadoActual(){
+    public int EstadoActual()
+    {
         return State;
     }
 
@@ -244,4 +259,4 @@ public class LevelManager : MonoBehaviour
 
     #endregion
 } // class LevelManager 
-// namespace
+  // namespace
