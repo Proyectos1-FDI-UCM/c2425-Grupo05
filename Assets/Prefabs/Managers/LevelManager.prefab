@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  nextRoomPlayerPos:
+  PlayerSpawnPosScene:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

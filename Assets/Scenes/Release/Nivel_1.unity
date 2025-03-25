@@ -5286,37 +5286,9 @@ PrefabInstance:
       value: LevelManager
       objectReference: {fileID: 0}
     - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
-      propertyPath: Player
-      value: 
-      objectReference: {fileID: 1741144134}
-    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 1741144134}
-    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
-      propertyPath: _grayZone
-      value: 
-      objectReference: {fileID: 372419142}
-    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
-      propertyPath: roomsAmount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
-      propertyPath: LevelPlayerPos
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
-      propertyPath: levelPlayerPos
-      value: 
-      objectReference: {fileID: 1181565384}
-    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
-      propertyPath: grayZone.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
-      propertyPath: CameraPos.Array.size
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
       propertyPath: grayZone.Array.data[0]
       value: 
@@ -5330,55 +5302,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 489548311}
     - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
-      propertyPath: CameraPos.Array.data[0].x
-      value: -75
-      objectReference: {fileID: 0}
-    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
-      propertyPath: CameraPos.Array.data[0].y
-      value: -35
-      objectReference: {fileID: 0}
-    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
-      propertyPath: CameraPos.Array.data[0].z
-      value: -10
-      objectReference: {fileID: 0}
-    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
-      propertyPath: CameraPos.Array.data[1].x
-      value: -43
-      objectReference: {fileID: 0}
-    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
-      propertyPath: CameraPos.Array.data[1].y
-      value: -35
-      objectReference: {fileID: 0}
-    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
-      propertyPath: CameraPos.Array.data[1].z
-      value: -10
-      objectReference: {fileID: 0}
-    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
-      propertyPath: CameraPos.Array.data[2].x
-      value: -11
-      objectReference: {fileID: 0}
-    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
-      propertyPath: CameraPos.Array.data[2].y
-      value: -35
-      objectReference: {fileID: 0}
-    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
-      propertyPath: CameraPos.Array.data[2].z
-      value: -10
-      objectReference: {fileID: 0}
-    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
-      propertyPath: nextRoomPlayerPos.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
-      propertyPath: nextRoomPlayerPos.Array.data[0]
+      propertyPath: PlayerSpawnPosScene.Array.data[0]
       value: 
       objectReference: {fileID: 1623954288}
     - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
-      propertyPath: nextRoomPlayerPos.Array.data[1]
+      propertyPath: PlayerSpawnPosScene.Array.data[1]
       value: 
       objectReference: {fileID: 403134805}
     - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
-      propertyPath: nextRoomPlayerPos.Array.data[2]
+      propertyPath: PlayerSpawnPosScene.Array.data[2]
       value: 
       objectReference: {fileID: 1023838380}
     m_RemovedComponents: []
@@ -10683,11 +10615,6 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 3018409539841525800, guid: ec5a55e5afb087449a299815117138e2, type: 3}
   m_PrefabInstance: {fileID: 1164031771}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1181565384 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7718323421732481918, guid: 016e04c21c3c66b43b8540a363f9d43b, type: 3}
-  m_PrefabInstance: {fileID: 1529502252}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1245423693
 GameObject:
