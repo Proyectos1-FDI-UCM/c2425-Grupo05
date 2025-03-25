@@ -58,6 +58,9 @@ public class LevelManager : MonoBehaviour
     [SerializeField]
     private bool timeLocked;
 
+
+    // indica si este manager es el del hub
+    [SerializeField] bool isInHub = false;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -72,7 +75,7 @@ public class LevelManager : MonoBehaviour
     private CambioEstado[] estados;//llama a los prefabs que pueden cambiar de estado
     private Camera Camera;
     private int roomNo = 0; //la primera room es la 0 y la última, la roomsAmount-1
-    private Vector3 roomPlayerPos;
+    private Vector3 initialPlayerPos;
 
     #endregion
 
@@ -88,14 +91,22 @@ public class LevelManager : MonoBehaviour
             _instance = this;
             Init();
         }
-    }
+    }//ESTO NO LO ESTAMOS USANDO RAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA (lo he escrito así para llamar la atención y que no se nos olvide preguntarle a Guille)
+
     private void Start()
     {
-        //setea la pos inicial a la pos del objeto que indica el primer inicio de sala.
-        roomPlayerPos = nextRoomPlayerPos[0].transform.position;
-
+        //setea la pos inicial a la pos del objeto que indica el primer inicio de sala, o la última puerta en la que has entrado, en caso del hub.
+        if (isInHub)
+        {
+            // la posición inicial es la de la última puerta visitada
+            initialPlayerPos = nextRoomPlayerPos[GameManager.Instance.GetLvl()].transform.position;
+        }
+        else
+        {
+            initialPlayerPos = nextRoomPlayerPos[0].transform.position;
+        }
         //Lleva al player al primer inicio de sala.
-        player.transform.position = roomPlayerPos;
+        player.transform.position = initialPlayerPos;
 
 
         RoomTimeRemaining = RoomMaxTime;
@@ -179,7 +190,7 @@ public class LevelManager : MonoBehaviour
 
     public void ResetPlayer()
     {
-        player.transform.position = roomPlayerPos;
+        player.transform.position = initialPlayerPos;
 
         for (int i = 0; i < _platformMovement.Length; i++)
         {
@@ -213,7 +224,7 @@ public class LevelManager : MonoBehaviour
         {
             roomNo++;
             player.transform.position = nextRoomPlayerPos[roomNo].transform.position;
-            roomPlayerPos = nextRoomPlayerPos[roomNo].transform.position;
+            initialPlayerPos = nextRoomPlayerPos[roomNo].transform.position;
             Camera.transform.position = CameraPos[roomNo];
             RoomTimeRemaining = RoomMaxTime;
         }

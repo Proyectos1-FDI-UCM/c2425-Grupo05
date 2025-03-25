@@ -43,7 +43,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private static GameManager _instance;
 
-    private int maxCurrentLvl = 0;
+    private int maxCurrentLvl = 0;//máximo nivel alcanzado
+    private int currentLvl = 0;//último nivel en el que has estado
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -130,10 +131,22 @@ public class GameManager : MonoBehaviour
     }
 
     public int MaxLevel() { return maxCurrentLvl; }
+    public int GetLvl() {  return currentLvl; }
+    public void GoToLvl(int level)
+    {
+        currentLvl = level;
+        /*el +2 representa las escenas del hub y el menú y se le resta 1 porque las puertas empiezan desde el nivel 1 y las escenas desde la escena 0.
+         level + 2 - 1 = level + 1
+         */
+        GameManager.Instance.ChangeScene(level + 1); 
+    }
 
+    /// <summary>
+    /// Se llama cuando se completa un nivel para volver al hub y actualizar el nivel Máximo si es necesario
+    /// </summary>
     public void LevelCompleted()
     {
-        if (SceneManager.GetActiveScene().buildIndex >= maxCurrentLvl) { maxCurrentLvl = SceneManager.GetActiveScene().buildIndex;}
+        if (SceneManager.GetActiveScene().buildIndex >= maxCurrentLvl) { maxCurrentLvl = currentLvl; }
         ChangeScene(1);//el hub es la escena 1.
     }
     /// <summary>
@@ -184,4 +197,4 @@ public class GameManager : MonoBehaviour
 
     #endregion
 } // class GameManager 
-// namespace
+  // namespace
