@@ -21,39 +21,36 @@ public class PlatformMovement : MonoBehaviour
     // ---- ATRIBUTOS DEL INSPECTOR ----
 
 
+    /// <summary>
+    ///Las componentes (x,y) del vector indican posición a la que se viaja (pos del siguiente waypoint).
+    ///La componente z indica tiempo que se tarda en llegar al siguiente waypoint.
+    ///La componente w indica la velocidad hasta llegar al siguiente waypoint.
+    /// </summary>
 
-    //Las componentes x,y del vector indican posición a la que se viaja.
-    //La componente z indica tiempo que se tarda en llegar a (x,y).
-    //La componente w indica la velocidad hasta llegar a (x,y).
-
-    /*
-     Se puede elegir si mover las plataformas estableciendo un tiempo o una velocidad entre waypoints.
-      
-      - La velocidad(w) se calcula automáticamente siempre y cuando el tiempo(z) != 0. 
-      - Si el tiempo(z) == 0, este se calcula automáticamente a partir de la velocidad introducida.
-
+    /*Se puede elegir si mover las plataformas estableciendo un tiempo o una velocidad entre waypoints.
+         - La velocidad(w) se calcula automáticamente siempre y cuando el tiempo(z) != 0. 
+        - Si el tiempo(z) == 0, este se calcula automáticamente a partir de la velocidad introducida.
     */
     [SerializeField] private Vector4[] waypoints;
 
 
     // ---- ATRIBUTOS PRIVADOS ----
+    #region Atributos Privados (private fields)
 
-    //Indica el momento en el que empezaste a moverte hacia el waypoint n / acabaste de moverte hacia el waypoint n-1.
+    /// <summary>
+    /// Indica el momento en el que empezaste a moverte hacia el waypoint n ó acabaste de moverte hacia el waypoint n-1 (es lo mismo).
+    /// </summary>
     private float _lastWaypointTime;
 
-    //Indica el waypoint hacia el que me estoy moviendo la plataforma.
-    private int _n = 0;
+    /// <summary>
+    /// Indica el waypoint hacia el que me estoy moviendo.
+    /// </summary>
+    private int _currentWaypoint = 0;
+
+    /// <summary>
+    /// Array con las velocidades para optimización (se calcula solo una vez)
+    /// </summary>
     private Vector2[] speeds;
-    //Pos ini de la plataforma
-
-
-    #region Atributos Privados (private fields)
-    // Documentar cada atributo que aparece aquí.
-    // El convenio de nombres de Unity recomienda que los atributos
-    // privados se nombren en formato _camelCase (comienza con _, 
-    // primera palabra en minúsculas y el resto con la 
-    // primera letra en mayúsculas)
-    // Ejemplo: _maxHealthPoints
 
     #endregion
 
@@ -63,50 +60,50 @@ public class PlatformMovement : MonoBehaviour
         //autocompleta las velocidades y/o los tiempos de los waypoints;
         speeds = new Vector2[waypoints.Length];
         AutocompleteWaypoint(waypoints.Length - 1, 0);
-        
+
         for (int i = 1; i < waypoints.Length; i++)
         {
-            AutocompleteWaypoint(i-1,i);
+            AutocompleteWaypoint(i - 1, i);
         }
 
         ResetPlatform();
 
 
     }
-    private void FixedUpdate()
+    private void Update()
     {
-        if (waypoints[_n].w == 0)
+        if (waypoints[_currentWaypoint].w == 0)
         {
-            transform.position = new Vector2(waypoints[_n].x, waypoints[_n].y);
+            transform.position = new Vector2(waypoints[_currentWaypoint].x, waypoints[_currentWaypoint].y);
         }
         else
         {
-            transform.position = Vector2.MoveTowards(transform.position, waypoints[_n], Time.fixedDeltaTime * waypoints[_n].w);
+            transform.position = Vector2.MoveTowards(transform.position, waypoints[_currentWaypoint], Time.deltaTime * waypoints[_currentWaypoint].w);
         }
-        if (Time.fixedTime > _lastWaypointTime + waypoints[_n].z)
+        if (Time.time > _lastWaypointTime + waypoints[_currentWaypoint].z)
         {
-            if (_n + 1 < waypoints.Length) _n++;
-            else _n = 0;
-            _lastWaypointTime = Time.fixedTime;
+            if (_currentWaypoint + 1 < waypoints.Length) _currentWaypoint++;
+            else _currentWaypoint = 0;
+            _lastWaypointTime = Time.time;
         }
-        
     }
 
     // ---- MÉTODOS PÚBLICOS ----
     #region Métodos públicos
-    // Documentar cada método que aparece aquí con ///<summary>
-    // El convenio de nombres de Unity recomienda que estos métodos
-    // se nombren en formato PascalCase (palabras con primera letra
-    // mayúscula, incluida la primera letra)
-    // Ejemplo: GetPlayerController
+
+    /// <returns>Velocidad de la plataforma
+    /// </returns>
     public Vector2 getVel()
     {
-        return speeds[_n];
+        return speeds[_currentWaypoint];
     }
-    //reinicia la plataforma a su posición inicial.
+
+    /// <summary>
+    /// reinicia la plataforma a su posición inicial.
+    /// </summary>
     public void ResetPlatform()
     {
-        _n = 0;
+        _currentWaypoint = 0;
 
         //Va al waypoint inicial
         transform.position = waypoints[0];
@@ -116,7 +113,7 @@ public class PlatformMovement : MonoBehaviour
         */
         _lastWaypointTime = Time.fixedTime;
         //Suma 1 a n para que se empiece a mover hacia el waypoint 1;
-        if (waypoints.Length > 1) _n++;
+        if (waypoints.Length > 1) _currentWaypoint++;
     }
     #endregion
 

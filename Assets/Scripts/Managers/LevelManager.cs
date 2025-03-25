@@ -1,7 +1,7 @@
 //---------------------------------------------------------
-// Gestor de escena. Podemos crear uno diferente con un
-// nombre significativo para cada escena, si es necesario
-// Guillermo Jiménez Díaz, Pedro Pablo Gómez Martín
+// Gestiona todas las escenas en las que el jugador se pueda mover.
+//No guarda info entre escenas.
+// Adrián Erustes Martín, Antonio Bucero, 
 // TemplateP1
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
@@ -35,8 +35,12 @@ public class LevelManager : MonoBehaviour
     // Ejemplo: MaxHealthPoints
     [SerializeField]
     private GameObject player;
+
+    /// <summary>
+    /// Array con los gameObjects usados como spawnPos en esta escena (En escenas Level indica los inicios de cada sala, en escena Hub indica spawn inicial y puertas).
+    /// </summary>
     [SerializeField]
-    private GameObject[] nextRoomPlayerPos;
+    private GameObject[] PlayerSpawnPosScene;
     [SerializeField]
     private GrayZone[] grayZone;
     [SerializeField]
@@ -75,7 +79,11 @@ public class LevelManager : MonoBehaviour
     private CambioEstado[] estados;//llama a los prefabs que pueden cambiar de estado
     private Camera Camera;
     private int roomNo = 0; //la primera room es la 0 y la última, la roomsAmount-1
-    private Vector3 initialPlayerPos;
+
+    /// <summary>
+    /// Pos de respawn e inicio por el momento
+    /// </summary>
+    private Vector3 playerSpawnPos;
 
     #endregion
 
@@ -99,14 +107,14 @@ public class LevelManager : MonoBehaviour
         if (isInHub)
         {
             // la posición inicial es la de la última puerta visitada
-            initialPlayerPos = nextRoomPlayerPos[GameManager.Instance.GetLvl()].transform.position;
+            playerSpawnPos = PlayerSpawnPosScene[GameManager.Instance.GetLvl()].transform.position;
         }
         else
         {
-            initialPlayerPos = nextRoomPlayerPos[0].transform.position;
+            playerSpawnPos = PlayerSpawnPosScene[0].transform.position;
         }
         //Lleva al player al primer inicio de sala.
-        player.transform.position = initialPlayerPos;
+        player.transform.position = playerSpawnPos;
 
 
         RoomTimeRemaining = RoomMaxTime;
@@ -190,7 +198,7 @@ public class LevelManager : MonoBehaviour
 
     public void ResetPlayer()
     {
-        player.transform.position = initialPlayerPos;
+        player.transform.position = playerSpawnPos;
 
         for (int i = 0; i < _platformMovement.Length; i++)
         {
@@ -223,8 +231,8 @@ public class LevelManager : MonoBehaviour
         if (roomNo < roomsAmount-1)
         {
             roomNo++;
-            player.transform.position = nextRoomPlayerPos[roomNo].transform.position;
-            initialPlayerPos = nextRoomPlayerPos[roomNo].transform.position;
+            player.transform.position = PlayerSpawnPosScene[roomNo].transform.position;
+            playerSpawnPos = PlayerSpawnPosScene[roomNo].transform.position;
             Camera.transform.position = CameraPos[roomNo];
             RoomTimeRemaining = RoomMaxTime;
         }

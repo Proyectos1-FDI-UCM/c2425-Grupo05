@@ -44,4 +44,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e33e01ec70e04582af05f46ca63b3b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 0}
+  player: {fileID: 0}
+  nextRoomPlayerPos:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  grayZone:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  ChangeTimeTrasluz: 3.5
+  roomsAmount: 5
+  CameraPos:
+  - {x: -75, y: -35, z: -10}
+  - {x: -43, y: -35, z: -10}
+  - {x: -11, y: -35, z: -10}
+  RoomMaxTime: 10
+  RoomTimeRemaining: 0
+  StateMaxTime: 4
+  StateTime: 0
+  State: 0
+  stateLocked: 0
+  timeLocked: 0
+  isInHub: 0

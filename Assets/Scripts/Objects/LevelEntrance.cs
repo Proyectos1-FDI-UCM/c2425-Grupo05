@@ -19,13 +19,13 @@ public class LevelEntrance : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
-    // Documentar cada atributo que aparece aquí.
-    // El convenio de nombres de Unity recomienda que los atributos
-    // públicos y de inspector se nombren en formato PascalCase
-    // (palabras con primera letra mayúscula, incluida la primera letra)
-    // Ejemplo: MaxHealthPoints
 
-    [SerializeField] int doorLevel;
+    /// <summary>
+    /// Nivel al que lleva esta puerta
+    /// </summary>
+    [SerializeField] int doorLevel; 
+
+    //spriteRenderer de la puerta
     [SerializeField] SpriteRenderer sprite;
     #endregion
 
@@ -33,6 +33,9 @@ public class LevelEntrance : MonoBehaviour
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
     
+    /// <summary>
+    /// Indica si estoy tocando al jugador
+    /// </summary>
     bool touchingPlayer = false;
 
 
@@ -40,10 +43,6 @@ public class LevelEntrance : MonoBehaviour
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
     #region Métodos de MonoBehaviour
-
-    // Por defecto están los típicos (Update y Start) pero:
-    // - Hay que añadir todos los que sean necesarios
-    // - Hay que borrar los que no se usen 
 
     /// <summary>
     /// Start is called on the frame when a script is enabled just before 
@@ -68,8 +67,7 @@ public class LevelEntrance : MonoBehaviour
             }
         }
     }
-    #endregion
-
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         touchingPlayer = true;
@@ -78,6 +76,8 @@ public class LevelEntrance : MonoBehaviour
     {
         touchingPlayer = false;
     }
+
+    #endregion
     // ---- MÉTODOS PÚBLICOS ----
     #region Métodos públicos
     // Documentar cada método que aparece aquí con ///<summary>

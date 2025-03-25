@@ -43,8 +43,15 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private static GameManager _instance;
 
-    private int maxCurrentLvl = 0;//máximo nivel alcanzado
-    private int currentLvl = 0;//último nivel en el que has estado
+    /// <summary>
+    /// máximo nivel alcanzado
+    /// </summary>
+    private int maxCurrentLvl = 0;
+
+    /// <summary>
+    /// Último nivel en el que has estado
+    /// </summary>
+    private int currentLvl = 0; 
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -130,8 +137,24 @@ public class GameManager : MonoBehaviour
         return _instance != null;
     }
 
+    /// <summary>
+    /// Getter del max level alcanzado actualmente.
+    /// </summary>
+    /// <returns></returns>
     public int MaxLevel() { return maxCurrentLvl; }
+
+    
+    /// <summary>
+    /// Getter de currentLvl.
+    /// </summary>
+    /// <returns></returns>
     public int GetLvl() {  return currentLvl; }
+
+
+    /// <summary>
+    /// Va a la escena del nivel indicado.
+    /// </summary>
+    /// <param name="level"></param>
     public void GoToLvl(int level)
     {
         currentLvl = level;
@@ -141,14 +164,17 @@ public class GameManager : MonoBehaviour
         GameManager.Instance.ChangeScene(level + 1); 
     }
 
+
     /// <summary>
     /// Se llama cuando se completa un nivel para volver al hub y actualizar el nivel Máximo si es necesario
     /// </summary>
     public void LevelCompleted()
     {
-        if (SceneManager.GetActiveScene().buildIndex >= maxCurrentLvl) { maxCurrentLvl = currentLvl; }
+        if (currentLvl >= maxCurrentLvl) { maxCurrentLvl = currentLvl; }
         ChangeScene(1);//el hub es la escena 1.
     }
+
+
     /// <summary>
     /// Método que cambia la escena actual por la indicada en el parámetro.
     /// </summary>
