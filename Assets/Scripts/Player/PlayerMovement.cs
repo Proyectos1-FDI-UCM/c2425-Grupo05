@@ -386,7 +386,7 @@ public class PlayerMovement : MonoBehaviour
         if (isJumping && jumpTimeCounter < jumpTime)
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + jumpForce);
-            jumpTimeCounter += Time.fixedDeltaTime;//Time.FixedDeltatime para el FixedUpdate 
+            jumpTimeCounter += Time.deltaTime;//Time.deltatime para el Update
         }
         else
         {
