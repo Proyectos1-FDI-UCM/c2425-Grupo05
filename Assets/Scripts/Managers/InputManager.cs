@@ -66,6 +66,7 @@ public class InputManager : MonoBehaviour
     /// conocer el estado del botón)
     /// </summary>
     private InputAction _jump;
+    private InputAction _pause;
 
     #endregion
 
@@ -163,6 +164,15 @@ public class InputManager : MonoBehaviour
         return _jump.IsPressed();
     }
 
+    /// <summary>
+    ///  Método para saber si el boton de acceder al menu de pausa (Escape) está pulsado
+    ///  Devolverá true en todos los frames en los que se mantenga pulsado
+    /// </summary> True, si el botón esta pulsado
+    /// <returns></returns>
+    public bool PauseIsPressed()
+    {
+        return _pause.IsPressed();
+    }
     /// <summary>
     /// Método para saber si el botón de disparo (Fire) se ha pulsado en este frame
     /// <returns>Devuelve true, si el botón ha sido pulsado en este frame
