@@ -62,7 +62,7 @@ public class TimeBarController : MonoBehaviour
     {
         if (LevelManager.Instance.RoomTimeRemaining > 0)
         {
-            timeScrollBar.size = LevelManager.Instance.RoomTimeRemaining / LevelManager.Instance.RoomMaxTime;
+            timeScrollBar.size = LevelManager.Instance.RoomTimeRemaining / LevelManager.Instance.getMaxTime();
         }
         else
         {

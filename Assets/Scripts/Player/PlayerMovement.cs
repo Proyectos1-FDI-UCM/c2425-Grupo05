@@ -61,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
     //para efectuar salto
     PlatformMovement platform;
     private bool isGrounded;
-    private bool isJumping;
+    private bool isJumping; 
     private bool justJumped = false; //cuando pasa a true, salta y justo depués se pone a false para no saltar varias veces con un input.
     private bool coyotetime = false;
     private float tiempocoyote = 0f;
