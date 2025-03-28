@@ -182,10 +182,12 @@ public class PlayerMovement : MonoBehaviour
 
         SetInitialVelocity();
 
+        CornerCorrection();
+
         JumpCalculations();
 
 
-        CornerCorrection();
+        
 
         lastPhisicsFrameVelocity=rb.velocity;
     }
@@ -200,7 +202,7 @@ public class PlayerMovement : MonoBehaviour
     // Ejemplo: GetPlayerController
     public void Spring (float i)
     {
-        rb.AddForce(new Vector2(0, i), ForceMode2D.Impulse);
+        rb.velocity = new Vector2(0, i);
     }
 
 
@@ -358,6 +360,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         
+        if(Center){isJumping = false;}
 
     }
     
