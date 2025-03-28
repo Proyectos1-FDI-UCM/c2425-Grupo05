@@ -4790,33 +4790,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1741144134}
     - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
-      propertyPath: estados.Array.size
-      value: 6
+      propertyPath: RoomMaxTime.Array.size
+      value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
-      propertyPath: estados.Array.data[0]
-      value: 
-      objectReference: {fileID: 258733448}
-    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
-      propertyPath: estados.Array.data[1]
-      value: 
-      objectReference: {fileID: 226742278}
-    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
-      propertyPath: estados.Array.data[2]
-      value: 
-      objectReference: {fileID: 372168763}
-    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
-      propertyPath: estados.Array.data[3]
-      value: 
-      objectReference: {fileID: 518844985}
-    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
-      propertyPath: estados.Array.data[4]
-      value: 
-      objectReference: {fileID: 523710530}
-    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
-      propertyPath: estados.Array.data[5]
-      value: 
-      objectReference: {fileID: 1245423695}
     - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
       propertyPath: grayZone.Array.data[0]
       value: 
@@ -4829,6 +4805,18 @@ PrefabInstance:
       propertyPath: grayZone.Array.data[2]
       value: 
       objectReference: {fileID: 489548311}
+    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
+      propertyPath: RoomMaxTime.Array.data[0]
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
+      propertyPath: RoomMaxTime.Array.data[1]
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
+      propertyPath: RoomMaxTime.Array.data[2]
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
       propertyPath: PlayerSpawnPosScene.Array.data[0]
       value: 
@@ -6712,8 +6700,8 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1968845585
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}

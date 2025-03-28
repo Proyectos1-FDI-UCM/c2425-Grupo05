@@ -61,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
     //para efectuar salto
     PlatformMovement platform;
     private bool isGrounded;
-    private bool isJumping;
+    private bool isJumping; 
     private bool justJumped = false; //cuando pasa a true, salta y justo depués se pone a false para no saltar varias veces con un input.
     private bool coyotetime = false;
     private float tiempocoyote = 0f;
@@ -182,10 +182,12 @@ public class PlayerMovement : MonoBehaviour
 
         SetInitialVelocity();
 
+        CornerCorrection();
+
         JumpCalculations();
 
 
-        CornerCorrection();
+        
 
         lastPhisicsFrameVelocity=rb.velocity;
     }
@@ -200,7 +202,7 @@ public class PlayerMovement : MonoBehaviour
     // Ejemplo: GetPlayerController
     public void Spring (float i)
     {
-        rb.AddForce(new Vector2(0, i), ForceMode2D.Impulse);
+        rb.velocity = new Vector2(0, i);
     }
 
 
@@ -358,6 +360,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         
+        if(Center){isJumping = false;}
 
     }
     
@@ -370,6 +373,7 @@ public class PlayerMovement : MonoBehaviour
         //JustJumped sirve para que se ejecute el impulso de salto inicial una sola vez.
         if (justJumped)
         {
+            Debug.Log("salto");
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + jumpForceInitial);
             isJumping = true;
             jumpTimeCounter = 0;

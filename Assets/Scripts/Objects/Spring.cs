@@ -80,8 +80,7 @@ public class Spring : MonoBehaviour
     // mayúscula, incluida la primera letra)
     void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("2d)");
-        PlayerMovement player = collision.GetComponent<PlayerMovement>();
+        PlayerMovement player = collision.gameObject.GetComponent<PlayerMovement>();
         if (player != null)
         {
             Debug.Log("RAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH3);");
