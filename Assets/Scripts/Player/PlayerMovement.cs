@@ -373,6 +373,7 @@ public class PlayerMovement : MonoBehaviour
         //JustJumped sirve para que se ejecute el impulso de salto inicial una sola vez.
         if (justJumped)
         {
+            Debug.Log("salto");
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + jumpForceInitial);
             isJumping = true;
             jumpTimeCounter = 0;
