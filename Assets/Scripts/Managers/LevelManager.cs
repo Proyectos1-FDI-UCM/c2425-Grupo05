@@ -195,6 +195,10 @@ public class LevelManager : MonoBehaviour
     {
         return _instance != null;
     }
+    public int GetRoomNo()
+    {
+        return roomNo;
+    }
 
     public void ResetPlayer()
     {
