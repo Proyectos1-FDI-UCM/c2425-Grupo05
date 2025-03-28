@@ -4790,6 +4790,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1741144134}
     - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
+      propertyPath: RoomMaxTime.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
       propertyPath: grayZone.Array.data[0]
       value: 
       objectReference: {fileID: 372419142}
@@ -4801,6 +4805,18 @@ PrefabInstance:
       propertyPath: grayZone.Array.data[2]
       value: 
       objectReference: {fileID: 489548311}
+    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
+      propertyPath: RoomMaxTime.Array.data[0]
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
+      propertyPath: RoomMaxTime.Array.data[1]
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
+      propertyPath: RoomMaxTime.Array.data[2]
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
       propertyPath: PlayerSpawnPosScene.Array.data[0]
       value: 

@@ -1,10 +1,6 @@
-//---------------------------------------------------------
-// ChangeScene es un componente de pruebas para cambiar entre
-// escenas
-// Guillermo Jiménez Díaz
-// TemplateP1
-// Proyectos 1 - Curso 2024-25
-//---------------------------------------------------------
+
+// ChangeScene es un componente de pruebas para cambiar entre escenas
+
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -47,13 +43,13 @@ public class ChangeScene : MonoBehaviour
     // Por defecto están los típicos (Update y Start) pero:
     // - Hay que añadir todos los que sean necesarios
     // - Hay que borrar los que no se usen 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            QuitGame();
-        }
-    }
+    //void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.Escape))
+    //    {
+    //        QuitGame();
+    //    }
+    //}
     #endregion
 
     // ---- MÉTODOS PÚBLICOS ----

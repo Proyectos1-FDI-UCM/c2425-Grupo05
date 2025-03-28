@@ -50,7 +50,7 @@ public class LevelManager : MonoBehaviour
     // Variables del contador de tiempo de la sala
     [SerializeField]
     Vector3[] CameraPos;
-    public float RoomMaxTime = 10f;
+    public float[] RoomMaxTime;
     public float RoomTimeRemaining;
     // Variables del contador de tiempo del estado
     public float StateMaxTime = 4f;
@@ -117,7 +117,7 @@ public class LevelManager : MonoBehaviour
         player.transform.position = playerSpawnPos;
 
 
-        RoomTimeRemaining = RoomMaxTime;
+        RoomTimeRemaining = RoomMaxTime[roomNo];
         _platformMovement = FindObjectsByType<PlatformMovement>(FindObjectsSortMode.None);
         estados = FindObjectsOfType<CambioEstado>();//llama a todos los prefabs que contienen este script
         Camera = FindObjectOfType<Camera>();
@@ -137,7 +137,7 @@ public class LevelManager : MonoBehaviour
             {
                 Debug.Log("TiempoFinalizado");
                 ResetPlayer();
-                RoomTimeRemaining = RoomMaxTime;
+                RoomTimeRemaining = RoomMaxTime[roomNo];
             }
 
         }
@@ -206,7 +206,7 @@ public class LevelManager : MonoBehaviour
         }
         /*StateTime = 0;
         State = 0;*/
-        RoomTimeRemaining = RoomMaxTime;
+        RoomTimeRemaining = RoomMaxTime[roomNo];
 
 
     }
@@ -234,7 +234,7 @@ public class LevelManager : MonoBehaviour
             player.transform.position = PlayerSpawnPosScene[roomNo].transform.position;
             playerSpawnPos = PlayerSpawnPosScene[roomNo].transform.position;
             Camera.transform.position = CameraPos[roomNo];
-            RoomTimeRemaining = RoomMaxTime;
+            RoomTimeRemaining = RoomMaxTime[roomNo];
         }
         else
         {
@@ -252,6 +252,10 @@ public class LevelManager : MonoBehaviour
         return State;
     }
 
+    public float getMaxTime()
+    {
+        return RoomMaxTime[roomNo];
+    }
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
