@@ -106,7 +106,7 @@ public class PlatformMovement : MonoBehaviour
         _currentWaypoint = 0;
 
         //Va al waypoint inicial
-        transform.position = waypoints[0];
+        transform.localPosition = waypoints[0];
         /*
           Hace que el momento en el que hayas acabado de moverte hacia el waypoint inicial sea el actual => 
           => en el siguiente FixedUpdate empezará a moverse al siguiente waypoint (el número 1) 
