@@ -4790,6 +4790,34 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1741144134}
     - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
+      propertyPath: estados.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
+      propertyPath: estados.Array.data[0]
+      value: 
+      objectReference: {fileID: 258733448}
+    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
+      propertyPath: estados.Array.data[1]
+      value: 
+      objectReference: {fileID: 226742278}
+    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
+      propertyPath: estados.Array.data[2]
+      value: 
+      objectReference: {fileID: 372168763}
+    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
+      propertyPath: estados.Array.data[3]
+      value: 
+      objectReference: {fileID: 518844985}
+    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
+      propertyPath: estados.Array.data[4]
+      value: 
+      objectReference: {fileID: 523710530}
+    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
+      propertyPath: estados.Array.data[5]
+      value: 
+      objectReference: {fileID: 1245423695}
+    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
       propertyPath: grayZone.Array.data[0]
       value: 
       objectReference: {fileID: 372419142}

@@ -38,6 +38,7 @@ public class playerStateDeath : MonoBehaviour
     Collider2D _statePlayerCollider;
     Tilemap _tilemapActual;
     LevelManager _levelManager;
+    private int _roomNo = 0;
 
     #endregion
     
@@ -56,6 +57,7 @@ public class playerStateDeath : MonoBehaviour
     {
         _statePlayerCollider = GetComponent<Collider2D>();
         _levelManager = LevelManager.Instance;
+         _roomNo = _levelManager.GetRoomNo();
     }
 
     /// <summary>
@@ -65,8 +67,9 @@ public class playerStateDeath : MonoBehaviour
     {
         // Habría que pasar todo esto a realizar la comprobación solo cuando se cambia de estado (eventos?)
         // Devuelves el estado que está activo
-        _tilemapActual = _levelManager.GetEstados()[_levelManager.EstadoActual() == 0 ? 1 : 0].GetComponent<Tilemap>();
-    
+        
+        _tilemapActual = _levelManager.GetEstados()[(_levelManager.EstadoActual() == 0 ? _roomNo+1 : _roomNo)].GetComponent<Tilemap>();
+
         if (IsColliderInsideTilemap(_statePlayerCollider, _tilemapActual))
         {
             Debug.Log("El collider está dentro del Tilemap");
