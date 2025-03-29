@@ -186,9 +186,11 @@ public class PlayerMovement : MonoBehaviour
 
         SetInitialVelocity();
 
+        JumpCalculations();
+
         CornerCorrection();
 
-        JumpCalculations();
+        
 
 
         
@@ -264,6 +266,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (platform != null && platform.getVel() != null)
         {
+            Debug.Log(platform.getVel());
             rb.velocity = new Vector2(moveInput.x * speed + platform.getVel().x, platform.getVel().y); //el problema estaba aquí. (solucionado haciendo collider más pequeño)
             //el problema (audio)
 
@@ -399,7 +402,7 @@ public class PlayerMovement : MonoBehaviour
         if (isJumping && jumpTimeCounter < jumpTime)
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + jumpForce);
-            jumpTimeCounter += Time.deltaTime;//Time.deltatime para el Update
+            jumpTimeCounter += Time.fixedDeltaTime;//Time.fixedDeltaTime para el fixedUpdate
         }
         else
         {
