@@ -78,7 +78,7 @@ public class LevelManager : MonoBehaviour
     private PlatformMovement[] _platformMovement;
     private CambioEstado[] estados;//llama a los prefabs que pueden cambiar de estado
     private Camera Camera;
-    private int roomNo = 0; //la primera room es la 0 y la última, la roomsAmount-1
+    [SerializeField]private int roomNo = 0; //la primera room es la 0 y la última, la roomsAmount-1
 
     /// <summary>
     /// Pos de respawn e inicio por el momento
@@ -103,6 +103,7 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
+       
         //setea la pos inicial a la pos del objeto que indica el primer inicio de sala, o la última puerta en la que has entrado, en caso del hub.
         if (isInHub)
         {
@@ -120,6 +121,8 @@ public class LevelManager : MonoBehaviour
         RoomTimeRemaining = RoomMaxTime[roomNo];
         _platformMovement = FindObjectsByType<PlatformMovement>(FindObjectsSortMode.None);
         estados = FindObjectsOfType<CambioEstado>();//llama a todos los prefabs que contienen este script
+
+        Debug.Log(estados.Length);
         Camera = FindObjectOfType<Camera>();
     }
 

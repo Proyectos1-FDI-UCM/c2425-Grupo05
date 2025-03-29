@@ -59,7 +59,8 @@ MonoBehaviour:
   - {x: -75, y: -35, z: -10}
   - {x: -43, y: -35, z: -10}
   - {x: -11, y: -35, z: -10}
-  RoomMaxTime: 10
+  RoomMaxTime:
+  - 0
   RoomTimeRemaining: 0
   StateMaxTime: 4
   StateTime: 0
@@ -67,3 +68,4 @@ MonoBehaviour:
   stateLocked: 0
   timeLocked: 0
   isInHub: 0
+  roomNo: 0

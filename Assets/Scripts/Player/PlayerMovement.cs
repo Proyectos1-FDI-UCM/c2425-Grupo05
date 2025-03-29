@@ -68,6 +68,10 @@ public class PlayerMovement : MonoBehaviour
     private float jumpTimeCounter;
     private float jumpBufferCounter;
 
+    public bool Left = false;
+    public bool Right = false;
+    public bool Center = false;
+
     //para corner correction
     private Vector3 lastPhisicsFrameVelocity;
     private bool cornerCorrectedLastFrame;
@@ -130,7 +134,7 @@ public class PlayerMovement : MonoBehaviour
             spriteRenderer.flipX = moveInput.x < 0;
         }
         // Debug.Log(new Vector2(upLeftCollider.bounds.center.x + upLeftCollider.bounds.extents.x,0.5f));
-        Debug.DrawRay(new Vector2(upLeftCollider.bounds.center.x + upLeftCollider.bounds.extents.x,transform.position.y), new Vector2(-1 * upLeftCollider.bounds.size.x, 0.5f), Color.red);
+        
         //debug:
         //if (isGrounded)
         //{
@@ -225,7 +229,7 @@ public class PlayerMovement : MonoBehaviour
         Collider2D[] hitColliders = Physics2D.OverlapBoxAll(jumpCollider.bounds.center, jumpCollider.bounds.size, 0);
         foreach (var hitCollider in hitColliders)
         {
-            if (hitCollider.gameObject != gameObject && ((1 << hitCollider.gameObject.layer) & ground) != 0) //por qué se usa & y no &&?
+            if (hitCollider.gameObject != gameObject && ((1 << hitCollider.gameObject.layer) & ground) != 0) 
             {
                 isGrounded = true;
                 coyotetime = true;
@@ -273,16 +277,17 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private void CornerCorrection()
     {
-        bool Left = false;
-        bool Right = false;
-        bool Center = false;
+
+         Left = false;
+     Right = false;
+     Center = false;
 
 
-            
 
 
-        #region Detecta tres colliders de corner correction y si hay colisión, Lo devuelve en Left, Right y Center
-        Collider2D[] hitColliders = Physics2D.OverlapBoxAll(upLeftCollider.bounds.center, upLeftCollider.bounds.size, 0);
+
+    #region Detecta tres colliders de corner correction y si hay colisión, Lo devuelve en Left, Right y Center
+    Collider2D[] hitColliders = Physics2D.OverlapBoxAll(upLeftCollider.bounds.center, upLeftCollider.bounds.size, 0);
         foreach (var hitCollider in hitColliders)
         {
             if (hitCollider.gameObject != gameObject && ((1 << hitCollider.gameObject.layer) & ground) != 0) //por qué se usa & y no &&?
@@ -315,10 +320,11 @@ public class PlayerMovement : MonoBehaviour
             
             RaycastHit2D hit = Physics2D.Raycast(new Vector2(upLeftCollider.bounds.center.x+upLeftCollider.bounds.extents.x, upLeftCollider.bounds.center.y + upLeftCollider.bounds.extents.y+physicsComparationDistance),new Vector2(-1,0), upLeftCollider.bounds.size.x, ground);
             // Debug.Log("Left ray casted");
+            Debug.DrawLine(new Vector2(upLeftCollider.bounds.center.x + upLeftCollider.bounds.extents.x, upLeftCollider.bounds.center.y + upLeftCollider.bounds.extents.y + physicsComparationDistance), hit.point, Color.yellow);
             if (hit)
             {
-                rb.velocity =lastPhisicsFrameVelocity;
-                rb.transform.Translate (new Vector2(upLeftCollider.bounds.size.x - hit.distance + physicsComparationDistance,0));
+                rb.velocity = new Vector2(0, lastPhisicsFrameVelocity.y);
+                rb.transform.Translate (new Vector2(upLeftCollider.bounds.size.x - hit.distance+.0001f,0));
             }
         }
         else if (Right && !(Left || Center))
@@ -326,11 +332,14 @@ public class PlayerMovement : MonoBehaviour
             
             RaycastHit2D hit = Physics2D.Raycast(new Vector2(upRightCollider.bounds.center.x - upRightCollider.bounds.extents.x, upRightCollider.bounds.center.y + upRightCollider.bounds.extents.y+physicsComparationDistance), new Vector2(1, 0), upRightCollider.bounds.size.x, ground);
             // Debug.Log("Right ray casted");
+            Debug.DrawLine(new Vector2(upRightCollider.bounds.center.x - upRightCollider.bounds.extents.x, upRightCollider.bounds.center.y + upRightCollider.bounds.extents.y + physicsComparationDistance), hit.point, Color.yellow);
             if (hit)
             {
-                rb.velocity = lastPhisicsFrameVelocity;
-                rb.transform.Translate(new Vector2( -(upRightCollider.bounds.size.x - hit.distance+physicsComparationDistance), 0));
+                rb.transform.Translate(new Vector2(-(upRightCollider.bounds.size.x - hit.distance+0.0001f), 0));
+                rb.velocity = new Vector2(0, lastPhisicsFrameVelocity.y);
+
             }
+            
         }
         
 
