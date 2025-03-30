@@ -61,16 +61,18 @@ public class PlayerMovement : MonoBehaviour
     //para efectuar salto
     PlatformMovement platform;
     private bool isGrounded;
-    private bool isJumping; 
-    private bool justJumped = false; //cuando pasa a true, salta y justo depués se pone a false para no saltar varias veces con un input.
+    private bool isAccelerating;
+
+    //cuando pasa a true, salta y justo depués se pone a false para no saltar varias veces con un input.
+    private bool justJumped = false;
     private bool coyotetime = false;
+
+    //sirve para que aunque hayas dejado de pulsar el input antes de empezar el salto (se puede dar el caso debido a input buffer),
+    //detecte que has dejado de pulsar el salto ergo deje de impulsarte para arriba.
+    private bool jumpWasReleased = true;
     private float tiempocoyote = 0f;
     private float jumpTimeCounter;
     private float jumpBufferCounter;
-
-    public bool Left = false;
-    public bool Right = false;
-    public bool Center = false;
 
     //para corner correction
     private Vector3 lastPhisicsFrameVelocity;
@@ -147,9 +149,15 @@ public class PlayerMovement : MonoBehaviour
         if (InputManager.Instance.JumpWasPressedThisFrame())
         {
             jumpBufferCounter = bufferTime;
+            jumpWasReleased = false;
         }else
         {
             jumpBufferCounter -= Time.deltaTime;
+        }
+
+        if (InputManager.Instance.JumpWasReleasedThisFrame())
+        {
+            jumpWasReleased = true;
         }
 
         //CoyoteTime
@@ -170,9 +178,9 @@ public class PlayerMovement : MonoBehaviour
             jumpBufferCounter = 0f;
 
         }
-        else if (InputManager.Instance.JumpWasReleasedThisFrame() && isJumping)
+        else if (jumpWasReleased && isAccelerating)
         {
-            isJumping = false;
+            isAccelerating = false;
         }
 
 
@@ -281,9 +289,9 @@ public class PlayerMovement : MonoBehaviour
     private void CornerCorrection()
     {
 
-         Left = false;
-     Right = false;
-     Center = false;
+         bool Left = false;
+         bool Right = false;
+         bool Center = false;
 
 
 
@@ -372,7 +380,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         
-        if(Center){isJumping = false;}
+        if(Center){isAccelerating = false;}
 
     }
     
@@ -387,7 +395,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Debug.Log("salto");
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + jumpForceInitial);
-            isJumping = true;
+            isAccelerating = true;
             jumpTimeCounter = 0;
             justJumped = false;
 
@@ -399,14 +407,14 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //salto(continuación)
-        if (isJumping && jumpTimeCounter < jumpTime)
+        if (isAccelerating && jumpTimeCounter < jumpTime)
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + jumpForce);
             jumpTimeCounter += Time.fixedDeltaTime;//Time.fixedDeltaTime para el fixedUpdate
         }
         else
         {
-            isJumping = false;
+            isAccelerating = false;
         }
 
     }
