@@ -13574,7 +13574,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1654999998992559054, guid: ec5a55e5afb087449a299815117138e2, type: 3}
       propertyPath: waypoints.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1654999998992559054, guid: ec5a55e5afb087449a299815117138e2, type: 3}
       propertyPath: waypoints.Array.data[0].w
@@ -15479,7 +15479,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1654999998992559054, guid: ec5a55e5afb087449a299815117138e2, type: 3}
       propertyPath: waypoints.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1654999998992559054, guid: ec5a55e5afb087449a299815117138e2, type: 3}
       propertyPath: waypoints.Array.data[0].x
@@ -15487,7 +15487,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1654999998992559054, guid: ec5a55e5afb087449a299815117138e2, type: 3}
       propertyPath: waypoints.Array.data[0].y
-      value: -6.425
+      value: 6.578
       objectReference: {fileID: 0}
     - target: {fileID: 1654999998992559054, guid: ec5a55e5afb087449a299815117138e2, type: 3}
       propertyPath: waypoints.Array.data[0].z
@@ -15503,7 +15503,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1654999998992559054, guid: ec5a55e5afb087449a299815117138e2, type: 3}
       propertyPath: waypoints.Array.data[1].y
-      value: 6.578
+      value: -6.425
       objectReference: {fileID: 0}
     - target: {fileID: 1654999998992559054, guid: ec5a55e5afb087449a299815117138e2, type: 3}
       propertyPath: waypoints.Array.data[1].z
@@ -18056,7 +18056,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1654999998992559054, guid: ec5a55e5afb087449a299815117138e2, type: 3}
       propertyPath: waypoints.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1654999998992559054, guid: ec5a55e5afb087449a299815117138e2, type: 3}
       propertyPath: waypoints.Array.data[0].w

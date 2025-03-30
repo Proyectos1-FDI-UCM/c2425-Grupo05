@@ -64,6 +64,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField]
     private CambioEstado[] estados;
 
+    [SerializeField]private int roomNo = 0; //la primera room es la 0 y la última, la roomsAmount-1
 
     // indica si este manager es el del hub
     [SerializeField] bool isInHub = false;
@@ -80,7 +81,7 @@ public class LevelManager : MonoBehaviour
     private PlatformMovement[] _platformMovement;
     
     private Camera Camera;
-    private int roomNo = 0; //la primera room es la 0 y la última, la roomsAmount-1
+    
 
     /// <summary>
     /// Pos de respawn e inicio por el momento

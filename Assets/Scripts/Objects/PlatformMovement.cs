@@ -6,6 +6,7 @@
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
+using System;
 using UnityEngine;
 // Añadir aquí el resto de directivas using
 
@@ -45,12 +46,12 @@ public class PlatformMovement : MonoBehaviour
     /// <summary>
     /// Indica el waypoint hacia el que me estoy moviendo.
     /// </summary>
-    private int _currentWaypoint = 0;
+    [SerializeField]private int _currentWaypoint = 0;
 
     /// <summary>
     /// Array con las velocidades para optimización (se calcula solo una vez)
     /// </summary>
-    private Vector2[] speeds;
+    [SerializeField]private Vector2[] speeds;
 
     #endregion
 
@@ -151,7 +152,10 @@ public class PlatformMovement : MonoBehaviour
         }
         speeds[pos].x = (waypoints[pos].x - waypoints[posPrev].x) / waypoints[pos].z;
         speeds[pos].y = (waypoints[pos].y - waypoints[posPrev].y) / waypoints[pos].z;
-
+        if (float.IsNaN(speeds[pos].x))
+        {
+            throw new Exception("Hay un waypoint inútil");
+        }
 
     }
 

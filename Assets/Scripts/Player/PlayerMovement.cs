@@ -49,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
     private float physicsComparationDistance = 0.05f;
-    
+
     //para comprobar colisiones
     private Rigidbody2D rb;
     private GameObject _child;
@@ -81,7 +81,7 @@ public class PlayerMovement : MonoBehaviour
 
     //input del inputManager
     Vector2 moveInput;
-    
+
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -136,7 +136,7 @@ public class PlayerMovement : MonoBehaviour
             spriteRenderer.flipX = moveInput.x < 0;
         }
         // Debug.Log(new Vector2(upLeftCollider.bounds.center.x + upLeftCollider.bounds.extents.x,0.5f));
-        
+
         //debug:
         //if (isGrounded)
         //{
@@ -150,7 +150,8 @@ public class PlayerMovement : MonoBehaviour
         {
             jumpBufferCounter = bufferTime;
             jumpWasReleased = false;
-        }else
+        }
+        else
         {
             jumpBufferCounter -= Time.deltaTime;
         }
@@ -198,12 +199,12 @@ public class PlayerMovement : MonoBehaviour
 
         CornerCorrection();
 
-        
 
 
-        
 
-        lastPhisicsFrameVelocity=rb.velocity;
+
+
+        lastPhisicsFrameVelocity = rb.velocity;
     }
     #endregion
 
@@ -214,7 +215,7 @@ public class PlayerMovement : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra)
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
-    public void Spring (float i) // Accion del jugador con el muelle
+    public void Spring(float i) // Accion del jugador con el muelle
     {
         rb.velocity = new Vector2(0, i); // Se le da verticalmente la fuerza recibida
     }
@@ -231,7 +232,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void CollisionDetection()
     {
-        
+
         isGrounded = false;
         platform = null;
 
@@ -239,7 +240,7 @@ public class PlayerMovement : MonoBehaviour
         Collider2D[] hitColliders = Physics2D.OverlapBoxAll(jumpCollider.bounds.center, jumpCollider.bounds.size, 0);
         foreach (var hitCollider in hitColliders)
         {
-            if (hitCollider.gameObject != gameObject && ((1 << hitCollider.gameObject.layer) & ground) != 0) 
+            if (hitCollider.gameObject != gameObject && ((1 << hitCollider.gameObject.layer) & ground) != 0)
             {
                 isGrounded = true;
                 coyotetime = true;
@@ -258,7 +259,7 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private void SetInitialVelocity()
     {
-        if(platform == null)
+        if (platform == null)
         {
             // si la velocidad mia es mayor a la máxima y no estoy pulsando la tecla de la dir contraria o el 0:
             if ((moveInput.x < 0 && rb.velocity.x < moveInput.x * speed) || (moveInput.x > 0 && rb.velocity.x > moveInput.x * speed))
@@ -272,11 +273,14 @@ public class PlayerMovement : MonoBehaviour
             }
 
         }
-        else if (platform != null && platform.getVel() != null)
+        else if (platform != null)
         {
+
+
             Debug.Log(platform.getVel());
-            rb.velocity = new Vector2(moveInput.x * speed + platform.getVel().x, platform.getVel().y); //el problema estaba aquí. (solucionado haciendo collider más pequeño)
-            //el problema (audio)
+            rb.velocity = new Vector2(moveInput.x * speed + platform.getVel().x, platform.getVel().y); 
+           //el problema estaba aquí. (solucionado haciendo collider más pequeño)
+           //el problema (audio)
 
         }
     }
@@ -289,16 +293,16 @@ public class PlayerMovement : MonoBehaviour
     private void CornerCorrection()
     {
 
-         bool Left = false;
-         bool Right = false;
-         bool Center = false;
+        bool Left = false;
+        bool Right = false;
+        bool Center = false;
 
 
 
 
 
-    #region Detecta tres colliders de corner correction y si hay colisión, Lo devuelve en Left, Right y Center
-    Collider2D[] hitColliders = Physics2D.OverlapBoxAll(upLeftCollider.bounds.center, upLeftCollider.bounds.size, 0);
+        #region Detecta tres colliders de corner correction y si hay colisión, Lo devuelve en Left, Right y Center
+        Collider2D[] hitColliders = Physics2D.OverlapBoxAll(upLeftCollider.bounds.center, upLeftCollider.bounds.size, 0);
         foreach (var hitCollider in hitColliders)
         {
             if (hitCollider.gameObject != gameObject && ((1 << hitCollider.gameObject.layer) & ground) != 0) //por qué se usa & y no &&?
@@ -307,7 +311,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-         hitColliders = Physics2D.OverlapBoxAll(upRightCollider.bounds.center, upRightCollider.bounds.size, 0);
+        hitColliders = Physics2D.OverlapBoxAll(upRightCollider.bounds.center, upRightCollider.bounds.size, 0);
         foreach (var hitCollider in hitColliders)
         {
             if (hitCollider.gameObject != gameObject && ((1 << hitCollider.gameObject.layer) & ground) != 0) //por qué se usa & y no &&?
@@ -328,33 +332,33 @@ public class PlayerMovement : MonoBehaviour
 
         if (Left && !(Right || Center))
         {
-            
-            RaycastHit2D hit = Physics2D.Raycast(new Vector2(upLeftCollider.bounds.center.x+upLeftCollider.bounds.extents.x, upLeftCollider.bounds.center.y + upLeftCollider.bounds.extents.y+physicsComparationDistance),new Vector2(-1,0), upLeftCollider.bounds.size.x, ground);
+
+            RaycastHit2D hit = Physics2D.Raycast(new Vector2(upLeftCollider.bounds.center.x + upLeftCollider.bounds.extents.x, upLeftCollider.bounds.center.y + upLeftCollider.bounds.extents.y + physicsComparationDistance), new Vector2(-1, 0), upLeftCollider.bounds.size.x, ground);
             // Debug.Log("Left ray casted");
             Debug.DrawLine(new Vector2(upLeftCollider.bounds.center.x + upLeftCollider.bounds.extents.x, upLeftCollider.bounds.center.y + upLeftCollider.bounds.extents.y + physicsComparationDistance), hit.point, Color.yellow);
             if (hit)
             {
                 rb.velocity = new Vector2(0, lastPhisicsFrameVelocity.y);
-                rb.transform.Translate (new Vector2(upLeftCollider.bounds.size.x - hit.distance+.0001f,0));
+                rb.transform.Translate(new Vector2(upLeftCollider.bounds.size.x - hit.distance + .0001f, 0));
             }
         }
         else if (Right && !(Left || Center))
         {
-            
-            RaycastHit2D hit = Physics2D.Raycast(new Vector2(upRightCollider.bounds.center.x - upRightCollider.bounds.extents.x, upRightCollider.bounds.center.y + upRightCollider.bounds.extents.y+physicsComparationDistance), new Vector2(1, 0), upRightCollider.bounds.size.x, ground);
+
+            RaycastHit2D hit = Physics2D.Raycast(new Vector2(upRightCollider.bounds.center.x - upRightCollider.bounds.extents.x, upRightCollider.bounds.center.y + upRightCollider.bounds.extents.y + physicsComparationDistance), new Vector2(1, 0), upRightCollider.bounds.size.x, ground);
             // Debug.Log("Right ray casted");
             Debug.DrawLine(new Vector2(upRightCollider.bounds.center.x - upRightCollider.bounds.extents.x, upRightCollider.bounds.center.y + upRightCollider.bounds.extents.y + physicsComparationDistance), hit.point, Color.yellow);
             if (hit)
             {
-                rb.transform.Translate(new Vector2(-(upRightCollider.bounds.size.x - hit.distance+0.0001f), 0));
+                rb.transform.Translate(new Vector2(-(upRightCollider.bounds.size.x - hit.distance + 0.0001f), 0));
                 rb.velocity = new Vector2(0, lastPhisicsFrameVelocity.y);
 
             }
-            
-        }
-        
 
-        
+        }
+
+
+
         spriteRenderer.color = Color.white;
 
         if (Left)
@@ -366,11 +370,11 @@ public class PlayerMovement : MonoBehaviour
             else
             {
                 spriteRenderer.color = Color.blue;
-            } 
+            }
         }
         else if (Right)
         {
-            if(Center)
+            if (Center)
             {
                 spriteRenderer.color = Color.magenta;
             }
@@ -379,11 +383,11 @@ public class PlayerMovement : MonoBehaviour
                 spriteRenderer.color = Color.red;
             }
         }
-        
-        if(Center){isAccelerating = false;}
+
+        if (Center) { isAccelerating = false; }
 
     }
-    
+
     /// <summary>
     /// Añade las velocidades necesarias para que el jugador salte.
     /// </summary>
