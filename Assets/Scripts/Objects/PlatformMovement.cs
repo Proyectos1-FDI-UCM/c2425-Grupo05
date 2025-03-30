@@ -70,15 +70,18 @@ public class PlatformMovement : MonoBehaviour
 
 
     }
-    private void Update()
+    private void FixedUpdate()
     {
+        //lo pongo en el fixedUpdate porque el movimiento de la plataforma tiene que ir en sincronía con el movimiento del jugador para que este se pueda quedar encima de la plataforma.
+        //Esto lo conseguimos dándole al jugador la misma velocidad que la de la plataforma durante esa parte del trayecto.
+        //Si dejan de moverse en sincronía, la detección de colisión con la plataforma para tener la misma velocidad se rompe.
         if (waypoints[_currentWaypoint].w == 0)
         {
             transform.localPosition = new Vector2(waypoints[_currentWaypoint].x, waypoints[_currentWaypoint].y);
         }
         else
         {
-            transform.localPosition = Vector2.MoveTowards(transform.localPosition, waypoints[_currentWaypoint], Time.deltaTime * waypoints[_currentWaypoint].w);
+            transform.localPosition = Vector2.MoveTowards(transform.localPosition, waypoints[_currentWaypoint], Time.fixedDeltaTime * waypoints[_currentWaypoint].w);
         }
         if (Time.time > _lastWaypointTime + waypoints[_currentWaypoint].z)
         {

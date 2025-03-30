@@ -78,7 +78,7 @@ public class LevelManager : MonoBehaviour
     private PlatformMovement[] _platformMovement;
     private CambioEstado[] estados;//llama a los prefabs que pueden cambiar de estado
     private Camera Camera;
-    [SerializeField]private int roomNo = 0; //la primera room es la 0 y la última, la roomsAmount-1
+    private int roomNo = 0; //la primera room es la 0 y la última, la roomsAmount-1
 
     /// <summary>
     /// Pos de respawn e inicio por el momento
