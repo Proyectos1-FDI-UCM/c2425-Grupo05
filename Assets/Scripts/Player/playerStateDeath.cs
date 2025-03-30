@@ -67,13 +67,19 @@ public class playerStateDeath : MonoBehaviour
     {
         // Habría que pasar todo esto a realizar la comprobación solo cuando se cambia de estado (eventos?)
         // Devuelves el estado que está activo
-        _roomNo= _levelManager.GetRoomNo()*2;
-        _tilemapActual = _levelManager.GetEstados()[(_levelManager.EstadoActual() == 0 ? _roomNo : _roomNo+1)].GetComponent<Tilemap>();
 
-        if (IsColliderInsideTilemap(_statePlayerCollider, _tilemapActual))
+        if (!_levelManager.GetIsHub())
         {
-            Debug.Log("El collider está dentro del Tilemap");
-            _levelManager.ResetPlayer();
+            _roomNo = _levelManager.GetRoomNo() * 2;
+            _tilemapActual = _levelManager.GetEstados()[(_levelManager.EstadoActual() == 0 ? _roomNo : _roomNo + 1)].GetComponent<Tilemap>();
+
+
+
+            if (IsColliderInsideTilemap(_statePlayerCollider, _tilemapActual))
+            {
+                Debug.Log("El collider está dentro del Tilemap");
+                _levelManager.ResetPlayer();
+            }
         }
     }
     #endregion

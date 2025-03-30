@@ -261,6 +261,10 @@ public class LevelManager : MonoBehaviour
     {
         return State;
     }
+    public bool GetIsHub()
+    {
+        return isInHub;
+    }
 
     public float getMaxTime()
     {
