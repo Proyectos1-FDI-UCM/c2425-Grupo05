@@ -61,6 +61,8 @@ public class LevelManager : MonoBehaviour
     private bool stateLocked;
     [SerializeField]
     private bool timeLocked;
+    [SerializeField]
+    private CambioEstado[] estados;
 
 
     // indica si este manager es el del hub
@@ -76,7 +78,7 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     private static LevelManager _instance;
     private PlatformMovement[] _platformMovement;
-    private CambioEstado[] estados;//llama a los prefabs que pueden cambiar de estado
+    
     private Camera Camera;
     private int roomNo = 0; //la primera room es la 0 y la última, la roomsAmount-1
 
@@ -120,7 +122,7 @@ public class LevelManager : MonoBehaviour
 
         RoomTimeRemaining = RoomMaxTime[roomNo];
         _platformMovement = FindObjectsByType<PlatformMovement>(FindObjectsSortMode.None);
-        estados = FindObjectsOfType<CambioEstado>();//llama a todos los prefabs que contienen este script
+      
 
         Debug.Log(estados.Length);
         Camera = FindObjectOfType<Camera>();
@@ -150,11 +152,12 @@ public class LevelManager : MonoBehaviour
 
             if (StateTime > StateMaxTime)
             {
+                ChangeState();
                 for (int i = 0; i < estados.Length; i++)
                 {
-                    estados[i].CambiaEstado();
+                    estados[i].CambiaEstado(State);
                 }
-                ChangeState();
+                
                 StateTime = 0f;
             }
 
@@ -162,7 +165,7 @@ public class LevelManager : MonoBehaviour
             {
                 for (int i = 0; i < estados.Length; i++)
                 {
-                    estados[i].CambiaEstadoTrasLuz();
+                    estados[i].CambiaEstadoTrasLuz(State);
                 }
             }
         }

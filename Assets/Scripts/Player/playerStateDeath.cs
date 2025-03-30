@@ -57,7 +57,7 @@ public class playerStateDeath : MonoBehaviour
     {
         _statePlayerCollider = GetComponent<Collider2D>();
         _levelManager = LevelManager.Instance;
-         _roomNo = _levelManager.GetRoomNo();
+        
     }
 
     /// <summary>
@@ -67,8 +67,8 @@ public class playerStateDeath : MonoBehaviour
     {
         // Habría que pasar todo esto a realizar la comprobación solo cuando se cambia de estado (eventos?)
         // Devuelves el estado que está activo
-        
-        _tilemapActual = _levelManager.GetEstados()[(_levelManager.EstadoActual() == 0 ? _roomNo+1 : _roomNo)].GetComponent<Tilemap>();
+        _roomNo= _levelManager.GetRoomNo()*2;
+        _tilemapActual = _levelManager.GetEstados()[(_levelManager.EstadoActual() == 0 ? _roomNo : _roomNo+1)].GetComponent<Tilemap>();
 
         if (IsColliderInsideTilemap(_statePlayerCollider, _tilemapActual))
         {

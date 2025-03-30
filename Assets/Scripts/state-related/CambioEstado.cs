@@ -28,8 +28,9 @@ public class CambioEstado : MonoBehaviour
 
 
 
+
     [SerializeField]
-    private bool State1 = false;//indica si se encuentra en el estado que empieza ya presente
+    private int State = 0;//el estado al que le corresponde en cuanto al valor del LevelManager
     [SerializeField]
     private bool Tilemap = false;//indica si se usarán tilemaps para el cambio de estado
     [SerializeField]
@@ -53,6 +54,7 @@ public class CambioEstado : MonoBehaviour
     private TilemapCollider2D _colliderTile;//si es un tilemap, coge su TilemapCollider2D
     private SpriteRenderer _spriteRenderer;//si no es un tilemap, coge su SpriteRenderer
     private Collider2D _collider;//si no es un tilemap, coge su Collider2D
+    private LevelManager _levelManager;
 
     private float time = 0;//el tiempo usado en el método GradualChangeAlpha
 
@@ -75,8 +77,16 @@ public class CambioEstado : MonoBehaviour
         _colliderTile = GetComponent<TilemapCollider2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _collider = GetComponent<Collider2D>();
-
-        SetComponentsActive(State1);
+        _levelManager = FindObjectOfType<LevelManager>();
+        if (_levelManager.EstadoActual() == State)
+        {
+            SetComponentsActive(true);
+        }
+        else
+        {
+            SetComponentsActive(false);
+        }
+        
 
     }
 
@@ -97,13 +107,18 @@ public class CambioEstado : MonoBehaviour
     ///Cambia el estado del bloque al otro. Si no está en el estado 1, entonces cambia a él, y viceversa.
     ///Los bloques que están en su estado 1 son los que aparecen visibles y con colisión.
     ///</summary>
-    public void CambiaEstado()
+    public void CambiaEstado(int StateL)
     {
-        SetComponentsActive(!State1);
+        if (StateL == State)
+        {
+            SetComponentsActive(true);
+        }
+        else
+        {
+            SetComponentsActive(false);
+        }
         ChangeAlpha(1f);
-        if (State1) State1 = false;
-        else State1 = true;
-        time = 0;
+        time = 0f;
     }
 
     /// <summary>
@@ -112,9 +127,9 @@ public class CambioEstado : MonoBehaviour
     /// componentes diferentes.
     /// </summary>
     
-    public void CambiaEstadoTrasLuz()
+    public void CambiaEstadoTrasLuz(int StateL)
     {
-        if (!State1)
+        if (StateL!=State)
         {
             if (Tilemap)
             {

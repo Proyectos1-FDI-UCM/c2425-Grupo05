@@ -5711,7 +5711,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b80d84705eefbbb40b1f446335ba4e5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  State1: 0
+  State: 2
   Tilemap: 1
   Player: {fileID: 0}
 --- !u!66 &226742279
@@ -6243,7 +6243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b80d84705eefbbb40b1f446335ba4e5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  State1: 1
+  State: 0
   Tilemap: 1
   Player: {fileID: 0}
 --- !u!66 &258733449
@@ -6930,6 +6930,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1741144134}
     - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
+      propertyPath: estados.Array.size
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
       propertyPath: grayZone.Array.size
       value: 4
       objectReference: {fileID: 0}
@@ -6937,6 +6941,38 @@ PrefabInstance:
       propertyPath: CameraPos.Array.size
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
+      propertyPath: estados.Array.data[0]
+      value: 
+      objectReference: {fileID: 258733448}
+    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
+      propertyPath: estados.Array.data[1]
+      value: 
+      objectReference: {fileID: 226742278}
+    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
+      propertyPath: estados.Array.data[2]
+      value: 
+      objectReference: {fileID: 372168763}
+    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
+      propertyPath: estados.Array.data[3]
+      value: 
+      objectReference: {fileID: 518844985}
+    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
+      propertyPath: estados.Array.data[4]
+      value: 
+      objectReference: {fileID: 523710530}
+    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
+      propertyPath: estados.Array.data[5]
+      value: 
+      objectReference: {fileID: 1245423695}
+    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
+      propertyPath: estados.Array.data[6]
+      value: 
+      objectReference: {fileID: 817966553}
+    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
+      propertyPath: estados.Array.data[7]
+      value: 
+      objectReference: {fileID: 1445780745}
     - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
       propertyPath: RoomMaxTime.Array.size
       value: 4
@@ -7093,7 +7129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b80d84705eefbbb40b1f446335ba4e5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  State1: 1
+  State: 0
   Tilemap: 1
   Player: {fileID: 0}
 --- !u!66 &372168764
@@ -9084,7 +9120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b80d84705eefbbb40b1f446335ba4e5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  State1: 0
+  State: 2
   Tilemap: 1
   Player: {fileID: 0}
 --- !u!66 &518844986
@@ -10127,7 +10163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b80d84705eefbbb40b1f446335ba4e5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  State1: 1
+  State: 0
   Tilemap: 1
   Player: {fileID: 0}
 --- !u!66 &523710531
@@ -13177,7 +13213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b80d84705eefbbb40b1f446335ba4e5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  State1: 1
+  State: 0
   Tilemap: 1
   Player: {fileID: 0}
 --- !u!1 &869757856
@@ -13703,7 +13739,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b80d84705eefbbb40b1f446335ba4e5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  State1: 0
+  State: 2
   Tilemap: 1
   Player: {fileID: 0}
 --- !u!66 &1245423696
@@ -14567,7 +14603,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b80d84705eefbbb40b1f446335ba4e5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  State1: 0
+  State: 2
   Tilemap: 1
   Player: {fileID: 0}
 --- !u!66 &1445780746
