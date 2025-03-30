@@ -78,15 +78,18 @@ public class Spring : MonoBehaviour
     // El convenio de nombres de Unity recomienda que estos métodos
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
-    void OnTriggerEnter2D(Collider2D collision)
+void OnTriggerEnter2D(Collider2D collision)//Si colisiona con el jugador, le hace saltar a través del metodo spring
+{
+    Debug.Log("colision: " + collision.gameObject.name);
+    PlayerMovement player = collision.gameObject.GetComponentInParent<PlayerMovement>(); 
+    if (player != null)
     {
-        PlayerMovement player = collision.gameObject.GetComponent<PlayerMovement>();
-        if (player != null)
-        {
-            Debug.Log("RAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH3);");
-            player.Spring(springForce);
-        }
+        Debug.Log("jugador");
+        player.Spring(springForce);
     }
+}
+
+
     #endregion   
 
 } // class Spring 

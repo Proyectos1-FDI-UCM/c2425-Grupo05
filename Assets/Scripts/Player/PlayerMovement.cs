@@ -206,9 +206,9 @@ public class PlayerMovement : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra)
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
-    public void Spring (float i)
+    public void Spring (float i) // Accion del jugador con el muelle
     {
-        rb.velocity = new Vector2(0, i);
+        rb.velocity = new Vector2(0, i); // Se le da verticalmente la fuerza recibida
     }
 
 
