@@ -44,9 +44,9 @@ public class GameManager : MonoBehaviour
     private static GameManager _instance;
 
     /// <summary>
-    /// máximo nivel alcanzado
+    /// máximo nivel alcanzado (está serializada para testing)
     /// </summary>
-    private int maxCurrentLvl = 0;
+    [SerializeField]private int maxCurrentLvl = 0;
 
     /// <summary>
     /// Último nivel en el que has estado
