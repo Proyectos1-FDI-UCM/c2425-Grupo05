@@ -6960,19 +6960,19 @@ PrefabInstance:
     - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
       propertyPath: estados.Array.data[4]
       value: 
-      objectReference: {fileID: 523710530}
+      objectReference: {fileID: 817966553}
     - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
       propertyPath: estados.Array.data[5]
       value: 
-      objectReference: {fileID: 1245423695}
+      objectReference: {fileID: 1445780745}
     - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
       propertyPath: estados.Array.data[6]
       value: 
-      objectReference: {fileID: 817966553}
+      objectReference: {fileID: 523710530}
     - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
       propertyPath: estados.Array.data[7]
       value: 
-      objectReference: {fileID: 1445780745}
+      objectReference: {fileID: 1245423695}
     - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
       propertyPath: RoomMaxTime.Array.size
       value: 4
@@ -6988,14 +6988,18 @@ PrefabInstance:
     - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
       propertyPath: grayZone.Array.data[2]
       value: 
-      objectReference: {fileID: 489548311}
+      objectReference: {fileID: 1581778446}
     - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
       propertyPath: grayZone.Array.data[3]
       value: 
-      objectReference: {fileID: 1581778446}
+      objectReference: {fileID: 489548311}
+    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
+      propertyPath: CameraPos.Array.data[2].x
+      value: 21
+      objectReference: {fileID: 0}
     - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
       propertyPath: CameraPos.Array.data[3].x
-      value: 21
+      value: -11
       objectReference: {fileID: 0}
     - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
       propertyPath: CameraPos.Array.data[3].y
@@ -7036,11 +7040,11 @@ PrefabInstance:
     - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
       propertyPath: PlayerSpawnPosScene.Array.data[2]
       value: 
-      objectReference: {fileID: 1023838380}
+      objectReference: {fileID: 2082304616}
     - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
       propertyPath: PlayerSpawnPosScene.Array.data[3]
       value: 
-      objectReference: {fileID: 2082304616}
+      objectReference: {fileID: 1023838380}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

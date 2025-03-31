@@ -274,6 +274,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b80d84705eefbbb40b1f446335ba4e5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  State1: 0
+  State: 2
   Tilemap: 1
   Player: {fileID: 0}
