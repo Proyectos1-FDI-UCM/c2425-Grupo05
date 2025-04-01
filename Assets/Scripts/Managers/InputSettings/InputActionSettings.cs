@@ -46,6 +46,15 @@ namespace UnityEngine.InputSystem
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Enter"",
+                    ""type"": ""Button"",
+                    ""id"": ""7e7c101e-b6e4-4fb2-8766-3679cc28c788"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -200,6 +209,28 @@ namespace UnityEngine.InputSystem
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8f8d1e7d-d2a9-4907-8cff-dedd789e0720"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Enter"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d0e36747-0962-4464-a7a8-eebee226b6e0"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Enter"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -820,6 +851,7 @@ namespace UnityEngine.InputSystem
             m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
             m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
             m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
+            m_Player_Enter = m_Player.FindAction("Enter", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -896,12 +928,14 @@ namespace UnityEngine.InputSystem
         private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
         private readonly InputAction m_Player_Move;
         private readonly InputAction m_Player_Jump;
+        private readonly InputAction m_Player_Enter;
         public struct PlayerActions
         {
             private @InputActionSettings m_Wrapper;
             public PlayerActions(@InputActionSettings wrapper) { m_Wrapper = wrapper; }
             public InputAction @Move => m_Wrapper.m_Player_Move;
             public InputAction @Jump => m_Wrapper.m_Player_Jump;
+            public InputAction @Enter => m_Wrapper.m_Player_Enter;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -917,6 +951,9 @@ namespace UnityEngine.InputSystem
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
+                @Enter.started += instance.OnEnter;
+                @Enter.performed += instance.OnEnter;
+                @Enter.canceled += instance.OnEnter;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -927,6 +964,9 @@ namespace UnityEngine.InputSystem
                 @Jump.started -= instance.OnJump;
                 @Jump.performed -= instance.OnJump;
                 @Jump.canceled -= instance.OnJump;
+                @Enter.started -= instance.OnEnter;
+                @Enter.performed -= instance.OnEnter;
+                @Enter.canceled -= instance.OnEnter;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -1119,6 +1159,7 @@ namespace UnityEngine.InputSystem
         {
             void OnMove(InputAction.CallbackContext context);
             void OnJump(InputAction.CallbackContext context);
+            void OnEnter(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {

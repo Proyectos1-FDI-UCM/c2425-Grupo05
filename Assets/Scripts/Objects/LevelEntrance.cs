@@ -8,6 +8,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 // Añadir aquí el resto de directivas using
 
 
@@ -61,7 +62,7 @@ public class LevelEntrance : MonoBehaviour
         if (touchingPlayer) // aquí también hay que poner && tecla "" detectada, pero no sé cómo hacerlo con el nuevo input system.
         {
             //solo puedes entrar en la puerta 2 si ya te has pasado el nivel 1 =>
-            if (doorLevel <= GameManager.Instance.MaxLevel() + 1)
+            if (doorLevel <= GameManager.Instance.MaxLevel() + 1 && InputManager.Instance.EnterIsPressed())
             {
                 GameManager.Instance.GoToLvl(doorLevel);
             }

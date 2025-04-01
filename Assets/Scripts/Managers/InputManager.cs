@@ -67,6 +67,7 @@ public class InputManager : MonoBehaviour
     /// </summary>
     private InputAction _jump;
     private InputAction _pause;
+    private InputAction _enter;
 
     #endregion
 
@@ -173,6 +174,15 @@ public class InputManager : MonoBehaviour
     {
         return _pause.IsPressed();
     }
+        /// <summary>
+    ///  Método para saber si el boton de acceder al menu de pausa (Escape) está pulsado
+    ///  Devolverá true en todos los frames en los que se mantenga pulsado
+    /// </summary> True, si el botón esta pulsado
+    /// <returns></returns>
+    public bool EnterIsPressed()
+    {
+        return _enter.IsPressed();
+    }
     /// <summary>
     /// Método para saber si el botón de disparo (Fire) se ha pulsado en este frame
     /// <returns>Devuelve true, si el botón ha sido pulsado en este frame
@@ -183,7 +193,6 @@ public class InputManager : MonoBehaviour
     {
         return _jump.WasPressedThisFrame();
     }
-
     /// <summary>
     /// Método para saber si el botón de disparo (Fire) ha dejado de pulsarse
     /// durante este frame
@@ -223,6 +232,9 @@ public class InputManager : MonoBehaviour
         // tenemos (FireIsPressed, FireWasPressedThisFrame 
         // y FireWasReleasedThisFrame)
         _jump = _theController.Player.Jump;
+
+        // Para el enter, cacheamos el botón de enter
+        _enter = _theController.Player.Enter;
     }
 
     /// <summary>

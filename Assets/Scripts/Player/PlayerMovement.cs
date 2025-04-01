@@ -183,10 +183,6 @@ public class PlayerMovement : MonoBehaviour
         {
             isAccelerating = false;
         }
-
-
-
-
     }
     void FixedUpdate()
     {
@@ -198,10 +194,6 @@ public class PlayerMovement : MonoBehaviour
         JumpCalculations();
 
         CornerCorrection();
-
-
-
-
 
 
         lastPhisicsFrameVelocity = rb.velocity;
