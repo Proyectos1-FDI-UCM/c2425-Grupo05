@@ -14438,42 +14438,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 549911831380807634, guid: d1cb0d22127e60e4699564f46274486b, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 581045933331996342, guid: d1cb0d22127e60e4699564f46274486b, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 1784382361920628952, guid: d1cb0d22127e60e4699564f46274486b, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 3ffcdef6773d4b6439343c5f53fe3652, type: 3}
-    - target: {fileID: 1784382361920628952, guid: d1cb0d22127e60e4699564f46274486b, type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2078992898098006639, guid: d1cb0d22127e60e4699564f46274486b, type: 3}
-      propertyPath: speed
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 2078992898098006639, guid: d1cb0d22127e60e4699564f46274486b, type: 3}
-      propertyPath: deacceleration
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 2078992898098006639, guid: d1cb0d22127e60e4699564f46274486b, type: 3}
-      propertyPath: spriteRenderer
-      value: 
-      objectReference: {fileID: 1741144138}
-    - target: {fileID: 2078992898098006639, guid: d1cb0d22127e60e4699564f46274486b, type: 3}
-      propertyPath: tiempocoyotetime
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2078992898098006639, guid: d1cb0d22127e60e4699564f46274486b, type: 3}
-      propertyPath: distanciaparedderecha
-      value: 23.5
-      objectReference: {fileID: 0}
     - target: {fileID: 5471280442647195517, guid: d1cb0d22127e60e4699564f46274486b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.48
@@ -14512,22 +14476,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5471280442647195517, guid: d1cb0d22127e60e4699564f46274486b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5471280442647195517, guid: d1cb0d22127e60e4699564f46274486b, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6127155591171552093, guid: d1cb0d22127e60e4699564f46274486b, type: 3}
-      propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6127155591171552093, guid: d1cb0d22127e60e4699564f46274486b, type: 3}
-      propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9056112194889642496, guid: d1cb0d22127e60e4699564f46274486b, type: 3}
-      propertyPath: m_SleepingMode
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -19133,11 +19081,6 @@ Transform:
 --- !u!1 &1741144134 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 549911831380807634, guid: d1cb0d22127e60e4699564f46274486b, type: 3}
-  m_PrefabInstance: {fileID: 1254707097}
-  m_PrefabAsset: {fileID: 0}
---- !u!212 &1741144138 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 1784382361920628952, guid: d1cb0d22127e60e4699564f46274486b, type: 3}
   m_PrefabInstance: {fileID: 1254707097}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1762334969
