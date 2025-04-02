@@ -47,8 +47,8 @@ public class LevelManager : MonoBehaviour
     // Variables del contador de tiempo de la sala
     [SerializeField]private float[] RoomMaxTime;
 
-    [SerializeField]
-    private float ChangeTimeTrasluz = 3.5f;//el tiempo que tarda en poner una imagen translúcida del siguiente estado
+    
+    
 
     [SerializeField] private int roomsAmount = 5;
     [SerializeField]
@@ -80,7 +80,8 @@ public class LevelManager : MonoBehaviour
 
     private float RoomTimeRemaining;
     // Variables del contador de tiempo del estado
-    private float StateMaxTime = 4f;
+    private float StateMaxTime = 3f;
+    private float ChangeTimeTrasluz = 2.5f;//el tiempo que tarda en poner una imagen translúcida del siguiente estado
     private float StateTime = 0f;
     private Camera Camera;
     
