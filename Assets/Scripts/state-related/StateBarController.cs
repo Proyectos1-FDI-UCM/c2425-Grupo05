@@ -53,7 +53,7 @@ public class StateBarController : MonoBehaviour
     /// </summary>
     void Start()
     {
-        LevelManager.Instance.StateTime = 0;
+        LevelManager.Instance.getStateTime();
         timeScrollBar.size = 0;
         filler.color = Color.magenta;
         statebarBackground.color = Color.yellow;
@@ -65,7 +65,7 @@ public class StateBarController : MonoBehaviour
     void Update()
     {
 
-        timeScrollBar.size = LevelManager.Instance.StateTime / LevelManager.Instance.StateMaxTime;
+        timeScrollBar.size = LevelManager.Instance.getStateTime() / LevelManager.Instance.getStateMaxTime();
 
         if (LevelManager.Instance.State == 0)
         {

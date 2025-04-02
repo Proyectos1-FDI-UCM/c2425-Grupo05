@@ -57,12 +57,13 @@ public class TimeBarController : MonoBehaviour
 
     /// <summary>
     /// Update is called every frame, if the MonoBehaviour is enabled.
-    /// </summary>
+    /// En el Update se actualiza el tamaño de la barra de tiempo
+    ///acorde con el tiempo que queda respecto al tiempo máx
     void Update()
     {
-        if (LevelManager.Instance.RoomTimeRemaining > 0)
+        if (LevelManager.Instance.getRoomTimeRemaining() > 0)
         {
-            timeScrollBar.size = LevelManager.Instance.RoomTimeRemaining / LevelManager.Instance.getMaxTime();
+            timeScrollBar.size = LevelManager.Instance.getRoomTimeRemaining() / LevelManager.Instance.getMaxTime();
         }
         else
         {

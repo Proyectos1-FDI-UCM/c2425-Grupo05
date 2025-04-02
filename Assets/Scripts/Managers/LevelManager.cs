@@ -47,14 +47,8 @@ public class LevelManager : MonoBehaviour
     private float ChangeTimeTrasluz = 3.5f;//el tiempo que tarda en poner una imagen translúcida del siguiente estadoç
 
     [SerializeField] private int roomsAmount = 5;
-    // Variables del contador de tiempo de la sala
     [SerializeField]
     Vector3[] CameraPos;
-    public float[] RoomMaxTime;
-    public float RoomTimeRemaining;
-    // Variables del contador de tiempo del estado
-    public float StateMaxTime = 4f;
-    public float StateTime = 0f;
     // Variables de cambios de estado (0-Estado Neutral, 1-Estado 1, 2-Estado 2
     public int State = 0;
     [SerializeField]
@@ -79,7 +73,12 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     private static LevelManager _instance;
     private PlatformMovement[] _platformMovement;
-    
+    // Variables del contador de tiempo de la sala
+    private float[] RoomMaxTime;
+    private float RoomTimeRemaining;
+    // Variables del contador de tiempo del estado
+    private float StateMaxTime = 4f;
+    private float StateTime = 0f;
     private Camera Camera;
     
 
@@ -106,7 +105,9 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
-       
+        //Setea el tiempo a 0
+        StateTime = 0f;
+        
         //setea la pos inicial a la pos del objeto que indica el primer inicio de sala, o la última puerta en la que has entrado, en caso del hub.
         if (isInHub)
         {
@@ -270,6 +271,20 @@ public class LevelManager : MonoBehaviour
     public float getMaxTime()
     {
         return RoomMaxTime[roomNo];
+    }
+
+    public float getStateMaxTime()
+    {
+        return StateMaxTime;
+    }  
+
+    public float getStateTime()
+    {
+        return StateTime;
+    }  
+    public float getRoomTimeRemaining()
+    {
+        return RoomTimeRemaining;
     }
     #endregion
 

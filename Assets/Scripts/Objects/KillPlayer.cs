@@ -35,7 +35,6 @@ public class KillPlayer : MonoBehaviour
     // primera palabra en minúsculas y el resto con la 
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
-    private Vector2 _levelPlayerPos = new Vector2(-7,0);
 
     #endregion
     

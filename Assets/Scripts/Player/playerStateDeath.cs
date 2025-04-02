@@ -52,6 +52,7 @@ public class playerStateDeath : MonoBehaviour
     /// <summary>
     /// Start is called on the frame when a script is enabled just before 
     /// any of the Update methods are called the first time.
+    ///Se inicializan las variables a sus valores correspondientes
     /// </summary>
     void Start()
     {
@@ -62,11 +63,12 @@ public class playerStateDeath : MonoBehaviour
 
     /// <summary>
     /// Update is called every frame, if the MonoBehaviour is enabled.
+    /// En este update se encarga de detectar si estamos en el Hub para comprobar
     /// </summary>
     void Update()
     {
-        // Habría que pasar todo esto a realizar la comprobación solo cuando se cambia de estado (eventos?)
-        // Devuelves el estado que está activo
+        // Habria que pasar todo esto a realizar la comprobacion solo cuando se cambia de estado (eventos?)
+        // Devuelves el estado que esta activo
 
         if (!_levelManager.GetIsHub())
         {
