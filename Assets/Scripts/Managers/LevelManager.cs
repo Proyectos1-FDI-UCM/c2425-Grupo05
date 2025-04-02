@@ -79,9 +79,12 @@ public class LevelManager : MonoBehaviour
     private PlatformMovement[] _platformMovement;
 
     private float RoomTimeRemaining;
+
     // Variables del contador de tiempo del estado
     private float StateMaxTime = 3f;
-    private float ChangeTimeTrasluz = 2.5f;//el tiempo que tarda en poner una imagen translúcida del siguiente estado
+
+    //el tiempo que tarda en poner una imagen translúcida del siguiente estado
+    private float ChangeTimeTrasluz = 2.5f;
     private float StateTime = 0f;
     private Camera Camera;
     
