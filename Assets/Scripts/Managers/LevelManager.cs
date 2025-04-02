@@ -43,8 +43,12 @@ public class LevelManager : MonoBehaviour
     private GameObject[] PlayerSpawnPosScene;
     [SerializeField]
     private GrayZone[] grayZone;
+
+    // Variables del contador de tiempo de la sala
+    [SerializeField]private float[] RoomMaxTime;
+
     [SerializeField]
-    private float ChangeTimeTrasluz = 3.5f;//el tiempo que tarda en poner una imagen translúcida del siguiente estadoç
+    private float ChangeTimeTrasluz = 3.5f;//el tiempo que tarda en poner una imagen translúcida del siguiente estado
 
     [SerializeField] private int roomsAmount = 5;
     [SerializeField]
@@ -73,8 +77,7 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     private static LevelManager _instance;
     private PlatformMovement[] _platformMovement;
-    // Variables del contador de tiempo de la sala
-    private float[] RoomMaxTime;
+
     private float RoomTimeRemaining;
     // Variables del contador de tiempo del estado
     private float StateMaxTime = 4f;
@@ -116,6 +119,7 @@ public class LevelManager : MonoBehaviour
         }
         else
         {
+            
             playerSpawnPos = PlayerSpawnPosScene[0].transform.position;
         }
         //Lleva al player al primer inicio de sala.
