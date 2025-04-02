@@ -3,6 +3,7 @@
 
 
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 
@@ -43,13 +44,13 @@ public class ChangeScene : MonoBehaviour
     // Por defecto están los típicos (Update y Start) pero:
     // - Hay que añadir todos los que sean necesarios
     // - Hay que borrar los que no se usen 
-    //void Update()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.Escape))
-    //    {
-    //        QuitGame();
-    //    }
-    //}
+    void Update()
+    {
+        if (Keyboard.current.escapeKey.wasPressedThisFrame)
+        {
+            QuitGame();
+        }
+    }
     #endregion
 
     // ---- MÉTODOS PÚBLICOS ----

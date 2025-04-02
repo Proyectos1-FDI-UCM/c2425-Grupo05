@@ -1,3 +1,4 @@
+
 //---------------------------------------------------------
 // Breve descripción del contenido del archivo
 // Responsable de la creación de este archivo
@@ -11,6 +12,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 // Añadir aquí el resto de directivas using
 
 
@@ -32,9 +34,11 @@ public class Menu : MonoBehaviour
     [SerializeField] private GameObject resumeButton; // Botón Resume
     [SerializeField] private GameObject mainMenuButton; // Botón Main Menu
     [SerializeField] private GameObject levelSelectorButton; // Botón Level Selector
-    [SerializeField] private GameObject exitGameButton;
-    [SerializeField] private bool Paused;
-    [SerializeField] PlayerMovement playermovement; 
+    //[SerializeField] private GameObject exitGameButton;
+    [SerializeField] private bool Paused;  //Paused = !Paused Alterna el estado de pausa
+    [SerializeField] private PlayerMovement playermovement; // para desactivar su script cuando se acciona el PauseMenu
+    [SerializeField] private GameObject PauseMenuFirst;
+    
     //[SerializeField] private GameObject ExitButton;
     //[SerializeField] private PlayerMovement playerscript; 
 
@@ -51,14 +55,14 @@ public class Menu : MonoBehaviour
     // Ejemplo: _maxHealthPoints
 
     #endregion
-    
+
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
     #region Métodos de MonoBehaviour
-    
+
     // Por defecto están los típicos (Update y Start) pero:
     // - Hay que añadir todos los que sean necesarios
     // - Hay que borrar los que no se usen 
-    
+
     /// <summary>
     /// Start is called on the frame when a script is enabled just before 
     /// any of the Update methods are called the first time.
@@ -78,9 +82,18 @@ public class Menu : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (Keyboard.current.escapeKey.wasPressedThisFrame)
+        
+        //if (Keyboard.current.escapeKey.wasPressedThisFrame || Gamepad.current.startButton.wasPressedThisFrame)
+        if (InputManager.Instance.PauseIsPressed())   
         {
-            TooglePause();
+            if (!Paused)
+            {
+                TooglePause();
+            }
+            else
+            {
+                ResumeGame();
+            }
         }
     }
     #endregion
@@ -92,80 +105,48 @@ public class Menu : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
-
-    public void OnPause(InputAction.CallbackContext context) //Lo de de callbackcontext se lo pregunte a Gepeto, luego lo cambiare o lo intentare entender 
-    {
-        if (context.performed)
-        {
-            TooglePause(); // Alterna el estado de pausa
-        }
-    }
+   
     private void TooglePause()
     {
         
-            Paused = !Paused; // Alterna el estado de pausa
-            Time.timeScale = Paused ? 0 : 1; // Pausa o reanuda el juego
-            ObjectPauseMenu.SetActive(Paused); // Muestra u oculta el menú
-        
+        Paused = true;
+        Time.timeScale = 0f; // Para el tiempo del juego
+        ObjectPauseMenu.SetActive(Paused); // Muestra u oculta el menú
+        EventSystem.current.SetSelectedGameObject(PauseMenuFirst); // Una vez iniciado el menu de pausa el jugador podra ver con el color de seleccionado al primer boton de este
+        playermovement.enabled = false; // El personaje realmente se queda quieto
+        print("Pausa");
+
     }
     // Método para el botón Resume
     public void ResumeGame()
     {
         Paused = false;
         Time.timeScale = 1; // Reanuda el tiempo del juego
-        ObjectPauseMenu.SetActive(false); // Oculta el menú
+        ObjectPauseMenu.SetActive(Paused); // Oculta el menú
+        EventSystem.current.SetSelectedGameObject(null);
+        playermovement.enabled = true;
+        print("Reanuda");
     }
 
     // Método para cambiar a la primera escena
     public void GoToMainMenu()
     {
         Time.timeScale = 1; // Reanudar el tiempo antes de cambiar de escena
-        SceneManager.LoadScene("Menu"); 
+        SceneManager.LoadScene("MainMenu");
     }
 
     // Método para cambiar a la segunda escena
     public void GoToLevelSelector()
     {
         Time.timeScale = 1; // Reanudar el tiempo antes de cambiar de escena
-        SceneManager.LoadScene("Hub"); 
+        SceneManager.LoadScene("Hub");
     }
 
-    public void ExitGame()
+    /*public void ExitGame()
     {
         Time.timeScale = 1; // Reanuda el tiempo antes de salir
         Application.Quit(); // Cierra la aplicación
         Debug.Log("Juego cerrado."); // Esto sólo se verá en el editor de Unity
-    }
-    /*
-    public void OnStop(InputAction.CallbackContext context)
-    {
-        if (context.performed) // Comprueba si la acción se ha realizado
-        {
-            ObjectPauseMenu.SetActive(!ObjectPauseMenu.activeSelf); // Alterna entre mostrar y ocultar el menú
-            Pause = true;
-        }
-    }
-    */
-    /*public void OpenExit()
-    {
-        Time.timeScale = 1;
-        SceneManager.LoadScene(0);
-        playerscript.enabled = true;
-    }
-
-    public void OpenReset()
-    {
-        SceneManager.LoadScene(1);
-        Time.timeScale = 1;
-        playerscript.enabled = true;
-      
-    }
-
-    public void OpenResume()
-    {
-        PauseMenu.SetActive(false);
-        Time.timeScale = 1;
-        playerscript.enabled = true;
     }
     */
     #endregion
@@ -176,25 +157,9 @@ public class Menu : MonoBehaviour
     // El convenio de nombres de Unity recomienda que estos métodos
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
-    /* private void OnEnable()
-     {
-         // Obtener la referencia de la acción "Stop" desde el InputActionMap
-         var playerInput = new PlayerInput();
-         //stopAction = playerInput.UI.Stop;
-
-         // Suscribirse al evento cuando se ejecuta la acción
-         //stopAction.performed += OnStopAction;
-         stopAction.Enable();
-     }
-
-     private void OnDisable()
-     {
-         //stopAction.performed -= OnStopAction;
-         stopAction.Disable();
-     }
-    */
+   
     #endregion
 
 
 } // class Menu 
-// namespace
+  // namespace

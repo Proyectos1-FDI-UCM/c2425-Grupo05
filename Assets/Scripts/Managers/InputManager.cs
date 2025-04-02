@@ -52,7 +52,7 @@ public class InputManager : MonoBehaviour
     /// Instancia única de la clase (singleton).
     /// </summary>
     private static InputManager _instance;
-
+    
     /// <summary>
     /// Controlador de las acciones del Input. Es una instancia del asset de 
     /// InputAction que se puede configurar desde el editor y que está en
@@ -172,7 +172,7 @@ public class InputManager : MonoBehaviour
     /// <returns></returns>
     public bool PauseIsPressed()
     {
-        return _pause.IsPressed();
+        return _pause.WasPressedThisFrame();
     }
         /// <summary>
     ///  Método para saber si el boton de acceder al menu de pausa (Escape) está pulsado
@@ -235,6 +235,8 @@ public class InputManager : MonoBehaviour
 
         // Para el enter, cacheamos el botón de enter
         _enter = _theController.Player.Enter;
+
+        _pause = _theController.Player.Pause;
     }
 
     /// <summary>
