@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "c2425-Grupo05.sln"
+    "dotnet.defaultSolution": "P1Mig.sln"
 }
