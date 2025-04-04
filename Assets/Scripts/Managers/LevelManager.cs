@@ -78,7 +78,7 @@ public class LevelManager : MonoBehaviour
     private static LevelManager _instance;
     private PlatformMovement[] _platformMovement;
 
-    private float RoomTimeRemaining;
+    [SerializeField]private float RoomTimeRemaining;
     // Variables del contador de tiempo del estado
     private float StateMaxTime = 4f;
     private float StateTime = 0f;
