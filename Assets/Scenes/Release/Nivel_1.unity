@@ -5505,19 +5505,19 @@ PrefabInstance:
     - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
       propertyPath: estados.Array.data[4]
       value: 
-      objectReference: {fileID: 152603364}
+      objectReference: {fileID: 523710530}
     - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
       propertyPath: estados.Array.data[5]
       value: 
-      objectReference: {fileID: 1699961764}
+      objectReference: {fileID: 1245423695}
     - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
       propertyPath: estados.Array.data[6]
       value: 
-      objectReference: {fileID: 523710530}
+      objectReference: {fileID: 152603364}
     - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
       propertyPath: estados.Array.data[7]
       value: 
-      objectReference: {fileID: 1245423695}
+      objectReference: {fileID: 1699961764}
     - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
       propertyPath: estados.Array.data[8]
       value: 
@@ -5541,22 +5541,22 @@ PrefabInstance:
     - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
       propertyPath: grayZone.Array.data[2]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 489548311}
     - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
       propertyPath: grayZone.Array.data[3]
       value: 
-      objectReference: {fileID: 489548311}
+      objectReference: {fileID: 1605755901}
     - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
       propertyPath: grayZone.Array.data[4]
       value: 
       objectReference: {fileID: 1882039133}
     - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
       propertyPath: CameraPos.Array.data[2].x
-      value: 21
+      value: -11
       objectReference: {fileID: 0}
     - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
       propertyPath: CameraPos.Array.data[3].x
-      value: -11
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
       propertyPath: CameraPos.Array.data[3].y
@@ -5625,11 +5625,11 @@ PrefabInstance:
     - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
       propertyPath: PlayerSpawnPosScene.Array.data[2]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1023838380}
     - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
       propertyPath: PlayerSpawnPosScene.Array.data[3]
       value: 
-      objectReference: {fileID: 1023838380}
+      objectReference: {fileID: 877331154}
     - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
       propertyPath: PlayerSpawnPosScene.Array.data[4]
       value: 
@@ -12079,6 +12079,11 @@ PrefabInstance:
 --- !u!4 &877331153 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8716579988697118561, guid: 016e04c21c3c66b43b8540a363f9d43b, type: 3}
+  m_PrefabInstance: {fileID: 877331152}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &877331154 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4021565621427942690, guid: 016e04c21c3c66b43b8540a363f9d43b, type: 3}
   m_PrefabInstance: {fileID: 877331152}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &917036484
