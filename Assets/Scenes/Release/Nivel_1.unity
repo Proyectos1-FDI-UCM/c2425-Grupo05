@@ -11721,6 +11721,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CanvasPauses
       objectReference: {fileID: 0}
+    - target: {fileID: 8211522832356574079, guid: af968b4bb22da8044a7b5feb7465d53a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -13169,6 +13173,7 @@ GameObject:
   - component: {fileID: 1367078886}
   - component: {fileID: 1367078885}
   - component: {fileID: 1367078884}
+  - component: {fileID: 1367078888}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -13262,6 +13267,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1367078888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1367078883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13025b21ccbdcc14aad02ac562db1b65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1741144138}
+  smoothSpeed: 5
 --- !u!1001 &1380875897
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19266,6 +19285,11 @@ Transform:
 --- !u!1 &1741144134 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 549911831380807634, guid: d1cb0d22127e60e4699564f46274486b, type: 3}
+  m_PrefabInstance: {fileID: 1254707097}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1741144138 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5471280442647195517, guid: d1cb0d22127e60e4699564f46274486b, type: 3}
   m_PrefabInstance: {fileID: 1254707097}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1754897035
