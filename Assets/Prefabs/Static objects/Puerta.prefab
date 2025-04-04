@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b52f45852fc083b4da0fd94674af3b62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myLevel: 1
+  doorLevel: 0
   sprite: {fileID: 8125862818176818161}
 --- !u!61 &1879075733080679880
 BoxCollider2D:
@@ -135,7 +135,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 8e7205eed40b51444af5e8af3004b87b, type: 3}
-  m_Color: {r: 0.7735849, g: 0.53074574, b: 0.1788003, a: 1}
+  m_Color: {r: 0.2509804, g: 0.06666667, b: 0.33333334, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
