@@ -104,7 +104,7 @@ public class LevelManager : MonoBehaviour
             _instance = this;
             Init();
         }
-    }//ESTO NO LO ESTAMOS USANDO RAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA (lo he escrito así para llamar la atención y que no se nos olvide preguntarle a Guille)
+    }
 
     private void Start()
     {

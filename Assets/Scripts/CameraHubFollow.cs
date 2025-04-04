@@ -59,6 +59,7 @@ public class CameraHubFollow : MonoBehaviour
         if (!isHubScene)
         {
             this.enabled = false;
+            Debug.Log("False");
             return;
         }
         fixedY = transform.position.y;
