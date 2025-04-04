@@ -9,6 +9,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
+using UnityEditor.U2D;
 // Añadir aquí el resto de directivas using
 
 
@@ -51,7 +52,8 @@ public class LevelEntrance : MonoBehaviour
     /// </summary>
     void Start()
     {
-        ChangeDoorColor(doorLevel <= GameManager.Instance.MaxLevel()+1);
+        sprite.color = new Color(0.77254f, 0.52941f, 0.18039f, 1f);
+        ChangeDoorColor(doorLevel <= GameManager.Instance.MaxLevel()+1, touchingPlayer);
     }
 
     /// <summary>
@@ -72,10 +74,12 @@ public class LevelEntrance : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         touchingPlayer = true;
+        ChangeDoorColor(doorLevel <= GameManager.Instance.MaxLevel()+1, touchingPlayer);
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
         touchingPlayer = false;
+        ChangeDoorColor(doorLevel <= GameManager.Instance.MaxLevel()+1, touchingPlayer);
     }
 
     #endregion
@@ -96,11 +100,18 @@ public class LevelEntrance : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
 
-    private void ChangeDoorColor(bool open)
+    private void ChangeDoorColor(bool open, bool touchingPlayer)
     {
-        if (open)
+        if (open && !touchingPlayer)
         {
-            sprite.color = Color.green;
+
+            Debug.Log("Puerta abierta y no tocando al jugador");
+            sprite.color = new Color(sprite.color.r * 0.75f, sprite.color.g , sprite.color.b, 1f);
+        }
+        else if (open && touchingPlayer)
+        {
+            Debug.Log("Puerta abierta y tocando al jugador");
+            sprite.color = new Color(sprite.color.r/ 0.75f, sprite.color.g , sprite.color.b, 1f);
         }
         else
         {
