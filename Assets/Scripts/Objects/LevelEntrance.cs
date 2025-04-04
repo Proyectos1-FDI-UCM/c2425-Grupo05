@@ -39,7 +39,7 @@ public class LevelEntrance : MonoBehaviour
     /// Indica si estoy tocando al jugador
     /// </summary>
     bool touchingPlayer = false;
-
+    Color color_original;
 
     #endregion
 
@@ -52,7 +52,8 @@ public class LevelEntrance : MonoBehaviour
     /// </summary>
     void Start()
     {
-        sprite.color = new Color(0.77254f, 0.52941f, 0.18039f, 1f);
+        color_original = sprite.color;
+        //sprite.color = new Color(0.77254f, 0.52941f, 0.18039f, 1f);
         ChangeDoorColor(doorLevel <= GameManager.Instance.MaxLevel()+1, touchingPlayer);
     }
 
@@ -106,18 +107,27 @@ public class LevelEntrance : MonoBehaviour
         {
 
             Debug.Log("Puerta abierta y no tocando al jugador");
-            sprite.color = new Color(sprite.color.r * 0.75f, sprite.color.g , sprite.color.b, 1f);
+            //sprite.color = new Color(color_original.r * 0.75f, color_original.g , color_original.b, 1f);
+            sprite.color = color_original;
         }
         else if (open && touchingPlayer)
         {
             Debug.Log("Puerta abierta y tocando al jugador");
-            sprite.color = new Color(sprite.color.r/ 0.75f, sprite.color.g , sprite.color.b, 1f);
+            sprite.color = new Color(color_original.r * 1.25f, color_original.g , color_original.b, 1f);
         }
-        else
+        else if (!open && !touchingPlayer)
         {
-            sprite.color = Color.red;
+
+            Debug.Log("Puerta cerrada y no tocando al jugador");
+            //sprite.color = new Color(color_original.r / 0.25f, color_original.g / 0.25f, color_original.b / 0.25f, 1f);
+            sprite.color = color_original;
         }
-        
+        else if (!open && touchingPlayer)
+        {
+            Debug.Log("Puerta cerrada y tocando al jugador");
+            sprite.color = new Color(color_original.r * 0.25f, color_original.g * 0.25f, color_original.b * 0.25f, 1f);
+        }
+
     }
 
     #endregion
