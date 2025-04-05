@@ -7,6 +7,7 @@
 //---------------------------------------------------------
 
 using UnityEngine;
+using UnityEngine.Tilemaps;
 // Añadir aquí el resto de directivas using
 
 
@@ -24,6 +25,9 @@ public class GrayZone : MonoBehaviour
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
 
+
+    [SerializeField]
+    private bool Meta = false;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -46,22 +50,7 @@ public class GrayZone : MonoBehaviour
     // - Hay que añadir todos los que sean necesarios
     // - Hay que borrar los que no se usen 
 
-    /// <summary>
-    /// Start is called on the frame when a script is enabled just before 
-    /// any of the Update methods are called the first time.
-    /// </summary>
-    void Start()
-    {
-
-    }
-
-    /// <summary>
-    /// Update is called every frame, if the MonoBehaviour is enabled.
-    /// </summary>
-    void Update()
-    {
-
-    }
+   
 
 
     private void OnTriggerEnter2D()
@@ -86,6 +75,26 @@ public class GrayZone : MonoBehaviour
     public bool IsTimeStopped()
     {
     return _timeStopped;
+    }
+    public void ChangeColor(string hexColor)
+    {
+        Color newColor;
+        if (ColorUtility.TryParseHtmlString(hexColor, out newColor))
+        {
+            Tilemap tilemap = GetComponent<Tilemap>();
+            if (tilemap != null)
+            {
+                tilemap.color = newColor;
+            }
+            else
+            {
+                Debug.LogWarning("No TilemapRenderer found on the prefab.");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Invalid hex color string.");
+        }
     }
 
     #endregion
