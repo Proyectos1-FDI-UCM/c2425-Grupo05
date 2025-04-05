@@ -26,8 +26,7 @@ public class GrayZone : MonoBehaviour
     // Ejemplo: MaxHealthPoints
 
 
-    [SerializeField]
-    private bool Meta = false;
+    
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
