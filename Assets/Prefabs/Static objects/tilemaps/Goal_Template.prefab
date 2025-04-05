@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1301042836141583214}
   - component: {fileID: 8880120086569778379}
   - component: {fileID: 1872400927585124531}
+  - component: {fileID: 8844679922065703524}
   m_Layer: 10
   m_Name: Goal_Template
   m_TagString: Untagged
@@ -144,3 +145,15 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
+--- !u!114 &8844679922065703524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6717796370505012610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 546192c5b22d96343b31731e41c34603, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

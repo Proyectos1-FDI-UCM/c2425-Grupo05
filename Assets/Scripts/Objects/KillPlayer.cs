@@ -6,6 +6,7 @@
 //---------------------------------------------------------
 
 using UnityEngine;
+using UnityEngine.Tilemaps;
 // Añadir aquí el resto de directivas using
 
 
@@ -22,8 +23,8 @@ public class KillPlayer : MonoBehaviour
     // públicos y de inspector se nombren en formato PascalCase
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
-    
-    
+
+
 
     #endregion
 
@@ -37,15 +38,15 @@ public class KillPlayer : MonoBehaviour
     // Ejemplo: _maxHealthPoints
 
     #endregion
-    
+
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
     #region Métodos de MonoBehaviour
-    
+
     // Por defecto están los típicos (Update y Start) pero:
     // - Hay que añadir todos los que sean necesarios
     // - Hay que borrar los que no se usen 
-    
-   
+
+
     #endregion
 
     // ---- MÉTODOS PÚBLICOS ----
@@ -56,6 +57,27 @@ public class KillPlayer : MonoBehaviour
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
 
+
+    public void ChangeColor(string hexColor)
+    {
+        Color newColor;
+        if (ColorUtility.TryParseHtmlString(hexColor, out newColor))
+        {
+            SpriteRenderer spriterenderer = GetComponent<SpriteRenderer>();
+            if (spriterenderer != null)
+            {
+                spriterenderer.color = newColor;
+            }
+            else
+            {
+                Debug.LogWarning("No TilemapRenderer found on the prefab.");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Invalid hex color string.");
+        }
+    }
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
