@@ -108,6 +108,8 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
+        Camera = FindObjectOfType<Camera>();
+
         //Setea el tiempo a 0
         StateTime = 0f;
         
@@ -119,8 +121,8 @@ public class LevelManager : MonoBehaviour
         }
         else
         {
-            
-            playerSpawnPos = PlayerSpawnPosScene[0].transform.position;
+            Camera.transform.position = CameraPos[roomNo];
+            playerSpawnPos = PlayerSpawnPosScene[roomNo].transform.position;
         }
         //Lleva al player al primer inicio de sala.
         player.transform.position = playerSpawnPos;
@@ -131,7 +133,7 @@ public class LevelManager : MonoBehaviour
       
 
         Debug.Log(estados.Length);
-        Camera = FindObjectOfType<Camera>();
+        
     }
 
 

@@ -135,17 +135,7 @@ public class PlayerMovement : MonoBehaviour
         {
             spriteRenderer.flipX = moveInput.x < 0;
         }
-        // Debug.Log(new Vector2(upLeftCollider.bounds.center.x + upLeftCollider.bounds.extents.x,0.5f));
 
-        //debug:
-        //if (isGrounded)
-        //{
-        //    spriteRenderer.color = Color.white;
-        //}
-        //else
-        //{
-        //    spriteRenderer.color = Color.yellow;
-        //}
         if (InputManager.Instance.JumpWasPressedThisFrame())
         {
             jumpBufferCounter = bufferTime;
@@ -202,11 +192,7 @@ public class PlayerMovement : MonoBehaviour
 
     // ---- MÉTODOS PÚBLICOS ----
     #region Métodos públicos
-    // Documentar cada método que aparece aquí con ///<summary>
-    // El convenio de nombres de Unity recomienda que estos métodos
-    // se nombren en formato PascalCase (palabras con primera letra)
-    // mayúscula, incluida la primera letra)
-    // Ejemplo: GetPlayerController
+
     public void Spring(float i) // Accion del jugador con el muelle
     {
         rb.velocity = new Vector2(0, i); // Se le da verticalmente la fuerza recibida
@@ -271,8 +257,6 @@ public class PlayerMovement : MonoBehaviour
 
             Debug.Log(platform.getVel());
             rb.velocity = new Vector2(moveInput.x * speed + platform.getVel().x, platform.getVel().y); 
-           //el problema estaba aquí. (solucionado haciendo collider más pequeño)
-           //el problema (audio)
 
         }
     }
