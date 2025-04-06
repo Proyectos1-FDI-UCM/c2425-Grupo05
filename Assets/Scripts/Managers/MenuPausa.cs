@@ -34,6 +34,8 @@ public class Menu : MonoBehaviour
     [SerializeField] private GameObject resumeButton; // Botón Resume
     [SerializeField] private GameObject mainMenuButton; // Botón Main Menu
     [SerializeField] private GameObject levelSelectorButton; // Botón Level Selector
+    [SerializeField] private GameObject restartButton; // Botón Level Selector
+
     //[SerializeField] private GameObject exitGameButton;
     [SerializeField] private bool Paused;  //Paused = !Paused Alterna el estado de pausa
     [SerializeField] private PlayerMovement playermovement; // para desactivar su script cuando se acciona el PauseMenu
@@ -69,12 +71,9 @@ public class Menu : MonoBehaviour
     /// </summary>
     void Start()
     {
-        /*PauseMenu.SetActive(false);
-        EventSystem.current.SetSelectedGameObject(ResumeButton);
-        playerscript = FindAnyObjectByType<PlayerMovement>();
-        */
         //Se oculta el menú de pausa al inicar el juego 
         ObjectPauseMenu.SetActive(false);
+        UpdateRestartButtonState();
     }
 
     /// <summary>
@@ -112,7 +111,7 @@ public class Menu : MonoBehaviour
         Paused = true;
         Time.timeScale = 0f; // Para el tiempo del juego
         ObjectPauseMenu.SetActive(Paused); // Muestra u oculta el menú
-        EventSystem.current.SetSelectedGameObject(PauseMenuFirst); // Una vez iniciado el menu de pausa el jugador podra ver con el color de seleccionado al primer boton de este
+        EventSystem.current.SetSelectedGameObject(PauseMenuFirst); // El menú de pausa al ser iniciado, también es seleccionado al primer boton de este, para indicar al jugador desde donde empieza a navegar por él
         playermovement.enabled = false; // El personaje realmente se queda quieto
         print("Pausa");
 
@@ -126,6 +125,13 @@ public class Menu : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(null);
         playermovement.enabled = true;
         print("Reanuda");
+    }
+
+    public void RestartScene()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        
     }
 
     // Método para cambiar a la primera escena
@@ -157,7 +163,21 @@ public class Menu : MonoBehaviour
     // El convenio de nombres de Unity recomienda que estos métodos
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
-   
+    private void UpdateRestartButtonState() //Método para eliminar el botón de reinicar nivel del hub por estetica
+    {
+        
+        if (SceneManager.GetActiveScene().name == "Hub") //Si la escena se llama Hub
+        {
+            restartButton.SetActive(false); //desactiva botón
+            Debug.Log("El botón de reinicio está desactivado en la escena 'Hub'");
+        }
+        else
+        {
+            restartButton.SetActive(true); // lo activa
+            Debug.Log("El botón de reinicio está activado");
+        }
+    }
+
     #endregion
 
 

@@ -349,33 +349,6 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
-
-
-        spriteRenderer.color = Color.white;
-
-        if (Left)
-        {
-            if (Center)
-            {
-                spriteRenderer.color = Color.green;
-            }
-            else
-            {
-                spriteRenderer.color = Color.blue;
-            }
-        }
-        else if (Right)
-        {
-            if (Center)
-            {
-                spriteRenderer.color = Color.magenta;
-            }
-            else
-            {
-                spriteRenderer.color = Color.red;
-            }
-        }
-
         if (Center) { isAccelerating = false; }
 
     }
