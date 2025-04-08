@@ -48,7 +48,6 @@ public class Menu : MonoBehaviour
 
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
-    private InputAction _stopAction;
     // Documentar cada atributo que aparece aquí.
     // El convenio de nombres de Unity recomienda que los atributos
     // privados se nombren en formato _camelCase (comienza con _, 
@@ -73,7 +72,7 @@ public class Menu : MonoBehaviour
     {
         //Se oculta el menú de pausa al inicar el juego 
         ObjectPauseMenu.SetActive(false);
-        UpdateRestartButtonState();
+        
     }
 
     /// <summary>
@@ -82,7 +81,7 @@ public class Menu : MonoBehaviour
     void Update()
     {
         
-        //if (Keyboard.current.escapeKey.wasPressedThisFrame || Gamepad.current.startButton.wasPressedThisFrame)
+       
         if (InputManager.Instance.PauseIsPressed())   
         {
             if (!Paused)
@@ -105,17 +104,6 @@ public class Menu : MonoBehaviour
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
    
-    private void TooglePause()
-    {
-        
-        Paused = true;
-        Time.timeScale = 0f; // Para el tiempo del juego
-        ObjectPauseMenu.SetActive(Paused); // Muestra u oculta el menú
-        EventSystem.current.SetSelectedGameObject(PauseMenuFirst); // El menú de pausa al ser iniciado, también es seleccionado al primer boton de este, para indicar al jugador desde donde empieza a navegar por él
-        playermovement.enabled = false; // El personaje realmente se queda quieto
-        print("Pausa");
-
-    }
     // Método para el botón Resume
     public void ResumeGame()
     {
@@ -147,14 +135,6 @@ public class Menu : MonoBehaviour
         Time.timeScale = 1; // Reanudar el tiempo antes de cambiar de escena
         SceneManager.LoadScene("Hub");
     }
-
-    /*public void ExitGame()
-    {
-        Time.timeScale = 1; // Reanuda el tiempo antes de salir
-        Application.Quit(); // Cierra la aplicación
-        Debug.Log("Juego cerrado."); // Esto sólo se verá en el editor de Unity
-    }
-    */
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
@@ -163,21 +143,19 @@ public class Menu : MonoBehaviour
     // El convenio de nombres de Unity recomienda que estos métodos
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
-    private void UpdateRestartButtonState() //Método para eliminar el botón de reinicar nivel del hub por estetica
-    {
-        
-        if (SceneManager.GetActiveScene().name == "Hub") //Si la escena se llama Hub
-        {
-            restartButton.SetActive(false); //desactiva botón
-            Debug.Log("El botón de reinicio está desactivado en la escena 'Hub'");
-        }
-        else
-        {
-            restartButton.SetActive(true); // lo activa
-            Debug.Log("El botón de reinicio está activado");
-        }
-    }
 
+    //Método que hace la pausa e inovca al menú
+    private void TooglePause()
+    {
+
+        Paused = true;
+        Time.timeScale = 0f; // Para el tiempo del juego
+        ObjectPauseMenu.SetActive(Paused); // Muestra u oculta el menú
+        EventSystem.current.SetSelectedGameObject(PauseMenuFirst); // El menú de pausa al ser iniciado, también es seleccionado al primer boton de este, para indicar al jugador desde donde empieza a navegar por él
+        playermovement.enabled = false; // El personaje realmente se queda quieto
+        print("Pausa");
+
+    }
     #endregion
 
 
