@@ -9,7 +9,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
-using UnityEditor.U2D;
 // Añadir aquí el resto de directivas using
 
 
