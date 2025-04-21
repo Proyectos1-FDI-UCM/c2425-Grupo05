@@ -60,19 +60,21 @@ public class PlayerMovement : MonoBehaviour
 
     //para efectuar salto
     PlatformMovement platform;
-    private bool isGrounded;
+    [SerializeField]private bool isGrounded;
     private bool isAccelerating;
 
     //cuando pasa a true, salta y justo depués se pone a false para no saltar varias veces con un input.
-    private bool justJumped = false;
-    private bool coyotetime = false;
+    [SerializeField] private bool justJumped = false;
+    [SerializeField] private bool coyotetime = false;
+
+    [SerializeField] private float justSpringed = 0;
 
     //sirve para que aunque hayas dejado de pulsar el input antes de empezar el salto (se puede dar el caso debido a input buffer),
     //detecte que has dejado de pulsar el salto ergo deje de impulsarte para arriba.
     private bool jumpWasReleased = true;
     private float tiempocoyote = 0f;
     private float jumpTimeCounter;
-    private float jumpBufferCounter;
+    [SerializeField] private float jumpBufferCounter;
 
     //para corner correction
     private Vector3 lastPhisicsFrameVelocity;
@@ -87,16 +89,10 @@ public class PlayerMovement : MonoBehaviour
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
     #region Métodos de MonoBehaviour
 
-    // Por defecto están los típicos (Update y Start) pero:
-    // - Hay que añadir todos los que sean necesarios
-    // - Hay que borrar los que no se usen 
-
-    /// <summary>
-    /// Start is called on the frame when a script is enabled just before 
-    /// any of the Update methods are called the first time.
-    /// </summary>
+    
     void Start()
     {
+        
         rb = gameObject.GetComponent<Rigidbody2D>();
 
         #region//Coge referencias a los colliders correspondientes a los hijos
@@ -195,9 +191,12 @@ public class PlayerMovement : MonoBehaviour
 
     public void Spring(float i) // Accion del jugador con el muelle
     {
-        rb.velocity = new Vector2(0, i); // Se le da verticalmente la fuerza recibida
+
+        justSpringed = i; // Se le da verticalmente la fuerza recibida
+        
     }
 
+    public bool inGround() { return isGrounded; }
 
     #endregion
 
@@ -342,34 +341,44 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private void JumpCalculations()
     {
-        //salto(inicial)
-        //JustJumped sirve para que se ejecute el impulso de salto inicial una sola vez.
-        if (justJumped)
+        if (justSpringed != 0)
         {
-            Debug.Log("salto");
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + jumpForceInitial);
-            isAccelerating = true;
-            jumpTimeCounter = 0;
+            rb.velocity = new Vector2(rb.velocity.x, justSpringed);
+            coyotetime = false;
             justJumped = false;
-
-            if (coyotetime)
-            {
-                coyotetime = false;
-            }
-
-        }
-
-        //salto(continuación)
-        if (isAccelerating && jumpTimeCounter < jumpTime)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + jumpForce);
-            jumpTimeCounter += Time.fixedDeltaTime;//Time.fixedDeltaTime para el fixedUpdate
+            isGrounded = false;
+            justSpringed = 0;
         }
         else
         {
-            isAccelerating = false;
-        }
+            //salto(inicial)
+            //JustJumped sirve para que se ejecute el impulso de salto inicial una sola vez.
+            if (justJumped)
+            {
+                Debug.Log("salto");
+                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + jumpForceInitial);
+                isAccelerating = true;
+                jumpTimeCounter = 0;
+                justJumped = false;
 
+                if (coyotetime)
+                {
+                    coyotetime = false;
+                }
+
+            }
+
+            //salto(continuación)
+            if (isAccelerating && jumpTimeCounter < jumpTime)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + jumpForce);
+                jumpTimeCounter += Time.fixedDeltaTime;//Time.fixedDeltaTime para el fixedUpdate
+            }
+            else
+            {
+                isAccelerating = false;
+            }
+        }
     }
 
     #endregion
