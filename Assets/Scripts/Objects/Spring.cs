@@ -6,6 +6,7 @@
 //---------------------------------------------------------
 
 using UnityEngine;
+using UnityEngine.UIElements;
 // Añadir aquí el resto de directivas using
 
 
@@ -15,6 +16,7 @@ using UnityEngine;
 /// </summary>
 public class Spring : MonoBehaviour
 {
+
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
     // Documentar cada atributo que aparece aquí.
@@ -23,42 +25,48 @@ public class Spring : MonoBehaviour
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
     [SerializeField] private float springForce = 4f;
+    [SerializeField] private SpringNoTouch_collider colliderNoTocar;
     #endregion
-    
+
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
-    // Documentar cada atributo que aparece aquí.
-    // El convenio de nombres de Unity recomienda que los atributos
-    // privados se nombren en formato _camelCase (comienza con _, 
-    // primera palabra en minúsculas y el resto con la 
-    // primera letra en mayúsculas)
-    // Ejemplo: _maxHealthPoints
 
-    
+    static bool springForceApplied = false;
+
+
     #endregion
-    
+
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
     #region Métodos de MonoBehaviour
-    
+
     // Por defecto están los típicos (Update y Start) pero:
     // - Hay que añadir todos los que sean necesarios
     // - Hay que borrar los que no se usen 
-    
+
     /// <summary>
     /// Start is called on the frame when a script is enabled just before 
     /// any of the Update methods are called the first time.
     /// </summary>
-    void Start()
+
+    void OnTriggerStay2D(Collider2D collision)//Si colisiona con el jugador, le hace saltar a través del metodo spring
     {
-        
+        Debug.Log("colision: " + collision.gameObject.name);
+        PlayerMovement player = collision.gameObject.GetComponentInParent<PlayerMovement>();
+        if (player != null)
+        {
+            if (!springForceApplied && player.inGround() && !colliderNoTocar.isTouchingPlayer())
+            {
+                springForceApplied = true;
+                Debug.Log("jugador");
+                player.Spring(springForce);
+            }
+
+        }
     }
 
-    /// <summary>
-    /// Update is called every frame, if the MonoBehaviour is enabled.
-    /// </summary>
-    void Update()
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        
+        springForceApplied = false;
     }
     #endregion
 
@@ -78,19 +86,10 @@ public class Spring : MonoBehaviour
     // El convenio de nombres de Unity recomienda que estos métodos
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
-void OnTriggerEnter2D(Collider2D collision)//Si colisiona con el jugador, le hace saltar a través del metodo spring
-{
-    Debug.Log("colision: " + collision.gameObject.name);
-    PlayerMovement player = collision.gameObject.GetComponentInParent<PlayerMovement>(); 
-    if (player != null)
-    {
-        Debug.Log("jugador");
-        player.Spring(springForce);
-    }
-}
+
 
 
     #endregion   
 
 } // class Spring 
-// namespace
+  // namespace

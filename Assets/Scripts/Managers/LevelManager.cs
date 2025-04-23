@@ -47,8 +47,8 @@ public class LevelManager : MonoBehaviour
     // Variables del contador de tiempo de la sala
     [SerializeField]private float[] RoomMaxTime;
 
-    
-    
+    [SerializeField]
+    private float ChangeTimeTrasluz = 3.5f;//el tiempo que tarda en poner una imagen translúcida del siguiente estado
 
     [SerializeField] private int roomsAmount = 5;
     [SerializeField]
@@ -78,13 +78,9 @@ public class LevelManager : MonoBehaviour
     private static LevelManager _instance;
     private PlatformMovement[] _platformMovement;
 
-    private float RoomTimeRemaining;
-
+    [SerializeField]private float RoomTimeRemaining;
     // Variables del contador de tiempo del estado
-    private float StateMaxTime = 3f;
-
-    //el tiempo que tarda en poner una imagen translúcida del siguiente estado
-    private float ChangeTimeTrasluz = 2.5f;
+    private float StateMaxTime = 4f;
     private float StateTime = 0f;
     private Camera Camera;
     
@@ -108,10 +104,12 @@ public class LevelManager : MonoBehaviour
             _instance = this;
             Init();
         }
-    }//ESTO NO LO ESTAMOS USANDO RAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA (lo he escrito así para llamar la atención y que no se nos olvide preguntarle a Guille)
+    }
 
     private void Start()
     {
+        Camera = FindObjectOfType<Camera>();
+
         //Setea el tiempo a 0
         StateTime = 0f;
         
@@ -123,8 +121,8 @@ public class LevelManager : MonoBehaviour
         }
         else
         {
-            
-            playerSpawnPos = PlayerSpawnPosScene[0].transform.position;
+            Camera.transform.position = CameraPos[roomNo];
+            playerSpawnPos = PlayerSpawnPosScene[roomNo].transform.position;
         }
         //Lleva al player al primer inicio de sala.
         player.transform.position = playerSpawnPos;
@@ -135,7 +133,7 @@ public class LevelManager : MonoBehaviour
       
 
         Debug.Log(estados.Length);
-        Camera = FindObjectOfType<Camera>();
+        
     }
 
 

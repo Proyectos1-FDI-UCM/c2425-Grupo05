@@ -55,8 +55,8 @@ public class StateBarController : MonoBehaviour
     {
         LevelManager.Instance.getStateTime();
         timeScrollBar.size = 0;
-        filler.color = Color.magenta;
-        statebarBackground.color = Color.yellow;
+        filler.color = new Color(170, 100, 57, 1);
+        statebarBackground.color = new Color(40, 83, 108, 1);
     }
 
     /// <summary>
