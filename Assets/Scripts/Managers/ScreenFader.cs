@@ -136,6 +136,5 @@ public class ScreenFader : MonoBehaviour
     }
 }
     #endregion   
-
-} // class TransitionEffect 
+// class TransitionEffect 
 // namespace
