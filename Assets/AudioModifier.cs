@@ -35,6 +35,8 @@ public class AudioModifier : MonoBehaviour
     // Ejemplo: _maxHealthPoints
     AudioSource audioSource;
     [SerializeField] float pitchModifier = 1f;
+    [SerializeField] float pitchLimit = 0.2f;
+    bool isDecreasing = true;
 
     #endregion
     
@@ -59,10 +61,17 @@ public class AudioModifier : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (audioSource.pitch > 0)
+        if (audioSource.pitch > pitchLimit && isDecreasing)
         {
             audioSource.pitch -= (Time.deltaTime / 60f) * pitchModifier;
-            if (audioSource.pitch < 0) audioSource.pitch = 0;
+        }
+        else if (audioSource.pitch <= pitchLimit) isDecreasing = false;
+        if (!isDecreasing) {                
+            audioSource.pitch += (Time.deltaTime / 5f);
+            if (audioSource.pitch > 1f) {
+                audioSource.pitch = 1f;
+                isDecreasing = true;
+            }
         }
     }
     #endregion
