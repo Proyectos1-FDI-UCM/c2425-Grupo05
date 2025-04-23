@@ -162,7 +162,7 @@ public class InputManager : MonoBehaviour
     /// </summary>
     public bool JumpIsPressed()
     {
-        return _jump.IsPressed();
+        return _jump.WasPressedThisFrame();
     }
 
     /// <summary>
