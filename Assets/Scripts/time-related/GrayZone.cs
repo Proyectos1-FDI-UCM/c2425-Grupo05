@@ -55,12 +55,12 @@ public class GrayZone : MonoBehaviour
     private void OnTriggerEnter2D()
     {
         _timeStopped = true;
-        Debug.Log("Stop");
+        //Debug.Log("Stop");
     }
     private void OnTriggerExit2D()
     {
         _timeStopped = false;
-        Debug.Log("Resume");
+        //Debug.Log("Resume");
     }
     #endregion
 

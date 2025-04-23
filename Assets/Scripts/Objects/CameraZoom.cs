@@ -91,11 +91,11 @@ public class CameraZoom : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D coll)
     {
         PlayerMovement playerMovement = coll.gameObject.GetComponent<PlayerMovement>();
-        Debug.Log("Trigger");
+        //Debug.Log("Trigger");
 
         if (playerMovement != null) 
         {
-            Debug.Log("ZOOOOOM");
+            //Debug.Log("ZOOOOOM");
             StartCoroutine(ZoomIn(gameObject.transform, playerMovement));
         }
     }
@@ -105,7 +105,7 @@ public class CameraZoom : MonoBehaviour
 
         if (playerMovement != null) 
         {
-            Debug.Log("ZOOOOOM");
+            //Debug.Log("ZOOOOOM");
             
             StartCoroutine(ZoomOut(playerMovement));
         }
@@ -122,7 +122,7 @@ public class CameraZoom : MonoBehaviour
         {
             cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, zoomSize, Time.deltaTime * zoomSpeed);
             cam.transform.position = Vector3.Lerp(cam.transform.position, new Vector3(target.position.x, target.position.y+cameraOffset, cam.transform.position.z), Time.deltaTime * zoomSpeed);
-            Debug.Log("Dentro");
+            //Debug.Log("Dentro");
             yield return null;
         }
         cam.orthographicSize = zoomSize;

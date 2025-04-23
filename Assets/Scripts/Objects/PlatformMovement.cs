@@ -147,7 +147,7 @@ public class PlatformMovement : MonoBehaviour
             waypoints[pos].w = Vector2.Distance(waypoints[posPrev], waypoints[pos]) / waypoints[pos].z; // velocidad = espacio / tiempo
 
 
-            if (waypoints[pos].w != 0) Debug.Log("Cuidado: Tiempo(z) y Velocidad(w) de la plataforma móvil no deben ser manipuladas a la vez");
+            //if (waypoints[pos].w != 0) Debug.Log("Cuidado: Tiempo(z) y Velocidad(w) de la plataforma móvil no deben ser manipuladas a la vez");
 
         }
         speeds[pos].x = (waypoints[pos].x - waypoints[posPrev].x) / waypoints[pos].z;

@@ -59,19 +59,12 @@ public class CameraHubFollow : MonoBehaviour
         if (!isHubScene)
         {
             this.enabled = false;
-            Debug.Log("False");
+            //Debug.Log("False");
             return;
         }
         fixedY = transform.position.y;
     }
 
-    /// <summary>
-    /// Update is called every frame, if the MonoBehaviour is enabled.
-    /// </summary>
-    void Update()
-    {
-
-    }
     void LateUpdate()
     {
         if (isHubScene && isZooming && player != null)
@@ -93,13 +86,13 @@ public class CameraHubFollow : MonoBehaviour
     public void StartZoom()
     {
         isZooming = true;
-        Debug.Log("En");
+        //Debug.Log("En");
     }
 
     public void StopZoom()
     {
         isZooming = false;
-        Debug.Log("Sale");
+        //Debug.Log("Sale");
     }
 
 

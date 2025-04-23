@@ -80,10 +80,10 @@ public class FinishLine : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         PlayerMovement playerMovement = collision.gameObject.GetComponent<PlayerMovement>();
-        Debug.Log("Entra");
+        //Debug.Log("Entra");
         if (playerMovement != null)
         {
-            Debug.Log("Entra");
+            //Debug.Log("Entra");
             LevelManager.Instance.NextRoom();
         }
     }
