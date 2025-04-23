@@ -34,6 +34,7 @@ public class AudioModifier : MonoBehaviour
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
     AudioSource audioSource;
+    [SerializeField] float pitchModifier = 1f;
 
     #endregion
     
@@ -60,7 +61,7 @@ public class AudioModifier : MonoBehaviour
     {
         if (audioSource.pitch > 0)
         {
-            audioSource.pitch -= Time.deltaTime / 60f;
+            audioSource.pitch -= (Time.deltaTime / 60f) * pitchModifier;
             if (audioSource.pitch < 0) audioSource.pitch = 0;
         }
     }
