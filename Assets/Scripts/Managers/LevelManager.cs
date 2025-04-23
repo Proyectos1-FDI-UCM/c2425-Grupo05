@@ -132,7 +132,7 @@ public class LevelManager : MonoBehaviour
         _platformMovement = FindObjectsByType<PlatformMovement>(FindObjectsSortMode.None);
       
 
-        Debug.Log(estados.Length);
+        //Debug.Log(estados.Length);
         
     }
 

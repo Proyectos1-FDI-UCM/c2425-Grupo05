@@ -107,28 +107,28 @@ public class LevelEntrance : MonoBehaviour
         if (open && !touchingPlayer)
         {
 
-            Debug.Log("Puerta abierta y no tocando al jugador");
+            //Debug.Log("Puerta abierta y no tocando al jugador");
             //sprite.color = new Color(color_original.r * 0.75f, color_original.g , color_original.b, 1f);
             sprite.color = color_original;
             pressE.SetActive(false);
         }
         else if (open && touchingPlayer)
         {
-            Debug.Log("Puerta abierta y tocando al jugador");
+            //Debug.Log("Puerta abierta y tocando al jugador");
             sprite.color = new Color(color_original.r * 1.25f, color_original.g , color_original.b, 1f);
             pressE.SetActive(true);
         }
         else if (!open && !touchingPlayer)
         {
 
-            Debug.Log("Puerta cerrada y no tocando al jugador");
+            //Debug.Log("Puerta cerrada y no tocando al jugador");
             //sprite.color = new Color(color_original.r / 0.25f, color_original.g / 0.25f, color_original.b / 0.25f, 1f);
             sprite.color = color_original;
             pressE.SetActive(false);
         }
         else if (!open && touchingPlayer)
         {
-            Debug.Log("Puerta cerrada y tocando al jugador");
+            //Debug.Log("Puerta cerrada y tocando al jugador");
             sprite.color = new Color(color_original.r * 0.25f, color_original.g * 0.25f, color_original.b * 0.25f, 1f);
             pressE.SetActive(false);
         }
