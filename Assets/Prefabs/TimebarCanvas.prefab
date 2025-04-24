@@ -153,7 +153,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 868572515965443510}
   m_HandleRect: {fileID: 6974176763805091214}
   m_Direction: 0
@@ -429,4 +429,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeScrollBar: {fileID: 9019769893024587082}
-  maxTime: 10
