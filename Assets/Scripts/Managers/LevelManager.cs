@@ -153,6 +153,13 @@ public class LevelManager : MonoBehaviour
 
             if (StateTime > StateMaxTime)
             {
+                
+                AudioSource _heart = GetComponent<AudioManager>()?.Heart;
+                if (!_heart.isPlaying)
+                {
+                    _heart.Play();
+                }
+
                 ChangeState();
                 for (int i = 0; i < estados.Length; i++)
                 {
