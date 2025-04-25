@@ -53,19 +53,18 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  ChangeTimeTrasluz: 3.5
+  RoomMaxTime:
+  - 0
+  ChangeTimeTrasluz: 3
   roomsAmount: 5
   CameraPos:
   - {x: -75, y: -35, z: -10}
   - {x: -43, y: -35, z: -10}
   - {x: -11, y: -35, z: -10}
-  RoomMaxTime:
-  - 0
-  RoomTimeRemaining: 0
-  StateMaxTime: 4
-  StateTime: 0
   State: 0
   stateLocked: 0
   timeLocked: 0
-  isInHub: 0
+  estados: []
   roomNo: 0
+  isInHub: 0
+  RoomTimeRemaining: 0

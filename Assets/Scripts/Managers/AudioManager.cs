@@ -1,20 +1,19 @@
 //---------------------------------------------------------
-// Breve descripción del contenido del archivo
-// Responsable de la creación de este archivo
-// Nombre del juego
+// Script para manejar los sonidos del nivel
+// Amiel Ramos Juez
+// I'm Losing It
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
 using UnityEngine;
 // Añadir aquí el resto de directivas using
-using UnityEngine.Tilemaps;
 
 
 /// <summary>
 /// Antes de cada class, descripción de qué es y para qué sirve,
 /// usando todas las líneas que sean necesarias.
 /// </summary>
-public class playerStateDeath : MonoBehaviour
+public class AudioManager : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
@@ -23,6 +22,9 @@ public class playerStateDeath : MonoBehaviour
     // públicos y de inspector se nombren en formato PascalCase
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
+    [SerializeField] private AudioSource clock;
+    [SerializeField] private AudioSource glass;
+    [SerializeField] private AudioSource heart;
 
     #endregion
     
@@ -34,11 +36,6 @@ public class playerStateDeath : MonoBehaviour
     // primera palabra en minúsculas y el resto con la 
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
-
-    Collider2D _statePlayerCollider;
-    Tilemap _tilemapActual;
-    LevelManager _levelManager;
-    private int _roomNo = 0;
 
     #endregion
     
@@ -52,43 +49,18 @@ public class playerStateDeath : MonoBehaviour
     /// <summary>
     /// Start is called on the frame when a script is enabled just before 
     /// any of the Update methods are called the first time.
-    ///Se inicializan las variables a sus valores correspondientes
     /// </summary>
     void Start()
     {
-        _statePlayerCollider = GetComponent<Collider2D>();
-        _levelManager = LevelManager.Instance;
         
     }
 
     /// <summary>
     /// Update is called every frame, if the MonoBehaviour is enabled.
-    /// En este update se encarga de detectar si estamos en el Hub para comprobar
     /// </summary>
     void Update()
     {
-        // Habria que pasar todo esto a realizar la comprobacion solo cuando se cambia de estado (eventos?)
-        // Devuelves el estado que esta activo
-
-        if (!_levelManager.GetIsHub())
-        {
-            _roomNo = _levelManager.GetRoomNo() * 2;
-            _tilemapActual = _levelManager.GetEstados()[(_levelManager.EstadoActual() == 0 ? _roomNo : _roomNo + 1)].GetComponent<Tilemap>();
-
-
-
-            if (IsColliderInsideTilemap(_statePlayerCollider, _tilemapActual))
-            {
-                //Debug.Log("El collider está dentro del Tilemap");
-                _levelManager.ResetPlayer();
-            }
-
-            if (InputManager.Instance.RestartIsPressed())
-            {
-                _levelManager.ResetPlayer();
-            }
-
-        }
+        
     }
     #endregion
 
@@ -109,29 +81,7 @@ public class playerStateDeath : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
 
-    bool IsColliderInsideTilemap(Collider2D col, Tilemap tilemap)
-    {
-        // Coordenadas del collider (sacadas de bounds) en cuanto al tilemap
-        Vector3Int minTile = tilemap.WorldToCell(col.bounds.min);
-        Vector3Int maxTile = tilemap.WorldToCell(col.bounds.max);
-
-        // Recorrer las celdas
-        for (int x = minTile.x; x <= maxTile.x; x++)
-        {
-            for (int y = minTile.y; y <= maxTile.y; y++)
-            {
-                // Si hay un tile en las coordenadas que especifican la celda del tilemap:
-                if (tilemap.GetTile(new Vector3Int(x, y, 0)) != null)
-                {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
     #endregion   
 
-} // class playerStateDeath 
+} // class AudioManager 
 // namespace
-
