@@ -79,7 +79,7 @@ public class playerStateDeath : MonoBehaviour
 
             if (IsColliderInsideTilemap(_statePlayerCollider, _tilemapActual))
             {
-                Debug.Log("El collider está dentro del Tilemap");
+                //Debug.Log("El collider está dentro del Tilemap");
                 _levelManager.ResetPlayer();
             }
         }
