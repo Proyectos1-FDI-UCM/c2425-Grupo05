@@ -40,7 +40,7 @@ public class Menu : MonoBehaviour
     [SerializeField] private bool Paused;  //Paused = !Paused Alterna el estado de pausa
     [SerializeField] private PlayerMovement playermovement; // para desactivar su script cuando se acciona el PauseMenu
     [SerializeField] private GameObject PauseMenuFirst;
-    
+
     //[SerializeField] private GameObject ExitButton;
     //[SerializeField] private PlayerMovement playerscript; 
 
@@ -54,7 +54,7 @@ public class Menu : MonoBehaviour
     // primera palabra en minúsculas y el resto con la 
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
-
+    LevelManager _levelManager;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -72,7 +72,8 @@ public class Menu : MonoBehaviour
     {
         //Se oculta el menú de pausa al inicar el juego 
         ObjectPauseMenu.SetActive(false);
-        
+        _levelManager = LevelManager.Instance;
+        UpdateRestartButtonState();
     }
 
     /// <summary>
@@ -118,8 +119,9 @@ public class Menu : MonoBehaviour
     public void RestartScene()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        
+        ObjectPauseMenu.SetActive(false);
+        playermovement.enabled = true;
+        _levelManager.ResetPlayer();
     }
 
     // Método para cambiar a la primera escena
@@ -155,6 +157,21 @@ public class Menu : MonoBehaviour
         playermovement.enabled = false; // El personaje realmente se queda quieto
         print("Pausa");
 
+    }
+
+    private void UpdateRestartButtonState() //Método para eliminar el botón de reinicar nivel del hub por estetica
+    {
+
+        if (SceneManager.GetActiveScene().name == "Hub") //Si la escena se llama Hub
+        {
+            restartButton.SetActive(false); //desactiva botón
+            Debug.Log("El botón de reinicio está desactivado en la escena 'Hub'");
+        }
+        else
+        {
+            restartButton.SetActive(true); // lo activa
+            Debug.Log("El botón de reinicio está activado");
+        }
     }
     #endregion
 
