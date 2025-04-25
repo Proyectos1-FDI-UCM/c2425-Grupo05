@@ -48,7 +48,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField]private float[] RoomMaxTime;
 
     [SerializeField]
-    private float ChangeTimeTrasluz = 3.5f;//el tiempo que tarda en poner una imagen translúcida del siguiente estado
+    private float ChangeTimeTrasluz = 3f;//el tiempo que tarda en poner una imagen translúcida del siguiente estado
 
     [SerializeField] private int roomsAmount = 5;
     [SerializeField]
@@ -148,7 +148,7 @@ public class LevelManager : MonoBehaviour
             }
             else
             {
-                Debug.Log("TiempoFinalizado");
+                //Debug.Log("TiempoFinalizado");
                 ResetPlayer();
                 RoomTimeRemaining = RoomMaxTime[roomNo];
             }
