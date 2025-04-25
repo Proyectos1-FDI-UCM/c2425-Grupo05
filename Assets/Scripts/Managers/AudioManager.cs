@@ -27,7 +27,6 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSource heart;
 
     #endregion
-    
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
     // Documentar cada atributo que aparece aquí.
@@ -36,6 +35,7 @@ public class AudioManager : MonoBehaviour
     // primera palabra en minúsculas y el resto con la 
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
+    private LevelManager lM;
 
     #endregion
     
@@ -60,7 +60,22 @@ public class AudioManager : MonoBehaviour
     /// </summary>
     void Update()
     {
-        
+        if (lM != null)
+        {
+            if (lM.getRoomTimeRemaining() <= lM.getMaxTime() * 0.15f){
+                if (!clock.isPlaying)
+                {
+                    clock.Play();
+                }
+            }
+            else
+            {
+                if (clock.isPlaying)
+                {
+                    clock.Stop();
+                }
+            }
+        }
     }
     #endregion
 
@@ -71,6 +86,10 @@ public class AudioManager : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
+
+    public AudioSource Clock => clock;
+    public AudioSource Glass => glass;
+    public AudioSource Heart => heart;
 
     #endregion
     

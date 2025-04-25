@@ -33,39 +33,32 @@ public class LevelManager : MonoBehaviour
     // públicos y de inspector se nombren en formato PascalCase
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
-    [SerializeField]
-    private GameObject player;
+    [SerializeField] private GameObject player;
 
     /// <summary>
     /// Array con los gameObjects usados como spawnPos en esta escena (En escenas Level indica los inicios de cada sala, en escena Hub indica spawn inicial y puertas).
     /// </summary>
-    [SerializeField]
-    private GameObject[] PlayerSpawnPosScene;
-    [SerializeField]
-    private GrayZone[] grayZone;
+    [SerializeField] private GameObject[] PlayerSpawnPosScene;
+    [SerializeField] private GrayZone[] grayZone;
 
     // Variables del contador de tiempo de la sala
-    [SerializeField]private float[] RoomMaxTime;
+    [SerializeField] private float[] RoomMaxTime;
 
-    [SerializeField]
-    private float ChangeTimeTrasluz = 3f;//el tiempo que tarda en poner una imagen translúcida del siguiente estado
+    [SerializeField] private float ChangeTimeTrasluz = 3f;//el tiempo que tarda en poner una imagen translúcida del siguiente estado
 
     [SerializeField] private int roomsAmount = 5;
-    [SerializeField]
-    Vector3[] CameraPos;
+    [SerializeField] Vector3[] CameraPos;
     // Variables de cambios de estado (0-Estado Neutral, 1-Estado 1, 2-Estado 2
     public int State = 0;
-    [SerializeField]
-    private bool stateLocked;
-    [SerializeField]
-    private bool timeLocked;
-    [SerializeField]
-    private CambioEstado[] estados;
+    [SerializeField] private bool stateLocked;
+    [SerializeField] private bool timeLocked;
+    [SerializeField] private CambioEstado[] estados;
 
-    [SerializeField]private int roomNo = 0; //la primera room es la 0 y la última, la roomsAmount-1
+    [SerializeField] private int roomNo = 0; //la primera room es la 0 y la última, la roomsAmount-1
 
     // indica si este manager es el del hub
     [SerializeField] bool isInHub = false;
+
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -78,7 +71,7 @@ public class LevelManager : MonoBehaviour
     private static LevelManager _instance;
     private PlatformMovement[] _platformMovement;
 
-    [SerializeField]private float RoomTimeRemaining;
+    [SerializeField] private float RoomTimeRemaining;
     // Variables del contador de tiempo del estado
     private float StateMaxTime = 4f;
     private float StateTime = 0f;
@@ -216,6 +209,13 @@ public class LevelManager : MonoBehaviour
 
     public void ResetPlayer()
     {
+        AudioSource _glass = GetComponent<AudioManager>()?.Glass;
+        if (!_glass.isPlaying)
+        {
+            _glass.Play();
+        }
+
+
         player.transform.position = playerSpawnPos;
 
         for (int i = 0; i < _platformMovement.Length; i++)

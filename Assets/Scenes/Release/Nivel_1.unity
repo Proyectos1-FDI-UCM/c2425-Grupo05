@@ -4488,9 +4488,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 955563ec6b923be4bb1bbeeea3a0bffd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clock: {fileID: 0}
-  glass: {fileID: 0}
-  heart: {fileID: 0}
+  clock: {fileID: 1471049601}
+  glass: {fileID: 992787075}
+  heart: {fileID: 1109246010}
 --- !u!1 &356839594
 GameObject:
   m_ObjectHideFlags: 0
@@ -10641,7 +10641,7 @@ GameObject:
   - component: {fileID: 703319571}
   - component: {fileID: 703319573}
   m_Layer: 0
-  m_Name: Audio Source
+  m_Name: Audio Source Music
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
