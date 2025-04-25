@@ -155,7 +155,7 @@ public class LevelManager : MonoBehaviour
             {
                 
                 AudioSource _heart = GetComponent<AudioManager>()?.Heart;
-                if (!_heart.isPlaying)
+                if (!isInHub && !_heart.isPlaying) //ñapa
                 {
                     _heart.Play();
                     Debug.Log("Heart");
@@ -319,7 +319,7 @@ public class LevelManager : MonoBehaviour
     private void OnGUI()
     {
         Event e = Event.current;
-        if (e.type == EventType.KeyDown && e.keyCode == KeyCode.N)
+        if (!isInHub && e.type == EventType.KeyDown && e.keyCode == KeyCode.N)
         {
             NextRoom();
         }
