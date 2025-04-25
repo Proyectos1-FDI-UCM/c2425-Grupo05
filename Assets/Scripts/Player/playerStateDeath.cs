@@ -82,6 +82,12 @@ public class playerStateDeath : MonoBehaviour
                 Debug.Log("El collider está dentro del Tilemap");
                 _levelManager.ResetPlayer();
             }
+
+            if (InputManager.Instance.RestartIsPressed())
+            {
+                _levelManager.ResetPlayer();
+            }
+
         }
     }
     #endregion

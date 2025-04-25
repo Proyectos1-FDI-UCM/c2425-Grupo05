@@ -68,6 +68,7 @@ public class InputManager : MonoBehaviour
     private InputAction _jump;
     private InputAction _pause;
     private InputAction _enter;
+    private InputAction _restart; 
 
     #endregion
 
@@ -205,6 +206,10 @@ public class InputManager : MonoBehaviour
         return _jump.WasReleasedThisFrame();
     }
 
+    public bool RestartIsPressed()
+    {
+        return _restart.WasPressedThisFrame();
+    }
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
@@ -237,6 +242,8 @@ public class InputManager : MonoBehaviour
         _enter = _theController.Player.Enter;
 
         _pause = _theController.Player.Pause;
+
+        _restart = _theController.Player.Restart;
     }
 
     /// <summary>
