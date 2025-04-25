@@ -66,6 +66,7 @@ public class AudioManager : MonoBehaviour
                 if (!clock.isPlaying)
                 {
                     clock.Play();
+                    Debug.Log("Clock");
                 }
             }
             else

@@ -158,6 +158,7 @@ public class LevelManager : MonoBehaviour
                 if (!_heart.isPlaying)
                 {
                     _heart.Play();
+                    Debug.Log("Heart");
                 }
 
                 ChangeState();
@@ -220,6 +221,7 @@ public class LevelManager : MonoBehaviour
         if (!_glass.isPlaying)
         {
             _glass.Play();
+            Debug.Log("Glass");
         }
 
 
