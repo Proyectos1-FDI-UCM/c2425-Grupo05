@@ -100,7 +100,7 @@ public class StateBarController : MonoBehaviour
         {
             //Debug.Log("Bar Changed!");
             _cState0=newColor;
-            Debug.Log(_cState0);
+            //Debug.Log(_cState0);
         }
         else
         {
@@ -114,7 +114,7 @@ public class StateBarController : MonoBehaviour
         {
 
             _cState2 = newColor;
-            Debug.Log(_cState2);
+            //Debug.Log(_cState2);
         }
         else
         {
