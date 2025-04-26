@@ -232,12 +232,12 @@ public class LevelManager : MonoBehaviour
 
     public void ResetPlayer()
     {
-        AudioSource _glass = GetComponent<AudioManager>()?.Glass;
+       /* AudioSource _glass = GetComponent<AudioManager>()?.Glass;
         if (!_glass.isPlaying)
         {
             _glass.Play();
             Debug.Log("Glass");
-        }
+        }*/
 
 
         player.transform.position = playerSpawnPos;

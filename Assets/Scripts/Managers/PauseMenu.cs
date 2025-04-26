@@ -113,7 +113,7 @@ public class Menu : MonoBehaviour
         ObjectPauseMenu.SetActive(Paused); // Oculta el menú
         EventSystem.current.SetSelectedGameObject(null);
         playermovement.enabled = true;
-        print("Reanuda");
+        //print("Reanuda");
     }
 
     public void RestartScene()
@@ -155,7 +155,7 @@ public class Menu : MonoBehaviour
         ObjectPauseMenu.SetActive(Paused); // Muestra u oculta el menú
         EventSystem.current.SetSelectedGameObject(PauseMenuFirst); // El menú de pausa al ser iniciado, también es seleccionado al primer boton de este, para indicar al jugador desde donde empieza a navegar por él
         playermovement.enabled = false; // El personaje realmente se queda quieto
-        print("Pausa");
+       // print("Pausa");
 
     }
 
@@ -165,12 +165,12 @@ public class Menu : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "Hub") //Si la escena se llama Hub
         {
             restartButton.SetActive(false); //desactiva botón
-            Debug.Log("El botón de reinicio está desactivado en la escena 'Hub'");
+            //Debug.Log("El botón de reinicio está desactivado en la escena 'Hub'");
         }
         else
         {
             restartButton.SetActive(true); // lo activa
-            Debug.Log("El botón de reinicio está activado");
+            //Debug.Log("El botón de reinicio está activado");
         }
     }
     #endregion
