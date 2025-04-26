@@ -72,7 +72,7 @@ public class CambioEstado : MonoBehaviour
     void Start()
     {
         Player = FindObjectOfType<PlayerMovement>();
-        _spriteTile = GetComponent<Tilemap>();
+        
         _renderer = GetComponent<TilemapRenderer>();
         _colliderTile = GetComponent<TilemapCollider2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
@@ -144,6 +144,28 @@ public class CambioEstado : MonoBehaviour
                 GradualChangeAlpha();
             }
 
+        }
+    }
+
+    public void ChangeColor(string hexColor)
+    {
+        Color newColor;
+        if (ColorUtility.TryParseHtmlString(hexColor, out newColor))
+        {
+            _spriteTile = GetComponent<Tilemap>();
+            if (_spriteTile != null)
+            {
+                _spriteTile.color = newColor;
+                //Debug.Log("Changed!");
+            }
+            else
+            {
+                Debug.LogWarning("No Tilemap found on the prefab.");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Invalid hex color string.");
         }
     }
     #endregion

@@ -37,7 +37,8 @@ public class StateBarController : MonoBehaviour
     // primera palabra en minúsculas y el resto con la 
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
-
+    private Color _cState0 = new Color();
+    private Color _cState2 = new Color();
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -55,8 +56,8 @@ public class StateBarController : MonoBehaviour
     {
         LevelManager.Instance.getStateTime();
         timeScrollBar.size = 0;
-        filler.color = new Color(170, 100, 57, 1);
-        statebarBackground.color = new Color(40, 83, 108, 1);
+        //filler.color = new Color(170, 100, 57, 1);
+        //statebarBackground.color = new Color(40, 83, 108, 1);
     }
 
     /// <summary>
@@ -69,15 +70,15 @@ public class StateBarController : MonoBehaviour
 
         if (LevelManager.Instance.State == 0)
         {
-            filler.color = Color.yellow;
-            statebarBackground.color = Color.magenta;
+            filler.color = _cState2;
+            statebarBackground.color = _cState0;
 
-
+            
         }
         else
         {
-            filler.color = Color.magenta;
-            statebarBackground.color = Color.yellow;
+            filler.color = _cState0;
+            statebarBackground.color = _cState2;
 
 
         }
@@ -92,7 +93,34 @@ public class StateBarController : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
+    public void ChangeColorState0(string hexColor)
+    {
+        Color newColor;
+        if (ColorUtility.TryParseHtmlString(hexColor, out newColor))
+        {
+            //Debug.Log("Bar Changed!");
+            _cState0=newColor;
+            Debug.Log(_cState0);
+        }
+        else
+        {
+            Debug.LogWarning("Invalid hex color string.");
+        }
+    }
+    public void ChangeColorState2(string hexColor)
+    {
+        Color newColor;
+        if (ColorUtility.TryParseHtmlString(hexColor, out newColor))
+        {
 
+            _cState2 = newColor;
+            Debug.Log(_cState2);
+        }
+        else
+        {
+            Debug.LogWarning("Invalid hex color string.");
+        }
+    }
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----

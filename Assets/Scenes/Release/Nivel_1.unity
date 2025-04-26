@@ -3618,17 +3618,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &234408573 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2914998487024827918, guid: 9c6e01328f72ea541b126a6a737bdbc1, type: 3}
-  m_PrefabInstance: {fileID: 1504245188}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a4db7a114972834c8e4117be1d82ba3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &235464717
 GameObject:
   m_ObjectHideFlags: 0
@@ -4290,6 +4279,14 @@ PrefabInstance:
     - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
       propertyPath: roomNo
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
+      propertyPath: colorState0
+      value: '#AA394F'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
+      propertyPath: colorState2
+      value: '#1E3271'
       objectReference: {fileID: 0}
     - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
       propertyPath: roomsAmount
@@ -11077,26 +11074,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!1 &774283115 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6309473167555735504, guid: 9c6e01328f72ea541b126a6a737bdbc1, type: 3}
-  m_PrefabInstance: {fileID: 1504245188}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &774283116
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 774283115}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 162fdd97bb829a547bd343e9a6fe8458, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeScrollBar: {fileID: 234408573}
-  filler: {fileID: 1786492501}
-  statebarBackground: {fileID: 234408570}
 --- !u!1001 &776883163
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28530,12 +28507,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4785382323636868955, guid: 9c6e01328f72ea541b126a6a737bdbc1, type: 3}
+    - {fileID: 2449552021244006703, guid: 9c6e01328f72ea541b126a6a737bdbc1, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6309473167555735504, guid: 9c6e01328f72ea541b126a6a737bdbc1, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 774283116}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c6e01328f72ea541b126a6a737bdbc1, type: 3}
 --- !u!1001 &1548222836
 PrefabInstance:
@@ -29545,7 +29520,7 @@ Tilemap:
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
-  m_Color: {r: 0.6666667, g: 0.3921569, b: 0.22352943, a: 1}
+  m_Color: {r: 0.11921501, g: 0.19494177, b: 0.4433962, a: 1}
   m_Origin: {x: -90, y: -38, z: 0}
   m_Size: {x: 90, y: 38, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}

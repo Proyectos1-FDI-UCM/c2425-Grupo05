@@ -59,6 +59,8 @@ public class LevelManager : MonoBehaviour
     // indica si este manager es el del hub
     [SerializeField] bool isInHub = false;
 
+    [SerializeField] private string colorState0 = "";
+    [SerializeField] private string colorState2 = "";
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -76,6 +78,7 @@ public class LevelManager : MonoBehaviour
     private float StateMaxTime = 4f;
     private float StateTime = 0f;
     private Camera Camera;
+    private StateBarController StateBarController;
     
 
     /// <summary>
@@ -102,7 +105,7 @@ public class LevelManager : MonoBehaviour
     private void Start()
     {
         Camera = FindObjectOfType<Camera>();
-
+       
         //Setea el tiempo a 0
         StateTime = 0f;
         
@@ -114,8 +117,20 @@ public class LevelManager : MonoBehaviour
         }
         else
         {
+            
             Camera.transform.position = CameraPos[roomNo];
             playerSpawnPos = PlayerSpawnPosScene[roomNo].transform.position;
+            for(int i = 0; i < estados.Length;i++,i++)
+            {
+                estados[i].ChangeColor(colorState0);
+            }
+            for (int i = 1; i < estados.Length; i++, i++)
+            {
+                estados[i].ChangeColor(colorState2);
+            }
+            StateBarController = FindObjectOfType<StateBarController>();
+            StateBarController.ChangeColorState0(colorState0);
+            StateBarController.ChangeColorState2(colorState2);
         }
         //Lleva al player al primer inicio de sala.
         player.transform.position = playerSpawnPos;
