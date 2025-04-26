@@ -4339,11 +4339,11 @@ PrefabInstance:
     - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
       propertyPath: estados.Array.data[8]
       value: 
-      objectReference: {fileID: 1767298095}
+      objectReference: {fileID: 372168763}
     - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
       propertyPath: estados.Array.data[9]
       value: 
-      objectReference: {fileID: 1996222195}
+      objectReference: {fileID: 518844985}
     - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
       propertyPath: RoomMaxTime.Array.size
       value: 5
