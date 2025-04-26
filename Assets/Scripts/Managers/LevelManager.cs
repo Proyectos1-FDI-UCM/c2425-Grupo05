@@ -169,12 +169,12 @@ public class LevelManager : MonoBehaviour
             if (StateTime > StateMaxTime)
             {
                 
-                // AudioSource _heart = GetComponent<AudioManager>()?.Heart;
-                // if (!isInHub && !_heart.isPlaying) //ñapa
-                // {
-                //     _heart.Play();
-                //     Debug.Log("Heart");
-                // }
+                AudioSource _heart = GetComponent<AudioManager>()?.Heart;
+                if (!isInHub && !_heart.isPlaying) //ñapa
+                {
+                    _heart.Play();
+                    Debug.Log("Heart");
+                }
 
                 ChangeState();
                 for (int i = 0; i < estados.Length; i++)
@@ -232,12 +232,12 @@ public class LevelManager : MonoBehaviour
 
     public void ResetPlayer()
     {
-       /* AudioSource _glass = GetComponent<AudioManager>()?.Glass;
+        AudioSource _glass = GetComponent<AudioManager>()?.Glass;
         if (!_glass.isPlaying)
         {
             _glass.Play();
             Debug.Log("Glass");
-        }*/
+        }
 
 
         player.transform.position = playerSpawnPos;
