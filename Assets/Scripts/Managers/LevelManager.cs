@@ -7,6 +7,8 @@
 //---------------------------------------------------------
 
 using System;
+using TMPro;
+
 //using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.UI;
@@ -86,6 +88,15 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     private Vector3 playerSpawnPos;
 
+    
+    /// <summary>
+    /// Numero de muertes del jugador
+    /// </summary>
+    private int deaths = 0;
+    /// <summary>
+    /// Texto que muestra el numero de muertes del jugador
+    /// </summary>
+    private TextMeshProUGUI deathCount;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -100,6 +111,7 @@ public class LevelManager : MonoBehaviour
             _instance = this;
             Init();
         }
+        deathCount = GameObject.Find("CountText").GetComponent<TextMeshProUGUI>();
     }
 
     private void Start()
@@ -141,6 +153,9 @@ public class LevelManager : MonoBehaviour
       
 
         //Debug.Log(estados.Length);
+
+        deaths = GameManager.Instance.AskDeaths();
+        deathCount.text = DeathCountString(deaths);
         
     }
 
@@ -250,7 +265,9 @@ public class LevelManager : MonoBehaviour
         State = 0;*/
         RoomTimeRemaining = RoomMaxTime[roomNo];
 
-
+        GameManager.Instance.PlayerDied();
+        deaths = GameManager.Instance.AskDeaths();
+        deathCount.text = DeathCountString(deaths);
     }
     public void ChangeState()
     {
@@ -338,6 +355,16 @@ public class LevelManager : MonoBehaviour
         {
             NextRoom();
         }
+    }
+
+    /// <summary>
+    /// Metodo que facilita el texto de la cantidad de muertes
+    /// </summary>
+    private string DeathCountString(int deaths)
+    {
+        string deathString = "";
+        deathString += $"{deaths}";
+        return deathString;
     }
 
     #endregion
