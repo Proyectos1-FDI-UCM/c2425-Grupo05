@@ -52,6 +52,11 @@ public class GameManager : MonoBehaviour
     /// Último nivel en el que has estado
     /// </summary>
     private int currentLvl = 0; 
+
+    /// <summary>
+    /// Último nivel en el que has estado
+    /// </summary>
+    private int deaths = 0; 
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -199,6 +204,20 @@ public class GameManager : MonoBehaviour
         System.GC.Collect();
     } // ChangeScene
 
+    /// <summary>
+    /// Se llama cuando el jugador muere para incrementar el contador de muertes.
+    /// </summary>
+    public void PlayerDied()
+    {
+        deaths++;
+    }
+    /// <summary>
+    /// Devuelve la cantidad de veces que ha muerto el jugador
+    /// </summary>
+    public int AskDeaths()
+    {
+        return deaths;
+    }
 
 
     #endregion
