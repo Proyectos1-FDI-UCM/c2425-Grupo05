@@ -163,10 +163,10 @@ public class GameManager : MonoBehaviour
     public void GoToLvl(int level)
     {
         currentLvl = level;
-        /*el +2 representa las escenas del hub y el menú y se le resta 1 porque las puertas empiezan desde el nivel 1 y las escenas desde la escena 0.
-         level + 2 - 1 = level + 1
+        /*el +3 representa las escenas del hub, el menú y controles y se le resta 1 porque las puertas empiezan desde el nivel 1 y las escenas desde la escena 0.
+         level + 3 - 1 = level + 1
          */
-        GameManager.Instance.ChangeScene(level + 1); 
+        GameManager.Instance.ChangeScene(level + 2); 
     }
 
 
@@ -176,7 +176,14 @@ public class GameManager : MonoBehaviour
     public void LevelCompleted()
     {
         if (currentLvl >= maxCurrentLvl) { maxCurrentLvl = currentLvl; }
-        ChangeScene(1);//el hub es la escena 1.
+        ChangeScene(2);//el hub es la escena 2.
+    }
+    /// <summary>
+    /// Se llama cuando desde la escena de controles se va al Hub
+    /// </summary>
+    public void GoToHub()
+    {
+        ChangeScene(2);//Hub es la escena 2.
     }
 
 
