@@ -111,7 +111,8 @@ public class LevelManager : MonoBehaviour
             _instance = this;
             Init();
         }
-        deathCount = GameObject.Find("CountText").GetComponent<TextMeshProUGUI>();
+
+        
     }
 
     private void Start()
@@ -126,10 +127,13 @@ public class LevelManager : MonoBehaviour
         {
             // la posición inicial es la de la última puerta visitada
             playerSpawnPos = PlayerSpawnPosScene[GameManager.Instance.GetLvl()].transform.position;
+            
         }
         else
         {
-            
+            deathCount = GameObject.Find("CountText").GetComponent<TextMeshProUGUI>();
+            deathCount.text = DeathCountString(deaths);
+
             Camera.transform.position = CameraPos[roomNo];
             playerSpawnPos = PlayerSpawnPosScene[roomNo].transform.position;
             for(int i = 0; i < estados.Length;i++,i++)
@@ -155,7 +159,7 @@ public class LevelManager : MonoBehaviour
         //Debug.Log(estados.Length);
 
         deaths = GameManager.Instance.AskDeaths();
-        deathCount.text = DeathCountString(deaths);
+        
         
     }
 
