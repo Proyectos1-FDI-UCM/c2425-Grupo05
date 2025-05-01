@@ -126,6 +126,16 @@ public class PlayerMovement : MonoBehaviour
         //Obtener el vector de movimiento desde el InputManager.
         moveInput = InputManager.Instance.MovementVector;
 
+        //eliminar normalización del movimiento en el eje x
+        if (moveInput.x > 0f)
+        {
+            moveInput.x = 1f;
+        }
+        else if (moveInput.x < 0f)
+        {
+            moveInput.x = -1f;
+        }
+
         //Voltear el sprite
         if (moveInput.x != 0)
         {
@@ -246,7 +256,7 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
-                rb.velocity = new Vector2(moveInput.x/moveInput.x * speed, rb.velocity.y);
+                rb.velocity = new Vector2(moveInput.x * speed, rb.velocity.y);
             }
 
         }
@@ -255,7 +265,7 @@ public class PlayerMovement : MonoBehaviour
 
 
             Debug.Log(platform.getVel());
-            rb.velocity = new Vector2(moveInput.x / moveInput.x * speed + platform.getVel().x, platform.getVel().y); 
+            rb.velocity = new Vector2(moveInput.x * speed + platform.getVel().x, platform.getVel().y); 
 
         }
     }
