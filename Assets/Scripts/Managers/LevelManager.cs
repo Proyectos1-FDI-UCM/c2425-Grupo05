@@ -149,7 +149,7 @@ public class LevelManager : MonoBehaviour
             StateBarController.ChangeColorState2(colorState2);
         }
         //Lleva al player al primer inicio de sala.
-        player.transform.position = playerSpawnPos;
+        player.GetComponent<Rigidbody2D>().transform.position = playerSpawnPos;
 
 
         RoomTimeRemaining = RoomMaxTime[roomNo];
@@ -258,8 +258,8 @@ public class LevelManager : MonoBehaviour
             Debug.Log("Glass");
         }
 
-
-        player.transform.position = playerSpawnPos;
+        player.GetComponent<Rigidbody2D>().transform.position = playerSpawnPos;
+        player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 
         for (int i = 0; i < _platformMovement.Length; i++)
         {
@@ -294,7 +294,7 @@ public class LevelManager : MonoBehaviour
         if (roomNo < roomsAmount-1)
         {
             roomNo++;
-            player.transform.position = PlayerSpawnPosScene[roomNo].transform.position;
+            player.GetComponent<Rigidbody2D>().transform.position = PlayerSpawnPosScene[roomNo].transform.position;
             playerSpawnPos = PlayerSpawnPosScene[roomNo].transform.position;
             Camera.transform.position = CameraPos[roomNo];
             RoomTimeRemaining = RoomMaxTime[roomNo];
