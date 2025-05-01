@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Release/MainMenu.unity
     guid: fc1bc11ac870e654db4e18f458df1d76
   - enabled: 1
+    path: Assets/Scenes/Release/Controls.unity
+    guid: 32c7d56dc058b004a9b418d77124eefd
+  - enabled: 1
     path: Assets/Scenes/Release/Hub.unity
     guid: 194ffcef984b85f4180ccce97919a45c
   - enabled: 1
@@ -23,7 +26,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Release/Nivel_2.unity
     guid: 3c8209bb1d969e945ba89cd5700a3a32
-  - enabled: 1
-    path: Assets/Scenes/Controls.unity
-    guid: 32c7d56dc058b004a9b418d77124eefd
   m_configObjects: {}
