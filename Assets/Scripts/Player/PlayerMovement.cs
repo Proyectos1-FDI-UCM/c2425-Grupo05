@@ -246,7 +246,7 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
-                rb.velocity = new Vector2(moveInput.x * speed, rb.velocity.y);
+                rb.velocity = new Vector2(moveInput.x/moveInput.x * speed, rb.velocity.y);
             }
 
         }
@@ -255,7 +255,7 @@ public class PlayerMovement : MonoBehaviour
 
 
             Debug.Log(platform.getVel());
-            rb.velocity = new Vector2(moveInput.x * speed + platform.getVel().x, platform.getVel().y); 
+            rb.velocity = new Vector2(moveInput.x / moveInput.x * speed + platform.getVel().x, platform.getVel().y); 
 
         }
     }
