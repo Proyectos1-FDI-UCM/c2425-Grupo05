@@ -207,10 +207,19 @@ public class PlayerMovement : MonoBehaviour
     // ---- MÉTODOS PÚBLICOS ----
     #region Métodos públicos
 
-    public void ResetPlayer(Vector2 pos)
+    public void ResetPlayer(Vector3 pos)
     {
-        rb.velocity = Vector2.zero;
-        rb.transform.position = pos;
+        if (rb != null)
+        {
+            rb.velocity = Vector3.zero;
+            rb.transform.position = pos;
+        }
+        else
+        {
+            rb = gameObject.GetComponent<Rigidbody2D>();
+            rb.velocity = Vector3.zero;
+            rb.transform.position = pos;
+        }
     }
     public void Spring(float i) // Accion del jugador con el muelle
     {
