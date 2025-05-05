@@ -5,12 +5,7 @@
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
-using System.Globalization;
-using System.Runtime.CompilerServices;
-using System.Runtime.Serialization.Formatters;
-using Unity.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
 // Añadir aquí el resto de directivas using
 
 
@@ -61,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
 
     //para efectuar salto
     PlatformMovement platform;
-    [SerializeField]private bool isGrounded;
+    [SerializeField] private bool isGrounded;
     private bool isAccelerating;
 
     //cuando pasa a true, salta y justo depués se pone a false para no saltar varias veces con un input.
@@ -90,10 +85,10 @@ public class PlayerMovement : MonoBehaviour
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
     #region Métodos de MonoBehaviour
 
-    
+
     void Start()
     {
-        
+
         rb = gameObject.GetComponent<Rigidbody2D>();
 
         #region//Coge referencias a los colliders correspondientes a los hijos
@@ -130,18 +125,10 @@ public class PlayerMovement : MonoBehaviour
         moveInput = InputManager.Instance.MovementVector;
 
         //eliminar normalización del movimiento en el eje x
-        if (moveInput.x > 0f)
-        {
-            moveInput.x = 1f;
-            playerAnimator.SetBool("Walking", true);
-        }
-        else if (moveInput.x < 0f)
-        {
-            playerAnimator.SetBool("Walking", true);
-            moveInput.x = -1f;
-        } else {
-            playerAnimator.SetBool("Walking", false);
-        }
+
+
+        playerAnimator.SetBool("Walking", moveInput.x != 0f && rb.velocity.x > 0);
+        playerAnimator.SetBool("OnFloor", isGrounded);
 
         //Voltear el sprite
         if (moveInput.x != 0)
@@ -225,7 +212,7 @@ public class PlayerMovement : MonoBehaviour
     {
 
         justSpringed = i; // Se le da verticalmente la fuerza recibida
-        
+
     }
 
     public bool inGround() { return isGrounded; }
@@ -287,7 +274,7 @@ public class PlayerMovement : MonoBehaviour
 
 
             Debug.Log(platform.getVel());
-            rb.velocity = new Vector2(moveInput.x * speed + platform.getVel().x, platform.getVel().y); 
+            rb.velocity = new Vector2(moveInput.x * speed + platform.getVel().x, platform.getVel().y);
 
         }
     }
