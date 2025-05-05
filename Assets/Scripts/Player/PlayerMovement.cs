@@ -57,6 +57,7 @@ public class PlayerMovement : MonoBehaviour
     private Collider2D upLeftCollider;
     private Collider2D upRightCollider;
     private Collider2D upCenterCollider;
+    private Animator playerAnimator;
 
     //para efectuar salto
     PlatformMovement platform;
@@ -110,6 +111,8 @@ public class PlayerMovement : MonoBehaviour
         upCenterCollider = _child.GetComponent<Collider2D>();
         #endregion
 
+        playerAnimator = gameObject.GetComponent<Animator>();
+
         justJumped = false;
 
         cornerCorrectedLastFrame = false;
@@ -130,10 +133,14 @@ public class PlayerMovement : MonoBehaviour
         if (moveInput.x > 0f)
         {
             moveInput.x = 1f;
+            playerAnimator.SetBool("Walking", true);
         }
         else if (moveInput.x < 0f)
         {
+            playerAnimator.SetBool("Walking", true);
             moveInput.x = -1f;
+        } else {
+            playerAnimator.SetBool("Walking", false);
         }
 
         //Voltear el sprite
@@ -179,6 +186,7 @@ public class PlayerMovement : MonoBehaviour
         {
             isAccelerating = false;
         }
+
     }
     void FixedUpdate()
     {
