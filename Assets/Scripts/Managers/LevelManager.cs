@@ -217,17 +217,22 @@ public class LevelManager : MonoBehaviour
                 }
             }
         }
-        AudioSource _clock = GetComponent<AudioManager>()?.Clock;
+        if(!isInHub)
+        {
+            AudioSource _clock = GetComponent<AudioManager>()?.Clock;
+            _clock.pitch = (RoomMaxTime[roomNo] - RoomTimeRemaining) / (3 * RoomMaxTime[roomNo]) + 1;
+            if (!grayZone[roomNo].IsTimeStopped() && !_clock.isPlaying)
+            {
 
-        if (!grayZone[roomNo].IsTimeStopped() && !_clock.isPlaying)
-        {
-            _clock.Play();
-            Debug.Log("Clock");
+                _clock.Play();
+
+            }
+            else if (grayZone[roomNo].IsTimeStopped())
+            {
+                _clock.Stop();
+            }
         }
-        else if (grayZone[roomNo].IsTimeStopped())
-        {
-            _clock.Stop();
-        }
+       
     }
 
     #endregion
