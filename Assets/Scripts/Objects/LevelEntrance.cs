@@ -54,7 +54,7 @@ public class LevelEntrance : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         //sprite.color = new Color(0.77254f, 0.52941f, 0.18039f, 1f);
-        
+        animator.SetBool("abierto", doorLevel <= GameManager.Instance.MaxLevel() + 1);
         pressE.SetActive(false);
     }
 
