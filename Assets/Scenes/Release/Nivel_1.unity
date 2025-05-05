@@ -5756,7 +5756,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1968845585
   m_SortingLayer: -1
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -11347,6 +11347,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2257120117063080868, guid: 016e04c21c3c66b43b8540a363f9d43b, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2835807241297889657, guid: 016e04c21c3c66b43b8540a363f9d43b, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.03
@@ -12634,7 +12638,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1968845585
   m_SortingLayer: -1
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -35988,6 +35992,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1032900501}
     m_Modifications:
+    - target: {fileID: 3417074543937665151, guid: 81d02670e8d0ab54ca98d254a5b85ef5, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5834309107775638881, guid: 81d02670e8d0ab54ca98d254a5b85ef5, type: 3}
       propertyPath: m_Size.x
       value: 62
@@ -36913,7 +36921,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1968845585
   m_SortingLayer: -1
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -40047,6 +40055,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1657710685}
     m_Modifications:
+    - target: {fileID: 3417074543937665151, guid: 81d02670e8d0ab54ca98d254a5b85ef5, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5834309107775638881, guid: 81d02670e8d0ab54ca98d254a5b85ef5, type: 3}
       propertyPath: m_Size.x
       value: 88
