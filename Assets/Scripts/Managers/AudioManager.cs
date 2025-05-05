@@ -35,49 +35,22 @@ public class AudioManager : MonoBehaviour
     // primera palabra en minúsculas y el resto con la 
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
-    private LevelManager lM;
-
+   
     #endregion
-    
+
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
     #region Métodos de MonoBehaviour
-    
+
     // Por defecto están los típicos (Update y Start) pero:
     // - Hay que añadir todos los que sean necesarios
     // - Hay que borrar los que no se usen 
-    
-    /// <summary>
-    /// Start is called on the frame when a script is enabled just before 
-    /// any of the Update methods are called the first time.
-    /// </summary>
-    void Start()
-    {
-        
-    }
+
+   
 
     /// <summary>
     /// Update is called every frame, if the MonoBehaviour is enabled.
     /// </summary>
-    void Update()
-    {
-        if (lM != null)
-        {
-            if (lM.getRoomTimeRemaining() <= lM.getMaxTime() * 0.15f){
-                if (!clock.isPlaying)
-                {
-                    clock.Play();
-                    Debug.Log("Clock");
-                }
-            }
-            else
-            {
-                if (clock.isPlaying)
-                {
-                    clock.Stop();
-                }
-            }
-        }
-    }
+   
     #endregion
 
     // ---- MÉTODOS PÚBLICOS ----
@@ -93,7 +66,7 @@ public class AudioManager : MonoBehaviour
     public AudioSource Heart => heart;
 
     #endregion
-    
+
     // ---- MÉTODOS PRIVADOS ----
     #region Métodos Privados
     // Documentar cada método que aparece aquí
@@ -101,7 +74,7 @@ public class AudioManager : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
 
-    #endregion   
+    #endregion
 
 } // class AudioManager 
 // namespace

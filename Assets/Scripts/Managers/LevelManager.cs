@@ -6,12 +6,10 @@
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
-using System;
 using TMPro;
 
 //using UnityEditorInternal;
 using UnityEngine;
-using UnityEngine.UI;
 
 /// <summary>
 /// Componente que se encarga de la gestión de un nivel concreto.
@@ -81,14 +79,14 @@ public class LevelManager : MonoBehaviour
     private float StateTime = 0f;
     private Camera Camera;
     private StateBarController StateBarController;
-    
+
 
     /// <summary>
     /// Pos de respawn e inicio por el momento
     /// </summary>
     private Vector3 playerSpawnPos;
 
-    
+
     /// <summary>
     /// Numero de muertes del jugador
     /// </summary>
@@ -112,22 +110,22 @@ public class LevelManager : MonoBehaviour
             Init();
         }
 
-        
+
     }
 
     private void Start()
     {
         Camera = FindObjectOfType<Camera>();
-       
+
         //Setea el tiempo a 0
         StateTime = 0f;
-        
+
         //setea la pos inicial a la pos del objeto que indica el primer inicio de sala, o la última puerta en la que has entrado, en caso del hub.
         if (isInHub)
         {
             // la posición inicial es la de la última puerta visitada
             playerSpawnPos = PlayerSpawnPosScene[GameManager.Instance.GetLvl()].transform.position;
-            
+
         }
         else
         {
@@ -136,7 +134,7 @@ public class LevelManager : MonoBehaviour
 
             Camera.transform.position = CameraPos[roomNo];
             playerSpawnPos = PlayerSpawnPosScene[roomNo].transform.position;
-            for(int i = 0; i < estados.Length;i++,i++)
+            for (int i = 0; i < estados.Length; i++, i++)
             {
                 estados[i].ChangeColor(colorState0);
             }
@@ -154,13 +152,13 @@ public class LevelManager : MonoBehaviour
 
         RoomTimeRemaining = RoomMaxTime[roomNo];
         _platformMovement = FindObjectsByType<PlatformMovement>(FindObjectsSortMode.None);
-      
+
 
         //Debug.Log(estados.Length);
 
         deaths = GameManager.Instance.AskDeaths();
-        
-        
+
+
     }
 
 
@@ -187,7 +185,7 @@ public class LevelManager : MonoBehaviour
 
             if (StateTime > StateMaxTime)
             {
-                
+
                 AudioSource _heart = GetComponent<AudioManager>()?.Heart;
                 if (!isInHub && !_heart.isPlaying) //ñapa
                 {
@@ -200,10 +198,10 @@ public class LevelManager : MonoBehaviour
                 {
                     estados[i].CambiaEstado(State);
                 }
-                
+
                 StateTime = 0f;
             }
-            else if ((StateMaxTime/2 - 0.1) < StateTime && StateTime < (StateMaxTime/2 + 0.1) && !isInHub) //Que suene a la mitad tambien
+            else if ((StateMaxTime / 2 - 0.1) < StateTime && StateTime < (StateMaxTime / 2 + 0.1) && !isInHub) //Que suene a la mitad tambien
             {
                 AudioSource _heart = GetComponent<AudioManager>()?.Heart;
                 if (!_heart.isPlaying)
@@ -218,6 +216,17 @@ public class LevelManager : MonoBehaviour
                     estados[i].CambiaEstadoTrasLuz(State);
                 }
             }
+        }
+        AudioSource _clock = GetComponent<AudioManager>()?.Clock;
+
+        if (!grayZone[roomNo].IsTimeStopped() && !_clock.isPlaying)
+        {
+            _clock.Play();
+            Debug.Log("Clock");
+        }
+        else if (grayZone[roomNo].IsTimeStopped())
+        {
+            _clock.Stop();
         }
     }
 
@@ -261,9 +270,10 @@ public class LevelManager : MonoBehaviour
         AudioSource _glass = GetComponent<AudioManager>()?.Glass;
         if (!_glass.isPlaying)
         {
-            _glass.Play();
-            Debug.Log("Glass");
+            _glass.Stop();
+
         }
+        _glass.Play();
 
         player.GetComponent<Rigidbody2D>().transform.position = playerSpawnPos;
         player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
@@ -298,7 +308,7 @@ public class LevelManager : MonoBehaviour
 
     public void NextRoom()
     {
-        if (roomNo < roomsAmount-1)
+        if (roomNo < roomsAmount - 1)
         {
             roomNo++;
             player.GetComponent<Rigidbody2D>().transform.position = PlayerSpawnPosScene[roomNo].transform.position;
@@ -334,12 +344,12 @@ public class LevelManager : MonoBehaviour
     public float getStateMaxTime()
     {
         return StateMaxTime;
-    }  
+    }
 
     public float getStateTime()
     {
         return StateTime;
-    }  
+    }
     public float getRoomTimeRemaining()
     {
         return RoomTimeRemaining;
@@ -377,6 +387,8 @@ public class LevelManager : MonoBehaviour
         deathString += $"{deaths}";
         return deathString;
     }
+
+
 
     #endregion
 } // class LevelManager 
