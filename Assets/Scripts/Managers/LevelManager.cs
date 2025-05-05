@@ -203,7 +203,14 @@ public class LevelManager : MonoBehaviour
                 
                 StateTime = 0f;
             }
-
+            else if ((StateMaxTime/2 - 0.1) < StateTime && StateTime < (StateMaxTime/2 + 0.1) && !isInHub) //Que suene a la mitad tambien
+            {
+                AudioSource _heart = GetComponent<AudioManager>()?.Heart;
+                if (!_heart.isPlaying)
+                {
+                    _heart.Play();
+                }
+            }
             else if (StateTime > ChangeTimeTrasluz && StateTime < StateMaxTime)
             {
                 for (int i = 0; i < estados.Length; i++)
