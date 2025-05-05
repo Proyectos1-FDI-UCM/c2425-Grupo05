@@ -64,8 +64,16 @@ public class ChangeScene : MonoBehaviour
         GameManager.Instance.ChangeScene(nextScene);
     }
 
+    public void ExitGame()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false; // Detiene el juego en el editor
+#else
+            Application.Quit(); // Cierra el juego en una build
+#endif
+    }
     #endregion
-    
+
     // ---- MÉTODOS PRIVADOS ----
     #region Métodos Privados
     // Documentar cada método que aparece aquí
