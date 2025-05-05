@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4586060325389137186}
   - component: {fileID: 1879075733080679880}
   - component: {fileID: 8125862818176818161}
+  - component: {fileID: 3021504625800537946}
   m_Layer: 0
   m_Name: Puerta
   m_TagString: Untagged
@@ -81,18 +82,18 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.18255115}
+  m_Offset: {x: 0, y: 0.5595732}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    pivot: {x: 0.5217391, y: -0.19565217}
+    oldSize: {x: 1.4375, y: 1.4375}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1.3651023}
+  m_Size: {x: 1, y: 2.3657198}
   m_EdgeRadius: 0
 --- !u!212 &8125862818176818161
 SpriteRenderer:
@@ -132,11 +133,11 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1968845585
+  m_SortingLayer: -1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8e7205eed40b51444af5e8af3004b87b, type: 3}
-  m_Color: {r: 0.2509804, g: 0.06666667, b: 0.33333334, a: 1}
+  m_Sprite: {fileID: 3500352155747528765, guid: 186957753c8c8ca4fa41566597aedf29, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -146,3 +147,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &3021504625800537946
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7057672723165736314}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 3865873397619064305, guid: 186957753c8c8ca4fa41566597aedf29, type: 3}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
