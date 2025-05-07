@@ -1,14 +1,14 @@
 # iM LoSInG iT
-##Integrantes
+## Integrantes
 Adrián de Miguel Cerezo
 Amiel Ramos Juez
 Adrián Erustes Martín
 Óscar Silva Urbina
 Víctor Álvarez Peral
 Antonio Bucero Coronel
-##Objetivo
+## Objetivo
 El objetivo del juego es pasarse todas las salas que están en los niveles del juego, resolviendo puzzles y maniobrando por plataformas para llegar a la última pantalla de ganar del juego.
-##Cómo se juega
+## Cómo se juega
 Los controles del juego son:
 las teclas A y D o las flechas en el teclado para movimiento horizontal(Joystick en mando)
 La barra de espacio en teclado para saltar(A en mando de Xbox)
