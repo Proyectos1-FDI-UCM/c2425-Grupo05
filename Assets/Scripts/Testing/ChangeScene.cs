@@ -1,5 +1,11 @@
-
+//---------------------------------------------------------
 // ChangeScene es un componente de pruebas para cambiar entre escenas
+// Antonio Bucero Coronel
+// Oscar Silva Urbina
+// I´m losing it
+// Proyectos 1 - Curso 2024-25
+//---------------------------------------------------------
+
 
 
 using UnityEngine;
@@ -17,7 +23,7 @@ public class ChangeScene : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
-    
+
     /// <summary>
     /// Índice de la escena (en el build settings)
     /// que se cargará. 
@@ -29,21 +35,12 @@ public class ChangeScene : MonoBehaviour
 
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
-    // Documentar cada atributo que aparece aquí.
-    // El convenio de nombres de Unity recomienda que los atributos
-    // privados se nombren en formato _camelCase (comienza con _, 
-    // primera palabra en minúsculas y el resto con la 
-    // primera letra en mayúsculas)
-    // Ejemplo: _maxHealthPoints
 
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
     #region Métodos de MonoBehaviour
 
-    // Por defecto están los típicos (Update y Start) pero:
-    // - Hay que añadir todos los que sean necesarios
-    // - Hay que borrar los que no se usen 
     void Update()
     {
         if (Keyboard.current.escapeKey.wasPressedThisFrame)
@@ -66,11 +63,11 @@ public class ChangeScene : MonoBehaviour
 
     public void ExitGame()
     {
-#if UNITY_EDITOR
+    #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false; // Detiene el juego en el editor
-#else
+    #else
             Application.Quit(); // Cierra el juego en una build
-#endif
+    #endif
     }
     #endregion
 

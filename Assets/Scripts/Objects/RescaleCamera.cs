@@ -1,4 +1,4 @@
-    //---------------------------------------------------------
+//---------------------------------------------------------
 // Script para cambiar el ratio de la cámara al correcto
 // Adrián de Miguel Cerezo
 // I´m losing it
