@@ -10,8 +10,11 @@ Antonio Bucero Coronel
 
 ## Descripción
 Te encuentras en un mundo regido por 2 reglas. 
-La primera es una barra de estados que rige la aparición de plataformas. ¡Encuentra el timing!
-La segunda es un cronometro que te presiona a la hora de resolver el nivel. ¡Encuentra una estrategia!
+La primera es una barra de estados que rige la aparición de plataformas. 
+¡Encuentra el timing!
+
+La segunda es un cronometro que te presiona a la hora de resolver el nivel. 
+¡Encuentra una estrategia!
 
 ## Objetivo
 "Tienes que ir hacia delante"
@@ -29,7 +32,7 @@ La tecla R del teclado para reiniciar la sala en la que te encuentras(Presionar 
 Fotos: 
 ![image](https://github.com/user-attachments/assets/c3ef6787-9da2-48ca-951c-0ae12eb5aaa5)
 
-![image](https://github.com/user-attachments/assets/e8a90dd8-761b-4779-87eb-525e723e5d6b
+![image](https://github.com/user-attachments/assets/e8a90dd8-761b-4779-87eb-525e723e5d6b)
 
 ![image](https://github.com/user-attachments/assets/07b31b36-ace1-45bc-8eb9-1e95f6e57361)
 
