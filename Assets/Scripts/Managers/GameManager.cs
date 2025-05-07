@@ -26,12 +26,6 @@ public class GameManager : MonoBehaviour
 
     #region Atributos del Inspector (serialized fields)
 
-    // Documentar cada atributo que aparece aquí.
-    // El convenio de nombres de Unity recomienda que los atributos
-    // públicos y de inspector se nombren en formato PascalCase
-    // (palabras con primera letra mayúscula, incluida la primera letra)
-    // Ejemplo: MaxHealthPoints
-
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -44,7 +38,7 @@ public class GameManager : MonoBehaviour
     private static GameManager _instance;
 
     /// <summary>
-    /// máximo nivel alcanzado (está serializada para testing)
+    /// Máximo nivel alcanzado (está serializada para testing)
     /// </summary>
     [SerializeField]private int maxCurrentLvl = 0;
 
@@ -54,7 +48,7 @@ public class GameManager : MonoBehaviour
     private int currentLvl = 0; 
 
     /// <summary>
-    /// CANTIDAD DE MUERTES
+    /// Cantidad de muertes
     /// </summary>
     private int deaths = 0;
     #endregion
@@ -63,11 +57,6 @@ public class GameManager : MonoBehaviour
 
     #region Métodos de MonoBehaviour
 
-    /// <summary>
-    /// Método llamado en un momento temprano de la inicialización.
-    /// En el momento de la carga, si ya hay otra instancia creada,
-    /// nos destruimos (al GameObject completo)
-    /// </summary>
     protected void Awake()
     {
         if (_instance != null)
@@ -143,14 +132,14 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Getter del max level alcanzado actualmente.
+    /// Devuelve el máx level alcanzado actualmente
     /// </summary>
     /// <returns></returns>
     public int MaxLevel() { return maxCurrentLvl; }
 
     
     /// <summary>
-    /// Getter de currentLvl.
+    /// Devuelve el nivel actual
     /// </summary>
     /// <returns></returns>
     public int GetLvl() {  return currentLvl; }
@@ -162,16 +151,15 @@ public class GameManager : MonoBehaviour
     /// <param name="level"></param>
     public void GoToLvl(int level)
     {
+        // Tenemos las siguientes escenas: 0-Main Menu, 1-Controles, 2-Hub. Por ello sumamos +2, para ignorar dichas escenas y nos lleve al nivel correspondiente
         currentLvl = level;
-        /*el +3 representa las escenas del hub, el menú y controles y se le resta 1 porque las puertas empiezan desde el nivel 1 y las escenas desde la escena 0.
-         level + 3 - 1 = level + 1
-         */
+
         GameManager.Instance.ChangeScene(level + 2); 
     }
 
 
     /// <summary>
-    /// Se llama cuando se completa un nivel para volver al hub y actualizar el nivel Máximo si es necesario
+    /// Se llama cuando se completa un nivel para volver al hub y actualizar el nivel máximo. Este se utiliza para desbloquear el siguiente nivel
     /// </summary>
     public void LevelCompleted()
     {
@@ -179,7 +167,7 @@ public class GameManager : MonoBehaviour
         ChangeScene(2);//el hub es la escena 2.
     }
     /// <summary>
-    /// Se llama cuando desde la escena de controles se va al Hub
+    /// Se utiliza para ir a la escena HUB. Ya sea desde el menu de pausa o desde la escena de controles
     /// </summary>
     public void GoToHub()
     {
