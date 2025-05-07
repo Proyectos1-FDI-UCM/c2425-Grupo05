@@ -1,10 +1,10 @@
 # iM LoSInG iT
 ## Integrantes
-Adrián de Miguel Cerezo
-Amiel Ramos Juez
-Adrián Erustes Martín
-Óscar Silva Urbina
-Víctor Álvarez Peral
+Adrián de Miguel Cerezo-
+Amiel Ramos Juez-
+Adrián Erustes Martín-
+Óscar Silva Urbina-
+Víctor Álvarez Peral-
 Antonio Bucero Coronel
 ## Objetivo
 El objetivo del juego es pasarse todas las salas que están en los niveles del juego, resolviendo puzzles y maniobrando por plataformas para llegar a la última pantalla de ganar del juego.
