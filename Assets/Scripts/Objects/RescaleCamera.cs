@@ -1,4 +1,4 @@
-//---------------------------------------------------------
+    //---------------------------------------------------------
 // Script para cambiar el ratio de la cámara al correcto
 // Adrián de Miguel Cerezo
 // I´m losing it
@@ -77,7 +77,7 @@ public class RescaleCamera : MonoBehaviour
         Camera.main.rect = wp;
 
     }
-   
+
 
     // ---- MÉTODOS PÚBLICOS ----
     #region Métodos públicos
@@ -97,7 +97,10 @@ public class RescaleCamera : MonoBehaviour
     // mayúscula, incluida la primera letra)
 
     #endregion
-    private void ResizeCamera() //Cambiar el tamaño de la cámara para que encapsule el nivel
+    /// <summary>
+    /// Cambia el tamaño de la cámara para que encapsule el nivel
+    /// </summary>
+    private void ResizeCamera() 
     {
 
         if (Screen.width == screenSizeX && Screen.height == screenSizeY) return;
