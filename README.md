@@ -29,14 +29,14 @@ La tecla de escape en el teclado para pausar(botón de opciones en mando)
 La tecla E del teclado para seleccionar(botón X en mando de Xbox)  
 La tecla R del teclado para reiniciar la sala en la que te encuentras(Presionar el joystick izquierdo en mando)
 
-Fotos: 
+## Fotos: 
 ![image](https://github.com/user-attachments/assets/c3ef6787-9da2-48ca-951c-0ae12eb5aaa5)
 
 ![image](https://github.com/user-attachments/assets/e8a90dd8-761b-4779-87eb-525e723e5d6b)
 
 ![image](https://github.com/user-attachments/assets/07b31b36-ace1-45bc-8eb9-1e95f6e57361)
 
-Trailer: 
-https://youtu.be/-rezQT5Uka4
+## Trailer: 
+[https://youtu.be/-rezQT5Uka4](https://youtu.be/TARMvs47jvc?si=a-9eACH9ZUMUz92X)
 
 
