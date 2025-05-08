@@ -1,7 +1,7 @@
 //---------------------------------------------------------
 // Gestiona todas las escenas en las que el jugador se pueda mover.
 //No guarda info entre escenas.
-// Adrián Erustes Martín, Antonio Bucero, 
+// Adrián Erustes Martín, Antonio Bucero, Adrián de Miguel
 // TemplateP1
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
@@ -47,6 +47,11 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private float[] RoomMaxTime;
 
     /// <summary>
+    /// Tiempo restante de la sala
+    /// </summary>
+    [SerializeField] private float RoomTimeRemaining;
+
+    /// <summary>
     /// El tiempo que tarda en poner una imagen translúcida del siguiente estado
     /// </summary>
     [SerializeField] private float ChangeTimeTrasluz = 3f;
@@ -61,17 +66,39 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     [SerializeField] Vector3[] CameraPos;
 
-
+    /// <summary>
+    /// Variable utilizada para bloquear el tiempo del cambio de estado a modo de pruebas
+    /// </summary>
     [SerializeField] private bool stateLocked;
+
+    /// <summary>
+    /// Variable utilizada para bloquear el tiempo de la sala a modo de pruebas
+    /// </summary>
     [SerializeField] private bool timeLocked;
+
+    /// <summary>
+    /// Array de objetos de estado de las salas a los que se les asigna el estado correspondiente
+    /// </summary>
     [SerializeField] private CambioEstado[] estados;
 
-    [SerializeField] private int roomNo = 0; //la primera room es la 0 y la última, la roomsAmount-1
+    /// <summary>
+    /// NÚmero de sala en la que se encuentra el jugador. La primera room es la 0 y la última, la roomsAmount-1
+    /// </summary>
+    [SerializeField] private int roomNo = 0; 
 
-    // indica si este manager es el del hub
+    /// <summary>
+    /// Verifica que este LevelManager se encuentra en la escena del Hub
+    /// </summary>
     [SerializeField] bool isInHub = false;
 
+    /// <summary>
+    /// Color en hexadecimal que se asigna tanto a las plataformas como a las barras de estado según al estado y la sala que correspondan. Estado 2
+    /// </summary>
     [SerializeField] private string colorState0 = "";
+
+    /// <summary>
+    /// Color en hexadecimal que se asigna tanto a las plataformas como a las barras de estado según al estado y la sala que correspondan. Estado 2
+    /// </summary>
     [SerializeField] private string colorState2 = "";
     #endregion
 
@@ -85,33 +112,50 @@ public class LevelManager : MonoBehaviour
     private static LevelManager _instance;
 
     /// <summary>
-    /// Estado actual de la sala (0-Estado Neutral, 1-Estado 1, 2-Estado 2
+    /// Estado actual de la sala (0-Estado 1, 2-Estado 2)
     /// </summary>
     private int State = 0;
 
-
+    /// <summary>
+    /// 
+    /// </summary>
     private PlatformMovement[] _platformMovement;
 
-    [SerializeField] private float RoomTimeRemaining;
     // Variables del contador de tiempo del estado
+
+    /// <summary>
+    /// Tiempo máximo para el cambio de estado
+    /// </summary>
     private float StateMaxTime = 4f;
+
+    /// <summary>
+    /// Tiempo actual transcurrido en el estado activo
+    /// </summary>
     private float StateTime = 0f;
+
+    /// <summary>
+    /// Referencia de la cámara
+    /// </summary>
     private Camera Camera;
+
+    /// <summary>
+    /// Referencia de la barra de estados
+    /// </summary>
     private StateBarController StateBarController;
 
 
     /// <summary>
-    /// Pos de respawn e inicio por el momento
+    /// Posición de aparición inicial y reinicio del jugador
     /// </summary>
     private Vector3 playerSpawnPos;
 
     /// <summary>
-    /// Numero de muertes del jugador
+    /// Número de muertes del jugador
     /// </summary>
     private int deaths = 0;
 
     /// <summary>
-    /// Texto que muestra el numero de muertes del jugador
+    /// Texto que muestra el número de muertes del jugador
     /// </summary>
     private TextMeshProUGUI deathCount;
     #endregion
@@ -172,15 +216,7 @@ public class LevelManager : MonoBehaviour
 
         RoomTimeRemaining = RoomMaxTime[roomNo];
         _platformMovement = FindObjectsByType<PlatformMovement>(FindObjectsSortMode.None);
-
-
-        //Debug.Log(estados.Length);
-
-        
-
-
     }
-
 
     private void Update()
     {
@@ -193,11 +229,9 @@ public class LevelManager : MonoBehaviour
             }
             else
             {
-                //Debug.Log("TiempoFinalizado");
                 ResetPlayer();
                 RoomTimeRemaining = RoomMaxTime[roomNo];
             }
-
         }
         if (!stateLocked)
         {
@@ -285,17 +319,8 @@ public class LevelManager : MonoBehaviour
         return _instance != null;
     }
 
-    public int GetState() 
-    {
-        return State; 
-    }
-
-
-    public int GetRoomNo()
-    {
-        return roomNo;
-    }
-
+    //Reincia tanto al jugador, como a las características de la sala que se reinician con el, realizando un efecto de sonido
+    //Se añade valor al contador de muertes
     public void ResetPlayer()
     {
         AudioSource _glass = GetComponent<AudioManager>()?.Glass;
@@ -313,14 +338,14 @@ public class LevelManager : MonoBehaviour
         {
             _platformMovement[i].ResetPlatform();
         }
-        /*StateTime = 0;
-        State = 0;*/
         RoomTimeRemaining = RoomMaxTime[roomNo];
 
         GameManager.Instance.PlayerDied();
         deaths = GameManager.Instance.AskDeaths();
         deathCount.text = DeathCountString(deaths);
     }
+
+    //Cambia entre estado 1 (0) y estado 2 (2)
     public void ChangeState()
     {
         if (State == 0)
@@ -331,12 +356,10 @@ public class LevelManager : MonoBehaviour
         {
             State = 0;
         }
-        //if (state == 2)
-        //{
-        //    State = 0;
-        //}
     }
 
+    // Pasa a la siguiente sala
+    // Si se llega al máximo de salas transporta al jugador a la escena Hub, desbloqueando el siguiente nivel
     public void NextRoom()
     {
         if (roomNo < roomsAmount - 1)
@@ -353,15 +376,27 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    //Métodos de conversion de variables a públicas------------------------------------
+    public int GetState()
+    {
+        return State;
+    }
+
+    public int GetRoomNo()
+    {
+        return roomNo;
+    }
+
     public CambioEstado[] GetEstados()
     {
         return estados;
     }
-
+ 
     public int EstadoActual()
     {
         return State;
     }
+
     public bool GetIsHub()
     {
         return isInHub;
@@ -381,10 +416,13 @@ public class LevelManager : MonoBehaviour
     {
         return StateTime;
     }
+
     public float getRoomTimeRemaining()
     {
         return RoomTimeRemaining;
     }
+
+    //-----------------------------------------------------------------------------------
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
@@ -399,7 +437,7 @@ public class LevelManager : MonoBehaviour
         // De momento no hay nada que inicializar
     }
 
-    // Botón N para avanzar sala
+    // Exploit para avanzar de sala pulsando el botón N
     private void OnGUI()
     {
         Event e = Event.current;
@@ -410,7 +448,7 @@ public class LevelManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Metodo que facilita el texto de la cantidad de muertes
+    /// Método que facilita el texto de la cantidad de muertes
     /// </summary>
     private string DeathCountString(int deaths)
     {

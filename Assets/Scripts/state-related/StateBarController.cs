@@ -98,9 +98,7 @@ public class StateBarController : MonoBehaviour
         Color newColor;
         if (ColorUtility.TryParseHtmlString(hexColor, out newColor))
         {
-            //Debug.Log("Bar Changed!");
             _cState0=newColor;
-            //Debug.Log(_cState0);
         }
         else
         {
