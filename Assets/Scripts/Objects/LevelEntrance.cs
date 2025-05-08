@@ -63,7 +63,7 @@ public class LevelEntrance : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (touchingPlayer) // aquí también hay que poner && tecla "" detectada, pero no sé cómo hacerlo con el nuevo input system.
+        if (touchingPlayer) 
         {
             //solo puedes entrar en la puerta 2 si ya te has pasado el nivel 1 =>
             if (doorLevel <= GameManager.Instance.MaxLevel() + 1 && InputManager.Instance.EnterIsPressed())
@@ -109,30 +109,21 @@ public class LevelEntrance : MonoBehaviour
     {
         if (open && !touchingPlayer)
         {
-
-            //Debug.Log("Puerta abierta y no tocando al jugador");
-            
-           
             pressE.SetActive(false);
         }
+
         else if (open && touchingPlayer)
         {
-            //Debug.Log("Puerta abierta y tocando al jugador");
-            
             pressE.SetActive(true);
         }
+
         else if (!open && !touchingPlayer)
         {
-
-            //Debug.Log("Puerta cerrada y no tocando al jugador");
-            
-            
             pressE.SetActive(false);
         }
+
         else if (!open && touchingPlayer)
         {
-            //Debug.Log("Puerta cerrada y tocando al jugador");
-            
             pressE.SetActive(false);
         }
 

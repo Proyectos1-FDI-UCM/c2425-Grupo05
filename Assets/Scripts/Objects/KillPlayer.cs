@@ -86,6 +86,8 @@ public class KillPlayer : MonoBehaviour
     // El convenio de nombres de Unity recomienda que estos métodos
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
+
+    //Detecta colisión del gameobject con el player. Si no es nula se resetea al player
     private void OnCollisionEnter2D(Collision2D collision)
     {
         PlayerMovement playerMovement = collision.gameObject.GetComponent<PlayerMovement>();

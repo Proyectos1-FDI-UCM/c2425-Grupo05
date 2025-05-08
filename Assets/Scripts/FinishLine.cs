@@ -77,13 +77,13 @@ public class FinishLine : MonoBehaviour
     // El convenio de nombres de Unity recomienda que estos métodos
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
+
+    //Se detecta colision con el gameobject de finishline, si no es nula, se realiza cambio a siguiente sala
     private void OnTriggerEnter2D(Collider2D collision)
     {
         PlayerMovement playerMovement = collision.gameObject.GetComponent<PlayerMovement>();
-        //Debug.Log("Entra");
         if (playerMovement != null)
         {
-            //Debug.Log("Entra");
             LevelManager.Instance.NextRoom();
         }
     }

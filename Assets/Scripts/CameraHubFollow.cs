@@ -59,7 +59,6 @@ public class CameraHubFollow : MonoBehaviour
         if (!isHubScene)
         {
             this.enabled = false;
-            //Debug.Log("False");
             return;
         }
         fixedY = transform.position.y;
@@ -86,13 +85,11 @@ public class CameraHubFollow : MonoBehaviour
     public void StartZoom()
     {
         isZooming = true;
-        //Debug.Log("En");
     }
 
     public void StopZoom()
     {
         isZooming = false;
-        //Debug.Log("Sale");
     }
 
 
