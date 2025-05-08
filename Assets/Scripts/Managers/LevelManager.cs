@@ -61,10 +61,6 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     [SerializeField] Vector3[] CameraPos;
 
-    /// <summary>
-    /// Estado actual de la sala (0-Estado Neutral, 1-Estado 1, 2-Estado 2
-    /// </summary>
-    public int State = 0;
 
     [SerializeField] private bool stateLocked;
     [SerializeField] private bool timeLocked;
@@ -87,6 +83,13 @@ public class LevelManager : MonoBehaviour
     /// Instancia única de la clase (singleton).
     /// </summary>
     private static LevelManager _instance;
+
+    /// <summary>
+    /// Estado actual de la sala (0-Estado Neutral, 1-Estado 1, 2-Estado 2
+    /// </summary>
+    private int State = 0;
+
+
     private PlatformMovement[] _platformMovement;
 
     [SerializeField] private float RoomTimeRemaining;
@@ -101,8 +104,6 @@ public class LevelManager : MonoBehaviour
     /// Pos de respawn e inicio por el momento
     /// </summary>
     private Vector3 playerSpawnPos;
-
-
     /// <summary>
     /// Numero de muertes del jugador
     /// </summary>
@@ -206,7 +207,6 @@ public class LevelManager : MonoBehaviour
                 if (!isInHub && !_heart.isPlaying) //ñapa
                 {
                     _heart.Play();
-                    Debug.Log("Heart");
                 }
 
                 ChangeState();
@@ -281,6 +281,13 @@ public class LevelManager : MonoBehaviour
     {
         return _instance != null;
     }
+
+    public int GetState() 
+    {
+        return State; 
+    }
+
+
     public int GetRoomNo()
     {
         return roomNo;

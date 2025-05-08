@@ -268,11 +268,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (platform != null)
         {
-
-
-            Debug.Log(platform.getVel());
             rb.velocity = new Vector2(moveInput.x * speed + platform.getVel().x, platform.getVel().y);
-
         }
     }
 
