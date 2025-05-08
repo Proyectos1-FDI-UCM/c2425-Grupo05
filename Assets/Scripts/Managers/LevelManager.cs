@@ -170,7 +170,6 @@ public class LevelManager : MonoBehaviour
         {
             // Somos la primera y única instancia
             _instance = this;
-            Init();
         }
 
 
@@ -428,14 +427,6 @@ public class LevelManager : MonoBehaviour
     // ---- MÉTODOS PRIVADOS ----
 
     #region Métodos Privados
-
-    /// <summary>
-    /// Dispara la inicialización.
-    /// </summary>
-    private void Init()
-    {
-        // De momento no hay nada que inicializar
-    }
 
     // Exploit para avanzar de sala pulsando el botón N
     private void OnGUI()
