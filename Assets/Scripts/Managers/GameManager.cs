@@ -208,21 +208,7 @@ public class GameManager : MonoBehaviour
     #region Métodos Privados
 
     /// <summary>
-    /// Dispara la inicialización.
-    /// </summary>
-    private void Init()
-    {
-        // De momento no hay nada que inicializar
-    }
-
-    private void TransferSceneState()
-    {
-        // De momento no hay que transferir ningún estado
-        // entre escenas
-    }
-
-    /// <summary>
-    /// Se llama cuando el jugador muere para incrementar el contador de muertes.
+    /// Se llama cuando el jugador muere para incrementar el contador de muertes. El contador tiene como límite 999 muertes
     /// </summary>
     public void PlayerDied()
     {
