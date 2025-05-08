@@ -124,7 +124,7 @@ public class PlayerMovement : MonoBehaviour
         //eliminar normalización del movimiento en el eje x
 
 
-        playerAnimator.SetBool("Walking", moveInput.x != 0f && (rb.velocity.x < -0.1f || rb.velocity.x > 0.1f));
+        playerAnimator.SetBool("Walking", moveInput.x != 0f);
         playerAnimator.SetBool("OnFloor", isGrounded);
 
         //Voltear el sprite

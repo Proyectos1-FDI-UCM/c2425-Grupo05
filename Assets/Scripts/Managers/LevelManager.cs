@@ -104,10 +104,12 @@ public class LevelManager : MonoBehaviour
     /// Pos de respawn e inicio por el momento
     /// </summary>
     private Vector3 playerSpawnPos;
+
     /// <summary>
     /// Numero de muertes del jugador
     /// </summary>
     private int deaths = 0;
+
     /// <summary>
     /// Texto que muestra el numero de muertes del jugador
     /// </summary>
@@ -134,7 +136,7 @@ public class LevelManager : MonoBehaviour
     {
         GameManager.Instance.SceneWillChange_Set(false);
         Camera = FindObjectOfType<Camera>();
-
+        deaths = GameManager.Instance.AskDeaths();
         //Setea el tiempo a 0
         StateTime = 0f;
 
@@ -174,7 +176,7 @@ public class LevelManager : MonoBehaviour
 
         //Debug.Log(estados.Length);
 
-        deaths = GameManager.Instance.AskDeaths();
+        
 
 
     }

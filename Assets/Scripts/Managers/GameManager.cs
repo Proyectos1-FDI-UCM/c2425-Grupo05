@@ -36,7 +36,10 @@ public class GameManager : MonoBehaviour
     /// Instancia única de la clase (singleton).
     /// </summary>
     private static GameManager _instance;
-    private bool sceneWillChange;
+    
+    private bool sceneWillChange;//ñapa para excepcion camerazoom
+
+
 
     /// <summary>
     /// Máximo nivel alcanzado (está serializada para testing)
