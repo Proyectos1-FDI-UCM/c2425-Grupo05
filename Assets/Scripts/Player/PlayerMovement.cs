@@ -29,9 +29,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpForce = 0.1f;
     [SerializeField] private float jumpTime;
     [SerializeField] private float bufferTime = 0.2f;
-    [SerializeField] private Animator animator;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private float tiempocoyotetime; // en segundos 
+    [SerializeField] private Animator playerAnimator;
     public LayerMask ground;
     #endregion
 
@@ -52,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
     private Collider2D upLeftCollider;
     private Collider2D upRightCollider;
     private Collider2D upCenterCollider;
-    private Animator playerAnimator;
+    
 
     //para efectuar salto
     PlatformMovement platform;
@@ -106,7 +106,7 @@ public class PlayerMovement : MonoBehaviour
         upCenterCollider = _child.GetComponent<Collider2D>();
         #endregion
 
-        playerAnimator = gameObject.GetComponent<Animator>();
+        
 
         justJumped = false;
 
