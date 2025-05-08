@@ -70,7 +70,6 @@ public class GameManager : MonoBehaviour
             // real mantener su estado interno pero acceder a los elementos
             // de la escena particulares o bien olvidar los de la escena
             // previa de la que venimos para que sean efectivamente liberados.
-            TransferSceneState();
 
             // Y ahora nos destruímos del todo. DestroyImmediate y no Destroy para evitar
             // que se inicialicen el resto de componentes del GameObject para luego ser
@@ -84,7 +83,6 @@ public class GameManager : MonoBehaviour
             // Queremos sobrevivir a cambios de escena.
             _instance = this;
             DontDestroyOnLoad(this.gameObject);
-            Init();
         } // if-else somos instancia nueva o no.
     }
 
