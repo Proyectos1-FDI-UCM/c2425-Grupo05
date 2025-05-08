@@ -74,7 +74,6 @@ public class PlayerMovement : MonoBehaviour
 
     //para corner correction
     private Vector3 lastPhisicsFrameVelocity;
-    private bool cornerCorrectedLastFrame;
 
 
     //input del inputManager
@@ -109,8 +108,6 @@ public class PlayerMovement : MonoBehaviour
         playerAnimator = gameObject.GetComponent<Animator>();
 
         justJumped = false;
-
-        cornerCorrectedLastFrame = false;
     }
 
     /// <summary>
