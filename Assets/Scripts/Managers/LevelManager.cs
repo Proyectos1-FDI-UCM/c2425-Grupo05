@@ -27,24 +27,45 @@ public class LevelManager : MonoBehaviour
     // ---- ATRIBUTOS DEL INSPECTOR ----
 
     #region Atributos del Inspector (serialized fields)
-
+    /// <summary>
+    /// Referencia del jugador
+    /// </summary>
     [SerializeField] private GameObject player;
 
     /// <summary>
     /// Array con los gameObjects usados como spawnPos en esta escena (En escenas Level indica los inicios de cada sala, en escena Hub indica spawn inicial y puertas).
     /// </summary>
     [SerializeField] private GameObject[] PlayerSpawnPosScene;
+    /// <summary>
+    /// Array con las distintas zonas grises usadas en el inicio de las salas
+    /// </summary>
     [SerializeField] private GrayZone[] grayZone;
 
-    // Variables del contador de tiempo de la sala
+    /// <summary>
+    /// Array con el tiempo máximo para pasarse cada sala
+    /// </summary>
     [SerializeField] private float[] RoomMaxTime;
 
-    [SerializeField] private float ChangeTimeTrasluz = 3f;//el tiempo que tarda en poner una imagen translúcida del siguiente estado
+    /// <summary>
+    /// El tiempo que tarda en poner una imagen translúcida del siguiente estado
+    /// </summary>
+    [SerializeField] private float ChangeTimeTrasluz = 3f;
 
+    /// <summary>
+    /// Número de salas por nivel
+    /// </summary>
     [SerializeField] private int roomsAmount = 5;
+
+    /// <summary>
+    /// Array con las distintas posiciones de la cámara para cada sala
+    /// </summary>
     [SerializeField] Vector3[] CameraPos;
-    // Variables de cambios de estado (0-Estado Neutral, 1-Estado 1, 2-Estado 2
+
+    /// <summary>
+    /// Estado actual de la sala (0-Estado Neutral, 1-Estado 1, 2-Estado 2
+    /// </summary>
     public int State = 0;
+
     [SerializeField] private bool stateLocked;
     [SerializeField] private bool timeLocked;
     [SerializeField] private CambioEstado[] estados;
