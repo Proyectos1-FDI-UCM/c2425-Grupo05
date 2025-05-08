@@ -74,7 +74,6 @@ public class PlayerMovement : MonoBehaviour
 
     //para corner correction
     private Vector3 lastPhisicsFrameVelocity;
-    private bool cornerCorrectedLastFrame;
 
 
     //input del inputManager
@@ -109,8 +108,6 @@ public class PlayerMovement : MonoBehaviour
         
 
         justJumped = false;
-
-        cornerCorrectedLastFrame = false;
     }
 
     /// <summary>
@@ -271,11 +268,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (platform != null)
         {
-
-
-            Debug.Log(platform.getVel());
             rb.velocity = new Vector2(moveInput.x * speed + platform.getVel().x, platform.getVel().y);
-
         }
     }
 

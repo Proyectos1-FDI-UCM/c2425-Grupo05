@@ -50,14 +50,12 @@ public class Spring : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D collision)//Si colisiona con el jugador, le hace saltar a través del metodo spring
     {
-        Debug.Log("colision: " + collision.gameObject.name);
         PlayerMovement player = collision.gameObject.GetComponentInParent<PlayerMovement>();
         if (player != null)
         {
             if (!springForceApplied && player.inGround() && !colliderNoTocar.isTouchingPlayer())
             {
                 springForceApplied = true;
-                Debug.Log("jugador");
                 player.Spring(springForce);
             }
 
