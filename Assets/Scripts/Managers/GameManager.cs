@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
     /// Instancia única de la clase (singleton).
     /// </summary>
     private static GameManager _instance;
+    private bool sceneWillChange;
 
     /// <summary>
     /// Máximo nivel alcanzado (está serializada para testing)
@@ -152,10 +153,21 @@ public class GameManager : MonoBehaviour
         // Tenemos las siguientes escenas: 0-Main Menu, 1-Controles, 2-Hub. Por ello sumamos +2, para ignorar dichas escenas y nos lleve al nivel correspondiente
         currentLvl = level;
 
-        GameManager.Instance.ChangeScene(level + 2); 
+        
+        GameManager.Instance.ChangeScene(level + 2);
+
+        
     }
 
-
+    //los dos siguientes métodos son una ñapa para la excepción de el cameraZoom
+    public bool SceneWillChange()
+    {
+        return sceneWillChange;
+    }
+    public void SceneWillChange_Set(bool to)
+    {
+        sceneWillChange=to;
+    }
     /// <summary>
     /// Se llama cuando se completa un nivel para volver al hub y actualizar el nivel máximo. Este se utiliza para desbloquear el siguiente nivel
     /// </summary>
@@ -163,6 +175,7 @@ public class GameManager : MonoBehaviour
     {
         if (currentLvl >= maxCurrentLvl) { maxCurrentLvl = currentLvl; }
         ChangeScene(2);//el hub es la escena 2.
+        
     }
     /// <summary>
     /// Se utiliza para ir a la escena HUB. Ya sea desde el menu de pausa o desde la escena de controles
@@ -195,6 +208,7 @@ public class GameManager : MonoBehaviour
         System.GC.Collect();
         UnityEngine.SceneManagement.SceneManager.LoadScene(index);
         System.GC.Collect();
+        
     } // ChangeScene
 
 

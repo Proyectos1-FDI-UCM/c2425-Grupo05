@@ -132,6 +132,7 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
+        GameManager.Instance.SceneWillChange_Set(false);
         Camera = FindObjectOfType<Camera>();
 
         //Setea el tiempo a 0

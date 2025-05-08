@@ -27,6 +27,7 @@ public class CameraZoom : MonoBehaviour
     [SerializeField] private float zoomSpeed = 5f;
     [SerializeField] private float cameraOffset = 1.5f;
 
+
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -40,7 +41,7 @@ public class CameraZoom : MonoBehaviour
     private float defaultSize;
     private Vector3 defaultPosition;
     private float timeToEnterLevel = 3f;
-    private bool isZooming; 
+    private bool isZooming;
 
     #endregion
 
@@ -62,12 +63,34 @@ public class CameraZoom : MonoBehaviour
         defaultPosition = cam.transform.position;
     }
 
-    /// <summary>
-    /// Update is called every frame, if the MonoBehaviour is enabled.
-    /// </summary>
-    void Update()
+
+    private void OnTriggerEnter2D(Collider2D coll)
     {
-        
+        if (!GameManager.Instance.SceneWillChange())
+        {
+            PlayerMovement playerMovement = coll.gameObject.GetComponent<PlayerMovement>();
+
+
+            if (playerMovement != null)
+            {
+
+                StartCoroutine(ZoomIn(gameObject.transform, playerMovement));
+            }
+        }
+    }
+    private void OnTriggerExit2D(Collider2D coll)
+    {
+        if (!GameManager.Instance.SceneWillChange())
+        {
+            PlayerMovement playerMovement = coll.gameObject.GetComponent<PlayerMovement>();
+
+            if (playerMovement != null)
+            {
+                //Debug.Log("ZOOOOOM");
+
+                StartCoroutine(ZoomOut(playerMovement));
+            }
+        }
     }
     #endregion
 
@@ -88,28 +111,7 @@ public class CameraZoom : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
 
-    private void OnTriggerEnter2D(Collider2D coll)
-    {
-        PlayerMovement playerMovement = coll.gameObject.GetComponent<PlayerMovement>();
-        //Debug.Log("Trigger");
 
-        if (playerMovement != null) 
-        {
-            //Debug.Log("ZOOOOOM");
-            StartCoroutine(ZoomIn(gameObject.transform, playerMovement));
-        }
-    }
-        private void OnTriggerExit2D(Collider2D coll)
-    {
-        PlayerMovement playerMovement = coll.gameObject.GetComponent<PlayerMovement>();
-
-        if (playerMovement != null) 
-        {
-            //Debug.Log("ZOOOOOM");
-            
-            StartCoroutine(ZoomOut(playerMovement));
-        }
-    }
 
     System.Collections.IEnumerator ZoomIn(Transform target, PlayerMovement playerMovement)
     {
@@ -121,7 +123,7 @@ public class CameraZoom : MonoBehaviour
         while (Mathf.Abs(cam.orthographicSize - zoomSize) > 0.1f && isZooming)
         {
             cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, zoomSize, Time.deltaTime * zoomSpeed);
-            cam.transform.position = Vector3.Lerp(cam.transform.position, new Vector3(target.position.x, target.position.y+cameraOffset, cam.transform.position.z), Time.deltaTime * zoomSpeed);
+            cam.transform.position = Vector3.Lerp(cam.transform.position, new Vector3(target.position.x, target.position.y + cameraOffset, cam.transform.position.z), Time.deltaTime * zoomSpeed);
             //Debug.Log("Dentro");
             yield return null;
         }
@@ -137,7 +139,7 @@ public class CameraZoom : MonoBehaviour
         if (cameraHubFollow != null) cameraHubFollow.StopZoom();
 
         //playerMovement.enabled = false;
-        while (Mathf.Abs(cam.orthographicSize - defaultSize) >0.1f && !isZooming)
+        while (Mathf.Abs(cam.orthographicSize - defaultSize) > 0.1f && !isZooming)
         {
             cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, defaultSize, Time.deltaTime * zoomSpeed);
             cam.transform.position = Vector3.Lerp(cam.transform.position, defaultPosition, Time.deltaTime * zoomSpeed);

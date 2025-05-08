@@ -68,6 +68,7 @@ public class LevelEntrance : MonoBehaviour
             //solo puedes entrar en la puerta 2 si ya te has pasado el nivel 1 =>
             if (doorLevel <= GameManager.Instance.MaxLevel() + 1 && InputManager.Instance.EnterIsPressed())
             {
+                GameManager.Instance.SceneWillChange_Set(true);
                 GameManager.Instance.GoToLvl(doorLevel);
             }
         }
