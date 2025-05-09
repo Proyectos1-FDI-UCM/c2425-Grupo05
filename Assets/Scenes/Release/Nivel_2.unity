@@ -36186,6 +36186,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: DeathCountCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 6110873737286003582, guid: 7c660ff26d38d0d4b95052e45018df47, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0c3d6ae2a66d62d43922cb989fc77193, type: 3}
+    - target: {fileID: 6901372833575091330, guid: 7c660ff26d38d0d4b95052e45018df47, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6901372833575091330, guid: 7c660ff26d38d0d4b95052e45018df47, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6901372833575091330, guid: 7c660ff26d38d0d4b95052e45018df47, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6901372833575091330, guid: 7c660ff26d38d0d4b95052e45018df47, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 717.4001
+      objectReference: {fileID: 0}
+    - target: {fileID: 6901372833575091330, guid: 7c660ff26d38d0d4b95052e45018df47, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 510.50006
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -41868,6 +41892,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1429898912}
   - {fileID: 1394232751}
   - {fileID: 838856568}
   m_Father: {fileID: 0}
@@ -44900,6 +44925,90 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 923876862522085432, guid: 36f55d990f15fce4c981a53956485318, type: 3}
   m_PrefabInstance: {fileID: 1427306510}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1429898911
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1429898912}
+  - component: {fileID: 1429898913}
+  m_Layer: 0
+  m_Name: Brain tree
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1429898912
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1429898911}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 54.92, y: -1.5656, z: 3.8440597}
+  m_LocalScale: {x: 3.4344, y: 3.4344, z: 3.4344}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1312476141}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &1429898913
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1429898911}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 1386794757, guid: e61c5d52aca8cde4984e484c3c8bea4c, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 2.0625, y: 2}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!4 &1435198429 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 923876862522085432, guid: fe51ddef3ac097644b8cde3c9418e9e9, type: 3}
