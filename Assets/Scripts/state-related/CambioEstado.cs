@@ -244,13 +244,13 @@ public class CambioEstado : MonoBehaviour
             {
                 Color color = _spriteTile.color;
                 time += Time.deltaTime;
-                if (time / 1.5f < 0.6f)
+                if (time / 4f < 0.3f)
                 {
-                    color.a = time / 2f;
+                    color.a = time / 4f;
                 }
                 else
                 {
-                    color.a = 0.6f;
+                    color.a = 0.3f;
                 }
                 
                 _spriteTile.color = color;

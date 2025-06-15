@@ -236,14 +236,18 @@ public class LevelManager : MonoBehaviour
         {
             StateTime += Time.deltaTime;
 
-            if (StateTime > StateMaxTime)
+            if (StateTime > StateMaxTime-0.2f)
             {
-
                 AudioSource _heart = GetComponent<AudioManager>()?.Heart;
                 if (!isInHub && !_heart.isPlaying) //ñapa
                 {
                     _heart.Play();
                 }
+            }
+            if (StateTime > StateMaxTime)
+            {
+
+                
 
                 ChangeState();
                 for (int i = 0; i < estados.Length; i++)
