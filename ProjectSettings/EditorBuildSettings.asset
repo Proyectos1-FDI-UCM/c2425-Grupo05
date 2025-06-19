@@ -18,6 +18,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Release/Controls.unity
     guid: 32c7d56dc058b004a9b418d77124eefd
   - enabled: 1
+    path: Assets/Scenes/Release/Tutorial.unity
+    guid: 16e4db4d2b4f8bd478557a25b8b1d529
+  - enabled: 1
     path: Assets/Scenes/Release/Hub.unity
     guid: 194ffcef984b85f4180ccce97919a45c
   - enabled: 1

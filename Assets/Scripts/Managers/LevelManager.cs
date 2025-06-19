@@ -335,12 +335,14 @@ public class LevelManager : MonoBehaviour
         _glass.Play();
 
         player.GetComponent<PlayerMovement>().ResetPlayer(playerSpawnPos);
-        
 
-        for (int i = 0; i < _platformMovement.Length; i++)
-        {
-            _platformMovement[i].ResetPlatform();
-        }
+      
+            for (int i = 0; i < _platformMovement.Length; i++)
+            {
+                _platformMovement[i].ResetPlatform();
+            }
+        
+       
         RoomTimeRemaining = RoomMaxTime[roomNo];
 
         GameManager.Instance.PlayerDied();

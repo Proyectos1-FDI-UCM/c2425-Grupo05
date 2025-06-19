@@ -153,11 +153,11 @@ public class GameManager : MonoBehaviour
     /// <param name="level"></param>
     public void GoToLvl(int level)
     {
-        // Tenemos las siguientes escenas: 0-Main Menu, 1-Controles, 2-Hub. Por ello sumamos +2, para ignorar dichas escenas y nos lleve al nivel correspondiente
+        // Tenemos las siguientes escenas: 0-Main Menu, 1-Controles, 2-Tutorial, 3-Hub. Por ello sumamos +3, para ignorar dichas escenas y nos lleve al nivel correspondiente
         currentLvl = level;
 
         
-        GameManager.Instance.ChangeScene(level + 2);
+        GameManager.Instance.ChangeScene(level + 3);
 
         
     }
@@ -177,7 +177,7 @@ public class GameManager : MonoBehaviour
     public void LevelCompleted()
     {
         if (currentLvl >= maxCurrentLvl) { maxCurrentLvl = currentLvl; }
-        ChangeScene(2);//el hub es la escena 2.
+        ChangeScene(3);//el hub es la escena 3.
         
     }
     /// <summary>
