@@ -445,6 +445,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2078992898098006639, guid: d1cb0d22127e60e4699564f46274486b, type: 3}
+      propertyPath: audioManager
+      value: 
+      objectReference: {fileID: 1841448078}
     - target: {fileID: 5471280442647195517, guid: d1cb0d22127e60e4699564f46274486b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -90.85736
@@ -55682,6 +55686,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 923876862522085432, guid: 36f55d990f15fce4c981a53956485318, type: 3}
   m_PrefabInstance: {fileID: 1681908457}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1841448078 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4456138031684357727, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
+  m_PrefabInstance: {fileID: 681221438}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 955563ec6b923be4bb1bbeeea3a0bffd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1879744117
 GameObject:
   m_ObjectHideFlags: 0
@@ -67678,9 +67693,9 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: ac55fa3d1325c984f8d92415655364ea, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.752
-  m_Pitch: 1
-  Loop: 1
+  m_Volume: 0.8
+  m_Pitch: 0.4
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

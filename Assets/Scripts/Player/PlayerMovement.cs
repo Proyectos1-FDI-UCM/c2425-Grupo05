@@ -5,6 +5,7 @@
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
+using System;
 using UnityEngine;
 // Añadir aquí el resto de directivas using
 
@@ -29,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpForce = 0.1f;
     [SerializeField] private float jumpTime;
     [SerializeField] private float bufferTime = 0.2f;
+    [SerializeField] private float stepAudioInterval = 0.3f;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private float tiempocoyotetime; // en segundos 
     [SerializeField] private Animator playerAnimator;
@@ -53,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
     private Collider2D upLeftCollider;
     private Collider2D upRightCollider;
     private Collider2D upCenterCollider;
-    
+
 
     //para efectuar salto
     PlatformMovement platform;
@@ -78,6 +80,7 @@ public class PlayerMovement : MonoBehaviour
 
     // Para sonido de land (descartado, sonido muy repetitivo)
     // private bool wasGroundedLastFrame = false;
+    private float stepTimer = 0f;
 
     //input del inputManager
     Vector2 moveInput;
@@ -108,7 +111,7 @@ public class PlayerMovement : MonoBehaviour
         upCenterCollider = _child.GetComponent<Collider2D>();
         #endregion
 
-        
+
 
         justJumped = false;
     }
@@ -127,7 +130,7 @@ public class PlayerMovement : MonoBehaviour
         //eliminar normalización del movimiento en el eje x
 
 
-        playerAnimator.SetBool("Walking", moveInput.x != 0f );
+        playerAnimator.SetBool("Walking", moveInput.x != 0f);
         playerAnimator.SetBool("OnFloor", isGrounded);
 
         //Voltear el sprite
@@ -186,14 +189,7 @@ public class PlayerMovement : MonoBehaviour
 
         CornerCorrection();
 
-        // Land sound: Descartado, sonido muy repetitivo
-        // if (isGrounded && !wasGroundedLastFrame)
-        // {
-        //     AudioSource landSound = audioManager?.Land;
-        //     if (landSound != null && !landSound.isPlaying)
-        //         landSound.Play();
-        // }
-        // wasGroundedLastFrame = isGrounded;
+        LandStepSounds();
 
         lastPhisicsFrameVelocity = rb.velocity;
 
@@ -391,6 +387,7 @@ public class PlayerMovement : MonoBehaviour
                     coyotetime = false;
                 }
 
+                // Jump sound
                 AudioSource jumpSound = audioManager?.Jump;
                 if (jumpSound != null && !jumpSound.isPlaying)
                     jumpSound.Play();
@@ -407,6 +404,41 @@ public class PlayerMovement : MonoBehaviour
             {
                 isAccelerating = false;
             }
+        }
+    }
+
+    private void LandStepSounds()
+    {
+        // Land sound: Descartado, sonido muy repetitivo
+        // if (isGrounded && !wasGroundedLastFrame)
+        // {
+        //     AudioSource landSound = audioManager?.Land;
+        //     if (landSound != null && !landSound.isPlaying)
+        //         landSound.Play();
+        // }
+        // wasGroundedLastFrame = isGrounded;
+
+
+        // Step sounds
+        if (isGrounded && Mathf.Abs(rb.velocity.x) > 0.1f)
+        {
+            stepTimer -= Time.fixedDeltaTime;
+            if (stepTimer <= 0f)
+            {
+                AudioSource stepSound = audioManager?.Step;
+                if (stepSound != null && stepSound.isPlaying) stepSound.Stop();
+                if (stepSound != null && !stepSound.isPlaying)
+                {
+                    stepSound.Play();
+                    Debug.Log("Step sound played");
+                }
+
+                stepTimer = stepAudioInterval;
+            }
+        }
+        else
+        {
+            stepTimer = 0f; // Reinicia el temporizador si no se está moviendo
         }
     }
 

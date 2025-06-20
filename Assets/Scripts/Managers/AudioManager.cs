@@ -75,6 +75,7 @@ public class AudioManager : MonoBehaviour
     public AudioSource EnterLevel => enterLevel;
     public AudioSource ExitLevel => exitLevel;
     public AudioSource SigSala => sigSala;
+    public AudioSource Step => step;
 
     public void PlaySound(AudioSource sound)
     {
