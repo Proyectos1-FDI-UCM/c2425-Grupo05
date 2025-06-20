@@ -212,6 +212,11 @@ MonoBehaviour:
   clock: {fileID: 1879744118}
   glass: {fileID: 1442698076}
   heart: {fileID: 1538135425}
+  jump: {fileID: 0}
+  land: {fileID: 0}
+  enterLevel: {fileID: 0}
+  exitLevel: {fileID: 0}
+  sigSala: {fileID: 0}
 --- !u!1001 &75919817
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -222,11 +227,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 628638661023836909, guid: 6ee223b1e7643c3448c5810ab00b5ed2, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 628638661023836909, guid: 6ee223b1e7643c3448c5810ab00b5ed2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 628638661023836909, guid: 6ee223b1e7643c3448c5810ab00b5ed2, type: 3}
       propertyPath: m_LocalPosition.y
