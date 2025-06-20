@@ -70,6 +70,8 @@ public class InputManager : MonoBehaviour
     private InputAction _enter;
     private InputAction _restart;
     private InputAction _return;
+    private InputAction _timeIzq;
+    private InputAction _timeDer;
 
     #endregion
 
@@ -216,6 +218,16 @@ public class InputManager : MonoBehaviour
     {
         return _return.WasPressedThisFrame();
     }
+
+    public bool TimeIzqIsPressed()
+    {
+        return _timeIzq.WasPressedThisFrame();
+    }
+
+    public bool TimeDerIsPressed()
+    {
+        return _timeDer.WasPressedThisFrame();
+    }
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
@@ -252,6 +264,10 @@ public class InputManager : MonoBehaviour
         _restart = _theController.Player.Restart;
 
         _return = _theController.Player.Return;
+
+        _timeIzq = _theController.Player.TimeIzq;
+        
+        _timeDer = _theController.Player.TimeDer;
     }
 
     /// <summary>

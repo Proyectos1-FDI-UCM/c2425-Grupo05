@@ -82,6 +82,24 @@ namespace UnityEngine.InputSystem
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""TimeIzq"",
+                    ""type"": ""Button"",
+                    ""id"": ""a02fa92f-249e-41ab-ad98-c64d08aa4890"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""TimeDer"",
+                    ""type"": ""Button"",
+                    ""id"": ""10d37333-0033-4701-92ed-13baf546367c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -241,22 +259,22 @@ namespace UnityEngine.InputSystem
                 },
                 {
                     ""name"": """",
-                    ""id"": ""8f8d1e7d-d2a9-4907-8cff-dedd789e0720"",
-                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""id"": ""d0e36747-0962-4464-a7a8-eebee226b6e0"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Enter"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""d0e36747-0962-4464-a7a8-eebee226b6e0"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""id"": ""65f006be-61de-4c42-9cf8-9408b7656917"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Enter"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -319,11 +337,55 @@ namespace UnityEngine.InputSystem
                 {
                     ""name"": """",
                     ""id"": ""bb245e96-7cc6-4b45-9765-81e54a899b9a"",
-                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Return"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d7c3e698-49cb-4d70-9cce-7f6af309c626"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""TimeIzq"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""75bfbfd6-3db5-4707-917e-c9b7c9f79ef8"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Joystick"",
+                    ""action"": ""TimeIzq"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""577fd915-6904-40ba-8d27-5e0819ae6585"",
+                    ""path"": ""<Keyboard>/leftAlt"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""TimeDer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4d06e35f-34a0-4692-b63e-574811fe2f9c"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Joystick"",
+                    ""action"": ""TimeDer"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -928,6 +990,8 @@ namespace UnityEngine.InputSystem
             m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
             m_Player_Restart = m_Player.FindAction("Restart", throwIfNotFound: true);
             m_Player_Return = m_Player.FindAction("Return", throwIfNotFound: true);
+            m_Player_TimeIzq = m_Player.FindAction("TimeIzq", throwIfNotFound: true);
+            m_Player_TimeDer = m_Player.FindAction("TimeDer", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1007,6 +1071,8 @@ namespace UnityEngine.InputSystem
         private readonly InputAction m_Player_Pause;
         private readonly InputAction m_Player_Restart;
         private readonly InputAction m_Player_Return;
+        private readonly InputAction m_Player_TimeIzq;
+        private readonly InputAction m_Player_TimeDer;
         public struct PlayerActions
         {
             private @InputActionSettings m_Wrapper;
@@ -1017,6 +1083,8 @@ namespace UnityEngine.InputSystem
             public InputAction @Pause => m_Wrapper.m_Player_Pause;
             public InputAction @Restart => m_Wrapper.m_Player_Restart;
             public InputAction @Return => m_Wrapper.m_Player_Return;
+            public InputAction @TimeIzq => m_Wrapper.m_Player_TimeIzq;
+            public InputAction @TimeDer => m_Wrapper.m_Player_TimeDer;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1044,6 +1112,12 @@ namespace UnityEngine.InputSystem
                 @Return.started += instance.OnReturn;
                 @Return.performed += instance.OnReturn;
                 @Return.canceled += instance.OnReturn;
+                @TimeIzq.started += instance.OnTimeIzq;
+                @TimeIzq.performed += instance.OnTimeIzq;
+                @TimeIzq.canceled += instance.OnTimeIzq;
+                @TimeDer.started += instance.OnTimeDer;
+                @TimeDer.performed += instance.OnTimeDer;
+                @TimeDer.canceled += instance.OnTimeDer;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -1066,6 +1140,12 @@ namespace UnityEngine.InputSystem
                 @Return.started -= instance.OnReturn;
                 @Return.performed -= instance.OnReturn;
                 @Return.canceled -= instance.OnReturn;
+                @TimeIzq.started -= instance.OnTimeIzq;
+                @TimeIzq.performed -= instance.OnTimeIzq;
+                @TimeIzq.canceled -= instance.OnTimeIzq;
+                @TimeDer.started -= instance.OnTimeDer;
+                @TimeDer.performed -= instance.OnTimeDer;
+                @TimeDer.canceled -= instance.OnTimeDer;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -1254,6 +1334,8 @@ namespace UnityEngine.InputSystem
             void OnPause(InputAction.CallbackContext context);
             void OnRestart(InputAction.CallbackContext context);
             void OnReturn(InputAction.CallbackContext context);
+            void OnTimeIzq(InputAction.CallbackContext context);
+            void OnTimeDer(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {
