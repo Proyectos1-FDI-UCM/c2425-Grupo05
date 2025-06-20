@@ -73,6 +73,15 @@ namespace UnityEngine.InputSystem
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Return"",
+                    ""type"": ""Button"",
+                    ""id"": ""1c4ff0fd-8afc-4eee-b9a7-31c6571021cc"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -233,7 +242,7 @@ namespace UnityEngine.InputSystem
                 {
                     ""name"": """",
                     ""id"": ""8f8d1e7d-d2a9-4907-8cff-dedd789e0720"",
-                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
@@ -293,6 +302,28 @@ namespace UnityEngine.InputSystem
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Restart"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3bc818f2-3118-4858-860f-8a91d3c173c0"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Return"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bb245e96-7cc6-4b45-9765-81e54a899b9a"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Return"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -896,6 +927,7 @@ namespace UnityEngine.InputSystem
             m_Player_Enter = m_Player.FindAction("Enter", throwIfNotFound: true);
             m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
             m_Player_Restart = m_Player.FindAction("Restart", throwIfNotFound: true);
+            m_Player_Return = m_Player.FindAction("Return", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -974,6 +1006,7 @@ namespace UnityEngine.InputSystem
         private readonly InputAction m_Player_Enter;
         private readonly InputAction m_Player_Pause;
         private readonly InputAction m_Player_Restart;
+        private readonly InputAction m_Player_Return;
         public struct PlayerActions
         {
             private @InputActionSettings m_Wrapper;
@@ -983,6 +1016,7 @@ namespace UnityEngine.InputSystem
             public InputAction @Enter => m_Wrapper.m_Player_Enter;
             public InputAction @Pause => m_Wrapper.m_Player_Pause;
             public InputAction @Restart => m_Wrapper.m_Player_Restart;
+            public InputAction @Return => m_Wrapper.m_Player_Return;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1007,6 +1041,9 @@ namespace UnityEngine.InputSystem
                 @Restart.started += instance.OnRestart;
                 @Restart.performed += instance.OnRestart;
                 @Restart.canceled += instance.OnRestart;
+                @Return.started += instance.OnReturn;
+                @Return.performed += instance.OnReturn;
+                @Return.canceled += instance.OnReturn;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -1026,6 +1063,9 @@ namespace UnityEngine.InputSystem
                 @Restart.started -= instance.OnRestart;
                 @Restart.performed -= instance.OnRestart;
                 @Restart.canceled -= instance.OnRestart;
+                @Return.started -= instance.OnReturn;
+                @Return.performed -= instance.OnReturn;
+                @Return.canceled -= instance.OnReturn;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -1213,6 +1253,7 @@ namespace UnityEngine.InputSystem
             void OnEnter(InputAction.CallbackContext context);
             void OnPause(InputAction.CallbackContext context);
             void OnRestart(InputAction.CallbackContext context);
+            void OnReturn(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {

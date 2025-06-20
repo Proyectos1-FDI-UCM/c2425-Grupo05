@@ -68,14 +68,15 @@ public class InputManager : MonoBehaviour
     private InputAction _jump;
     private InputAction _pause;
     private InputAction _enter;
-    private InputAction _restart; 
+    private InputAction _restart;
+    private InputAction _return;
 
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
 
     #region Métodos de MonoBehaviour
- 
+
     /// <summary>
     /// Método llamado en un momento temprano de la inicialización.
     /// 
@@ -210,6 +211,11 @@ public class InputManager : MonoBehaviour
     {
         return _restart.WasPressedThisFrame();
     }
+    
+    public bool ReturnIsPressed()
+    {
+        return _return.WasPressedThisFrame();
+    }
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
@@ -244,6 +250,8 @@ public class InputManager : MonoBehaviour
         _pause = _theController.Player.Pause;
 
         _restart = _theController.Player.Restart;
+
+        _return = _theController.Player.Return;
     }
 
     /// <summary>
