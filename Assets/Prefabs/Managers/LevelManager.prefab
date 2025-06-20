@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2085461091905085773}
   - component: {fileID: 8707638951330247565}
+  - component: {fileID: 4456138031684357727}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: Untagged
@@ -55,16 +56,38 @@ MonoBehaviour:
   - {fileID: 0}
   RoomMaxTime:
   - 0
+  RoomTimeRemaining: 0
   ChangeTimeTrasluz: 3
   roomsAmount: 5
   CameraPos:
   - {x: -75, y: -35, z: -10}
   - {x: -43, y: -35, z: -10}
   - {x: -11, y: -35, z: -10}
-  State: 0
   stateLocked: 0
   timeLocked: 0
   estados: []
   roomNo: 0
   isInHub: 0
-  RoomTimeRemaining: 0
+  colorState0: 
+  colorState2: 
+--- !u!114 &4456138031684357727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5353858868873512524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 955563ec6b923be4bb1bbeeea3a0bffd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clock: {fileID: 2987814542268235394, guid: 1a2343fac6dc9774994ed5e1ee129499, type: 3}
+  glass: {fileID: 4269768559615592227, guid: 05eac1cd7433e1446b4fc355ee052d43, type: 3}
+  heart: {fileID: 8836164571382208679, guid: 1c75aa73954a3ef49b8a52229c51c7fd, type: 3}
+  jump: {fileID: 4269768559615592227, guid: 7680aed9b6b7f4a4bbdb208610f2b4bf, type: 3}
+  land: {fileID: 4269768559615592227, guid: 1829f8d97ec2e56448050258d9bc814a, type: 3}
+  step: {fileID: 4269768559615592227, guid: 48e7ebc2ccae14a48b2652b2cb8d994a, type: 3}
+  enterLevel: {fileID: 4269768559615592227, guid: 953d7ae4186ba2a499763f75b4a11db0, type: 3}
+  exitLevel: {fileID: 4269768559615592227, guid: c1952c5db4d7ab248b9d137bd5ab1352, type: 3}
+  sigSala: {fileID: 4269768559615592227, guid: 47852a66d66fc084cae3a594c89eafd3, type: 3}

@@ -27,6 +27,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSource heart;
     [SerializeField] private AudioSource jump;
     [SerializeField] private AudioSource land;
+    [SerializeField] private AudioSource step;
     [SerializeField] private AudioSource enterLevel;
     [SerializeField] private AudioSource exitLevel;
     [SerializeField] private AudioSource sigSala;
