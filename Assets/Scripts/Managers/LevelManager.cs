@@ -374,9 +374,20 @@ public class LevelManager : MonoBehaviour
             player.GetComponent<PlayerMovement>().ResetPlayer(playerSpawnPos);
             Camera.transform.position = CameraPos[roomNo];
             RoomTimeRemaining = RoomMaxTime[roomNo];
+
+            AudioSource _sigSala = GetComponent<AudioManager>()?.SigSala;
+            if (_sigSala != null && !_sigSala.isPlaying)
+            {
+                _sigSala.Play();
+            }
         }
         else
         {
+            AudioSource _exitLevel = GetComponent<AudioManager>()?.ExitLevel;
+            if (_exitLevel != null && !_exitLevel.isPlaying)
+            {
+                _exitLevel.Play();
+            }
             GameManager.Instance.LevelCompleted();
         }
     }
