@@ -25774,6 +25774,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1139427113117121977, guid: 6ee223b1e7643c3448c5810ab00b5ed2, type: 3}
+      propertyPath: m_Size.x
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6621112710916762572, guid: 6ee223b1e7643c3448c5810ab00b5ed2, type: 3}
       propertyPath: m_Name
       value: MovingPlat (2)
@@ -50388,6 +50392,10 @@ PrefabInstance:
     - target: {fileID: 628638661023836909, guid: 6ee223b1e7643c3448c5810ab00b5ed2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1139427113117121977, guid: 6ee223b1e7643c3448c5810ab00b5ed2, type: 3}
+      propertyPath: m_Size.x
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6621112710916762572, guid: 6ee223b1e7643c3448c5810ab00b5ed2, type: 3}
       propertyPath: m_Name
