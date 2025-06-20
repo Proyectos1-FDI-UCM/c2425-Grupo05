@@ -55,6 +55,15 @@ public class GameManager : MonoBehaviour
     /// Cantidad de muertes
     /// </summary>
     private int deaths = 0;
+
+    private enum MyGameScenes
+    {
+        MainMenu = 0,
+        Tutorial = 1,
+        Hub = 2,
+        Level1 = 3,
+        Level2 = 4
+    }
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -153,13 +162,8 @@ public class GameManager : MonoBehaviour
     /// <param name="level"></param>
     public void GoToLvl(int level)
     {
-        // Tenemos las siguientes escenas: 0-Main Menu, 1-Controles, 2-Tutorial, 3-Hub. Por ello sumamos +3, para ignorar dichas escenas y nos lleve al nivel correspondiente
         currentLvl = level;
-
-        
-        GameManager.Instance.ChangeScene(level + 3);
-
-        
+        GameManager.Instance.ChangeScene((int)MyGameScenes.Hub + currentLvl);
     }
 
     //los dos siguientes métodos son una ñapa para la excepción de el cameraZoom
@@ -177,7 +181,16 @@ public class GameManager : MonoBehaviour
     public void LevelCompleted()
     {
         if (currentLvl >= maxCurrentLvl) { maxCurrentLvl = currentLvl; }
-        ChangeScene(3);//el hub es la escena 3.
+        
+        // Si estamos en el tutorial, volvemos al menú principal
+        if (SceneManager.GetActiveScene().buildIndex == (int)MyGameScenes.Tutorial)
+        {
+            ChangeScene((int)MyGameScenes.MainMenu);
+            return;
+        }
+
+        // Si no (nivel 1 o 2), volvemos al hub
+        ChangeScene((int)MyGameScenes.Hub);
         
     }
     /// <summary>
@@ -185,7 +198,12 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void GoToHub()
     {
-        ChangeScene(2);//Hub es la escena 2.
+        ChangeScene((int)MyGameScenes.Hub);
+    }
+    
+    public void PlayTutorial()
+    {
+        ChangeScene((int)MyGameScenes.Tutorial);
     }
 
 
@@ -211,7 +229,7 @@ public class GameManager : MonoBehaviour
         System.GC.Collect();
         UnityEngine.SceneManagement.SceneManager.LoadScene(index);
         System.GC.Collect();
-        
+
     } // ChangeScene
 
 

@@ -325,6 +325,17 @@ namespace UnityEngine.InputSystem
                 },
                 {
                     ""name"": """",
+                    ""id"": ""a7451f4f-111c-4b44-b848-9c65a701d652"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Restart"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""3bc818f2-3118-4858-860f-8a91d3c173c0"",
                     ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",

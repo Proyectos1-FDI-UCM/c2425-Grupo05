@@ -394,6 +394,7 @@ public class LevelManager : MonoBehaviour
             {
                 _exitLevel.Play();
             }
+
             GameManager.Instance.LevelCompleted();
         }
     }
