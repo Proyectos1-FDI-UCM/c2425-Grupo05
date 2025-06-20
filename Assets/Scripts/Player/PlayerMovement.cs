@@ -32,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private float tiempocoyotetime; // en segundos 
     [SerializeField] private Animator playerAnimator;
+    [SerializeField] private AudioManager audioManager;
     public LayerMask ground;
     #endregion
 
@@ -75,6 +76,8 @@ public class PlayerMovement : MonoBehaviour
     //para corner correction
     private Vector3 lastPhisicsFrameVelocity;
 
+    // Para sonido de land (descartado, sonido muy repetitivo)
+    // private bool wasGroundedLastFrame = false;
 
     //input del inputManager
     Vector2 moveInput;
@@ -183,6 +186,14 @@ public class PlayerMovement : MonoBehaviour
 
         CornerCorrection();
 
+        // Land sound: Descartado, sonido muy repetitivo
+        // if (isGrounded && !wasGroundedLastFrame)
+        // {
+        //     AudioSource landSound = audioManager?.Land;
+        //     if (landSound != null && !landSound.isPlaying)
+        //         landSound.Play();
+        // }
+        // wasGroundedLastFrame = isGrounded;
 
         lastPhisicsFrameVelocity = rb.velocity;
 
@@ -379,6 +390,10 @@ public class PlayerMovement : MonoBehaviour
                 {
                     coyotetime = false;
                 }
+
+                AudioSource jumpSound = audioManager?.Jump;
+                if (jumpSound != null && !jumpSound.isPlaying)
+                    jumpSound.Play();
 
             }
 
