@@ -25,6 +25,11 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSource clock;
     [SerializeField] private AudioSource glass;
     [SerializeField] private AudioSource heart;
+    [SerializeField] private AudioSource jump;
+    [SerializeField] private AudioSource land;
+    [SerializeField] private AudioSource enterLevel;
+    [SerializeField] private AudioSource exitLevel;
+    [SerializeField] private AudioSource sigSala;
 
     #endregion
     // ---- ATRIBUTOS PRIVADOS ----
@@ -35,7 +40,7 @@ public class AudioManager : MonoBehaviour
     // primera palabra en minúsculas y el resto con la 
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
-   
+
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -45,12 +50,12 @@ public class AudioManager : MonoBehaviour
     // - Hay que añadir todos los que sean necesarios
     // - Hay que borrar los que no se usen 
 
-   
+
 
     /// <summary>
     /// Update is called every frame, if the MonoBehaviour is enabled.
     /// </summary>
-   
+
     #endregion
 
     // ---- MÉTODOS PÚBLICOS ----
@@ -64,6 +69,11 @@ public class AudioManager : MonoBehaviour
     public AudioSource Clock => clock;
     public AudioSource Glass => glass;
     public AudioSource Heart => heart;
+    public AudioSource Jump => jump;
+    public AudioSource Land => land;
+    public AudioSource EnterLevel => enterLevel;
+    public AudioSource ExitLevel => exitLevel;
+    public AudioSource SigSala => sigSala;
 
     #endregion
 
