@@ -76,6 +76,14 @@ public class AudioManager : MonoBehaviour
     public AudioSource ExitLevel => exitLevel;
     public AudioSource SigSala => sigSala;
 
+    public void PlaySound(AudioSource sound)
+    {
+        if (sound != null && !sound.isPlaying)
+        {
+            sound.Play();
+        }
+    }
+
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----

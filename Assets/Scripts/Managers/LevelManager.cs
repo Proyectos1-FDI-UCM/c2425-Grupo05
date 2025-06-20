@@ -177,6 +177,12 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
+        AudioSource _enterLevel = GetComponent<AudioManager>()?.EnterLevel;
+        if (_enterLevel != null && !_enterLevel.isPlaying && !isInHub)
+        {
+            _enterLevel.Play();
+        }
+
         GameManager.Instance.SceneWillChange_Set(false);
         Camera = FindObjectOfType<Camera>();
         deaths = GameManager.Instance.AskDeaths();
