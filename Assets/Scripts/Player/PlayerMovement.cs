@@ -430,7 +430,7 @@ public class PlayerMovement : MonoBehaviour
                 if (stepSound != null && !stepSound.isPlaying)
                 {
                     stepSound.Play();
-                    Debug.Log("Step sound played");
+                    // Debug.Log("Step sound played");
                 }
 
                 stepTimer = stepAudioInterval;

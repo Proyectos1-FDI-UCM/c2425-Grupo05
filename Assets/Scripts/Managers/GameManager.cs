@@ -203,6 +203,7 @@ public class GameManager : MonoBehaviour
     
     public void PlayTutorial()
     {
+        Debug.Log("PlayTutorial");
         ChangeScene((int)MyGameScenes.Tutorial);
     }
 

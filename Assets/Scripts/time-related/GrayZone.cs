@@ -73,7 +73,7 @@ public class GrayZone : MonoBehaviour
     // Ejemplo: GetPlayerController
     public bool IsTimeStopped()
     {
-    return _timeStopped;
+        return _timeStopped;
     }
     public void ChangeColor(string hexColor)
     {

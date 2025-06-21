@@ -29,7 +29,7 @@ public class ChangeScene : MonoBehaviour
     /// que se cargará. 
     /// </summary>
     [SerializeField]
-    private int nextScene;
+    private int sceneNumber;
 
     #endregion
 
@@ -56,9 +56,9 @@ public class ChangeScene : MonoBehaviour
     /// <summary>
     /// Cambia de escena haciendo uso del GameManager
     /// </summary>
-    public void ChangeToNextScene()
+    public void ChangeToScene()
     {
-        GameManager.Instance.ChangeScene(nextScene);
+        GameManager.Instance.ChangeScene(sceneNumber);
     }
 
     public void ExitGame()

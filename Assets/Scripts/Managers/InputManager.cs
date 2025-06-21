@@ -228,6 +228,24 @@ public class InputManager : MonoBehaviour
     {
         return _timeDer.WasPressedThisFrame();
     }
+
+    public bool TimeIzqWasReleasedThisFrame()
+    {
+        return _timeIzq.WasReleasedThisFrame();
+    }
+    public bool TimeDerWasReleasedThisFrame()
+    {
+        return _timeDer.WasReleasedThisFrame();
+    }
+
+    public bool TimeIzqIsDown()
+    {
+        return _timeIzq.IsPressed();
+    }
+    public bool TimeDerIsDown()
+    {
+        return _timeDer.IsPressed();
+    }
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
@@ -266,7 +284,7 @@ public class InputManager : MonoBehaviour
         _return = _theController.Player.Return;
 
         _timeIzq = _theController.Player.TimeIzq;
-        
+
         _timeDer = _theController.Player.TimeDer;
     }
 
