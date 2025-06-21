@@ -156,13 +156,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e606499b021d264ca6131ce9026c8b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slowDownFactor: 0.2
+  slowDownFactor: 0.3
   speedUpFactor: 3
   abilityCharge: 1
   minChargeToUse: 1
-  timeToCompletelyCharge: 5
+  timeToCompletelyCharge: 7
   timeToCompletelyDischarge: 3
-  maxCooldown: 1
+  maxCooldown: 5
   cooldownTimer: 0
   useTimer: 0
   maxUseDuration: 3

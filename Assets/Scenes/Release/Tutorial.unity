@@ -23462,6 +23462,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DeathCountCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 4845294789052870864, guid: 7c660ff26d38d0d4b95052e45018df47, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6110873737286003582, guid: 7c660ff26d38d0d4b95052e45018df47, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -23714,6 +23718,10 @@ PrefabInstance:
     - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
       propertyPath: stateLocked
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
+      propertyPath: isInTutorial
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8707638951330247565, guid: 47bc084c89528fb4b97c4497cd54bb42, type: 3}
       propertyPath: ChangeTimeTrasluz

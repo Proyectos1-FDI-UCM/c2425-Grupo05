@@ -92,6 +92,11 @@ public class LevelManager : MonoBehaviour
     [SerializeField] bool isInHub = false;
 
     /// <summary>
+    /// Verifica que este LevelManager se encuentra en la escena del Tutorial
+    /// </summary>
+    [SerializeField] bool isInTutorial = false;
+
+    /// <summary>
     /// Color en hexadecimal que se asigna tanto a las plataformas como a las barras de estado según al estado y la sala que correspondan. Estado 2
     /// </summary>
     [SerializeField] private string colorState0 = "";
@@ -430,6 +435,11 @@ public class LevelManager : MonoBehaviour
         return isInHub;
     }
 
+    public bool GetIsTutorial()
+    {
+        return isInTutorial;
+    }
+
     public float getMaxTime()
     {
         return RoomMaxTime[roomNo];
@@ -448,6 +458,12 @@ public class LevelManager : MonoBehaviour
     public float getRoomTimeRemaining()
     {
         return RoomTimeRemaining;
+    }
+
+    public GameObject GetPlayer()
+    {
+        if (player) return player;
+        else return null;
     }
 
     //-----------------------------------------------------------------------------------

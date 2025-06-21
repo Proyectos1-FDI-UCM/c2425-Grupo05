@@ -4,25 +4,25 @@ public class SlowMotionController : MonoBehaviour
 {
     // FACTORES DE TIEMPO
     [Header("FACTORES DE TIEMPO")]
-    [SerializeField] private float slowDownFactor = 0.2f;
+    [SerializeField] private float slowDownFactor = 0.3f;
     [SerializeField] private float speedUpFactor = 3f;
 
     // CARGA Y DESCARGA
     [Header("CARGA Y DESCARGA")]
     [SerializeField] private float abilityCharge = 1f; // Carga actual, del 0 al 1, de la habilidad
-    [SerializeField] private float minChargeToUse = 1f; // 50%
-    [SerializeField] private float timeToCompletelyCharge = 5f;
-    [SerializeField] private float timeToCompletelyDischarge = 3f;
+    [SerializeField] private float minChargeToUse = 1f;
+    [SerializeField] private float timeToCompletelyCharge = 7f;
+    [SerializeField] private float timeToCompletelyDischarge = 2f;
 
     // COOLDOWN
     [Header("COOLDOWN")]
-    [SerializeField] private float maxCooldown = 1f; // Cooldown tras un solo uso (la barra aparecerá si no es 0 o 1)
+    [SerializeField] private float maxCooldown = 5f; // Cooldown tras un solo uso (la barra aparecerá si no es 0 o 1)
     [SerializeField] private float cooldownTimer = 0f; // Timer de cooldown tras un solo uso (la barra de la UI solo aparecerá si no es 0 o 1)
 
-    // TIMER DE USO
-    [Header("TIMER DE USO")]
-    [SerializeField] private float useTimer = 0f; // Se usa Time.unscaledDeltaTime para calcular tiempo real
-    [SerializeField] private float maxUseDuration = 3f;
+    // TIMER DE USO (se ha descartado su uso por ser innecesario)
+    // [Header("TIMER DE USO")]
+    // [SerializeField] private float useTimer = 0f; // Se usa Time.unscaledDeltaTime para calcular tiempo real
+    // [SerializeField] private float maxUseDuration = 3f;
 
 
     // Booleanos
@@ -42,7 +42,7 @@ public class SlowMotionController : MonoBehaviour
     void Update()
     {
 
-        if (levelManager.GetIsHub()) return;
+        if (levelManager.GetIsHub() || levelManager.GetIsTutorial()) return;
         isAtLevelStart = levelManager.IsTimeStopped();
 
         // Detectar botones
@@ -56,7 +56,7 @@ public class SlowMotionController : MonoBehaviour
             speedUp = lastUsed == 1;
         }
 
-        // Se puede usar si estás en la zona neutral o carga>0.5 y cooldown<=0
+        // Se puede usar si estás en la zona neutral o carga > minCharge y cooldown <= 0
         bool canUseTime = isAtLevelStart || (abilityCharge >= minChargeToUse && cooldownTimer <= 0f);
 
         // SI SE PUEDE USAR Y SE ESTÁN PULSANDO BOTONES || SI SE ESTÁ USANDO
@@ -66,12 +66,12 @@ public class SlowMotionController : MonoBehaviour
             if (!isUsingTimeControl)
             {
                 isUsingTimeControl = true;
-                useTimer = 0f;
                 lastUsed = slowDown ? -1 : 1;
+                // useTimer = 0f;
             }
 
             // Se está usando, aumenta el timer
-            useTimer += Time.unscaledDeltaTime;
+            // useTimer += Time.unscaledDeltaTime;
 
             // Si no estamos en zona neutral, modificamos la carga
             if (!isAtLevelStart)
@@ -80,11 +80,10 @@ public class SlowMotionController : MonoBehaviour
                 abilityCharge -= Time.unscaledDeltaTime / timeToCompletelyDischarge;
                 abilityCharge = Mathf.Clamp01(abilityCharge); // Limitamos la carga entre 0 y 1
 
-
-                // Si se agota el tiempo de uso o la carga, termina
-                if (useTimer >= maxUseDuration || abilityCharge <= 0f)
+                // Si se agota la carga (o el tiempo de uso), termina
+                if (abilityCharge <= 0f /*|| useTimer >= maxUseDuration*/)
                 {
-                    cooldownTimer = maxCooldown;
+                    cooldownTimer = maxCooldown; // Comienza el contador de cooldown
                     isUsingTimeControl = false;
                     lastUsed = 0;
                 }
@@ -93,32 +92,37 @@ public class SlowMotionController : MonoBehaviour
         // !canUseTime o no se pulsan los botones, recargamos cooldown y carga
         else
         {
-            // Reseteamos el cooldownTimer
+            // Tras soltar, reseteamos el cooldownTimer
             if (isUsingTimeControl)
             {
-                cooldownTimer = maxCooldown;
+                if (!isAtLevelStart) cooldownTimer = maxCooldown;
                 isUsingTimeControl = false;
                 lastUsed = 0;
             }
-            // Recarga proporcional
-            if (!isAtLevelStart && abilityCharge < 1f)
-            {
-                abilityCharge += Time.unscaledDeltaTime / timeToCompletelyCharge;
-                if (abilityCharge > 0.9f) abilityCharge = 1f;
-            }
+            // Recarga proporcional (si es menor que 1 o falta justo el tiempo para llegar a 1)
+            abilityCharge += Time.unscaledDeltaTime / timeToCompletelyCharge;
             abilityCharge = Mathf.Clamp01(abilityCharge);
 
             // Cooldown tras uso
-            if (cooldownTimer > 0f) cooldownTimer -= Time.unscaledDeltaTime;
+            cooldownTimer -= Time.unscaledDeltaTime;
+            cooldownTimer = Mathf.Clamp(cooldownTimer, 0f, maxCooldown);
         }
 
         // Modificar timeScale
-        if (isUsingTimeControl) Time.timeScale = lastUsed == -1 ? slowDownFactor : speedUpFactor;
+        if (isUsingTimeControl)
+            Time.timeScale = lastUsed == -1 ? slowDownFactor : speedUpFactor;
         else Time.timeScale = 1f;
+
+        // FixedDeltaTime arregla los tirones (movimiento no fluido) al cambiar el timeScale
+        Time.fixedDeltaTime = 0.02f * Time.timeScale; // FixedDeltaTime por defecto es 0.02f
     }
 
     // Métodos públicos para la UI
-    public float GetTimeChargePercent() => abilityCharge;
-    public bool CanUseTimeControl() => isAtLevelStart || (abilityCharge > minChargeToUse && cooldownTimer <= 0f);
-    public bool IsUsingTimeControl() => isUsingTimeControl;
+    public float GetTimeChargePercent() { return abilityCharge; }
+    public bool CanUseTimeControl() { return isAtLevelStart || (abilityCharge >= minChargeToUse && cooldownTimer <= 0f); }
+    public bool IsUsingTimeControl() { return isUsingTimeControl; }
+    public bool CooldownFinished() { return cooldownTimer <= 0 || isAtLevelStart; }
+    public float GetCooldownPercent() {
+        if (cooldownTimer <= 0 || cooldownTimer >= maxCooldown || isAtLevelStart) return 0f;
+        else return 1f - (cooldownTimer / maxCooldown); }
 }
