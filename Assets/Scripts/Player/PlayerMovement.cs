@@ -79,7 +79,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 lastPhisicsFrameVelocity;
 
     // Para sonido de land (descartado, sonido muy repetitivo)
-    // private bool wasGroundedLastFrame = false;
+    private bool wasGroundedLastFrame = false;
     private float stepTimer = 0f;
 
     //input del inputManager
@@ -410,13 +410,13 @@ public class PlayerMovement : MonoBehaviour
     private void LandStepSounds()
     {
         // Land sound: Descartado, sonido muy repetitivo
-        // if (isGrounded && !wasGroundedLastFrame)
-        // {
-        //     AudioSource landSound = audioManager?.Land;
-        //     if (landSound != null && !landSound.isPlaying)
-        //         landSound.Play();
-        // }
-        // wasGroundedLastFrame = isGrounded;
+         if (isGrounded && !wasGroundedLastFrame)
+         {
+             AudioSource landSound = audioManager?.Land;
+             if (landSound != null && !landSound.isPlaying)
+                 landSound.Play();
+         }
+         wasGroundedLastFrame = isGrounded;
 
 
         // Step sounds
