@@ -56,6 +56,11 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private int deaths = 0;
 
+    /// <summary>
+    /// Cantidad de salas pasadas
+    /// </summary>
+    private int roomsPassed = 0;
+
     private enum MyGameScenes
     {
         MainMenu = 0,
@@ -96,6 +101,11 @@ public class GameManager : MonoBehaviour
             // Queremos sobrevivir a cambios de escena.
             _instance = this;
             DontDestroyOnLoad(this.gameObject);
+            // Cargar datos guardados
+
+            roomsPassed = PlayerPrefs.GetInt("RoomsPassed", 0);
+            deaths = PlayerPrefs.GetInt("Deaths", 0);
+            
         } // if-else somos instancia nueva o no.
     }
 
@@ -145,21 +155,42 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Devuelve el máx level alcanzado actualmente
     /// </summary>
-    /// <returns></returns>
+    /// <returns>Nivel máximo alcanzado</returns>
     public int MaxLevel() { return maxCurrentLvl; }
 
     
     /// <summary>
     /// Devuelve el nivel actual
     /// </summary>
-    /// <returns></returns>
+    /// <returns>Nivel actual</returns>
     public int GetLvl() {  return currentLvl; }
 
+    /// <summary>
+    /// Devuelve la cantidad de salas pasadas
+    /// </summary>
+    /// <returns>Salas pasadas totales</returns>
+    public int GetRoomsPassed() { return roomsPassed; }
+
+    /// <summary>
+    /// Establece la cantidad de salas pasadas
+    /// </summary>
+    public void SetRoomsPassed(int value)
+    {
+        roomsPassed = value;
+        PlayerPrefs.SetInt("RoomsPassed", roomsPassed);
+    }
+
+    /// <summary>
+    /// Incrementa en uno la cantidad de salas pasadas
+    /// </summary>
+    public void IncrementRoomsPassed()
+    {
+        SetRoomsPassed(roomsPassed + 1);
+    }
 
     /// <summary>
     /// Va a la escena del nivel indicado.
     /// </summary>
-    /// <param name="level"></param>
     public void GoToLvl(int level)
     {
         currentLvl = level;
@@ -181,7 +212,7 @@ public class GameManager : MonoBehaviour
     public void LevelCompleted()
     {
         if (currentLvl >= maxCurrentLvl) { maxCurrentLvl = currentLvl; }
-        
+
         // Si estamos en el tutorial, volvemos al menú principal
         if (SceneManager.GetActiveScene().buildIndex == (int)MyGameScenes.Tutorial)
         {
@@ -203,7 +234,6 @@ public class GameManager : MonoBehaviour
     
     public void PlayTutorial()
     {
-        Debug.Log("PlayTutorial");
         ChangeScene((int)MyGameScenes.Tutorial);
     }
 
@@ -248,6 +278,7 @@ public class GameManager : MonoBehaviour
     {
         if (deaths < 999){
             deaths++;
+            PlayerPrefs.SetInt("Deaths", deaths); // Guardamos las muertes en memoria
         }
     }
     /// <summary>
@@ -256,6 +287,19 @@ public class GameManager : MonoBehaviour
     public int AskDeaths()
     {
         return deaths;
+    }
+
+    /// <summary>
+    /// Reinicia el progreso del jugador, estableciendo el nivel máximo, la cantidad de muertes y la cantidad de salas pasadas a 0
+    /// </summary>
+    [ContextMenu("Reset Progress")]
+    public void ResetProgress()
+    {
+        deaths = 0;
+        roomsPassed = 0;
+        PlayerPrefs.SetInt("Deaths", deaths);
+        PlayerPrefs.SetInt("RoomsPassed", roomsPassed);
+        PlayerPrefs.Save(); // Esto sirve para guardar los cambios en memoria directamente
     }
 
     #endregion

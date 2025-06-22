@@ -58,6 +58,7 @@ public class SlowMotionController : MonoBehaviour
 
         // Se puede usar si estás en la zona neutral o carga > minCharge y cooldown <= 0
         bool canUseTime = isAtLevelStart || (abilityCharge >= minChargeToUse && cooldownTimer <= 0f);
+        if (isAtLevelStart) { cooldownTimer = 0; abilityCharge = 1f; }// En zona neutral, carga al máximo
 
         // SI SE PUEDE USAR Y SE ESTÁN PULSANDO BOTONES || SI SE ESTÁ USANDO
         if ((canUseTime || isUsingTimeControl) && (slowDown || speedUp))

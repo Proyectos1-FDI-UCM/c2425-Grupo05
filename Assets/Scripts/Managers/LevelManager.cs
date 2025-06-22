@@ -383,6 +383,17 @@ public class LevelManager : MonoBehaviour
     // Si se llega al máximo de salas transporta al jugador a la escena Hub, desbloqueando el siguiente nivel
     public void NextRoom()
     {
+        // Solo incrementar salas pasadas si no estamos en el tutorial
+        if (!isInTutorial)
+        {
+            int salaActual = roomNo + 1 + (GameManager.Instance.GetLvl() == 1 ? 0 : 1) * 5;
+            if (salaActual > GameManager.Instance.GetRoomsPassed())
+            {
+                GameManager.Instance.SetRoomsPassed(salaActual);
+            }
+            Debug.Log(GameManager.Instance.GetRoomsPassed() + " salas pasadas");
+        }
+
         if (roomNo < roomsAmount - 1)
         {
             roomNo++;
