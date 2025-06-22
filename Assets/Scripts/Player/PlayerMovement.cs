@@ -167,10 +167,14 @@ public class PlayerMovement : MonoBehaviour
         //Detección inputs salto
         if ((coyotetime || isGrounded) && jumpBufferCounter > 0f)
         {
-
             justJumped = true;
             jumpBufferCounter = 0f;
 
+            AudioSource jumpSound = audioManager?.Jump;
+            if (jumpSound != null && jumpSound.isPlaying)
+                jumpSound.Stop();
+            if (jumpSound != null && !jumpSound.isPlaying)
+                jumpSound.Play();
         }
         else if (jumpWasReleased && isAccelerating)
         {
@@ -193,7 +197,7 @@ public class PlayerMovement : MonoBehaviour
 
         lastPhisicsFrameVelocity = rb.velocity;
 
-        playerAnimator.SetBool("IsWalking", Mathf.Abs(rb.velocity.x) > 0.1f);
+        playerAnimator.SetBool("Walking", Mathf.Abs(rb.velocity.x) > 0.1f);
     }
     #endregion
 
@@ -387,11 +391,6 @@ public class PlayerMovement : MonoBehaviour
                     coyotetime = false;
                 }
 
-                // Jump sound
-                AudioSource jumpSound = audioManager?.Jump;
-                if (jumpSound != null && !jumpSound.isPlaying)
-                    jumpSound.Play();
-
             }
 
             //salto(continuación)
@@ -409,12 +408,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void LandStepSounds()
     {
-        // Land sound: Descartado, sonido muy repetitivo
          if (isGrounded && !wasGroundedLastFrame)
          {
-             AudioSource landSound = audioManager?.Land;
-             if (landSound != null && !landSound.isPlaying)
-                 landSound.Play();
+            AudioSource landSound = audioManager?.Land;
+            if (landSound != null && !landSound.isPlaying)
+                landSound.Play();
          }
          wasGroundedLastFrame = isGrounded;
 
