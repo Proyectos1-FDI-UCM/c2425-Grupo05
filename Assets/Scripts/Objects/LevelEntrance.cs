@@ -29,6 +29,7 @@ public class LevelEntrance : MonoBehaviour
     //spriteRenderer de la puerta
     [SerializeField] SpriteRenderer sprite;
     [SerializeField] GameObject pressE;
+    [SerializeField] LevelSelectMenu levelMenu;
     #endregion
 
 
@@ -54,7 +55,7 @@ public class LevelEntrance : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         //sprite.color = new Color(0.77254f, 0.52941f, 0.18039f, 1f);
-        animator.SetBool("abierto", doorLevel <= GameManager.Instance.MaxLevel() + 1);
+        animator.SetBool("abierto", PlayerPrefs.GetInt("RoomsPassed", 1) >= 5);
         pressE.SetActive(false);
     }
 
@@ -65,15 +66,27 @@ public class LevelEntrance : MonoBehaviour
     {
         if (touchingPlayer) 
         {
-            //solo puedes entrar en la puerta 2 si ya te has pasado el nivel 1 =>
-            if (doorLevel <= GameManager.Instance.MaxLevel() + 1 && InputManager.Instance.EnterIsPressed())
+            if (InputManager.Instance.SelectIsPressed())
             {
-                GameManager.Instance.SceneWillChange_Set(true);
-                GameManager.Instance.GoToLvl(doorLevel);
+                // Antes abría la sala. Movido al menú de selección
+                // GameManager.Instance.SceneWillChange_Set(true);
+                // GameManager.Instance.GoToLvl(doorLevel);
+
+                // Se comprueba si el jugador está quieto
+                if (LevelManager.Instance.GetPlayer().GetComponent<Rigidbody2D>().velocity != Vector2.zero) return;
+                if (!levelMenu.isMenuOpen()) levelMenu.AbrirMenu();
+            }
+
+            if (levelMenu.isMenuOpen() && InputManager.Instance.ReturnIsPressed())
+            {
+                levelMenu.CerrarMenu();
             }
         }
-        animator.SetBool("abierto", doorLevel <= GameManager.Instance.MaxLevel() + 1);
-        ShowE(doorLevel <= GameManager.Instance.MaxLevel() + 1,touchingPlayer);
+
+        // Puerta 1 siempre abierta. Puerta 2 abierta si se han pasado 5 salas
+        animator.SetBool("abierto", doorLevel == 1 ? true : PlayerPrefs.GetInt("RoomsPassed", 0) >= 5);
+
+        pressE.SetActive(touchingPlayer); // La E está activa si el jugador está cerca
     }
     
     private void OnTriggerEnter2D(Collider2D collision)
@@ -104,30 +117,6 @@ public class LevelEntrance : MonoBehaviour
     // El convenio de nombres de Unity recomienda que estos métodos
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
-
-    private void ShowE(bool open, bool touchingPlayer)
-    {
-        if (open && !touchingPlayer)
-        {
-            pressE.SetActive(false);
-        }
-
-        else if (open && touchingPlayer)
-        {
-            pressE.SetActive(true);
-        }
-
-        else if (!open && !touchingPlayer)
-        {
-            pressE.SetActive(false);
-        }
-
-        else if (!open && touchingPlayer)
-        {
-            pressE.SetActive(false);
-        }
-
-    }
 
     #endregion
 

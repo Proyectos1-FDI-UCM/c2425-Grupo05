@@ -67,7 +67,7 @@ public class InputManager : MonoBehaviour
     /// </summary>
     private InputAction _jump;
     private InputAction _pause;
-    private InputAction _enter;
+    private InputAction _select;
     private InputAction _restart;
     private InputAction _return;
     private InputAction _timeIzq;
@@ -183,9 +183,9 @@ public class InputManager : MonoBehaviour
     ///  Devolverá true en todos los frames en los que se mantenga pulsado
     /// </summary> True, si el botón esta pulsado
     /// <returns></returns>
-    public bool EnterIsPressed()
+    public bool SelectIsPressed()
     {
-        return _enter.IsPressed();
+        return _select.IsPressed();
     }
     /// <summary>
     /// Método para saber si el botón de disparo (Fire) se ha pulsado en este frame
@@ -275,7 +275,7 @@ public class InputManager : MonoBehaviour
         _jump = _theController.Player.Jump;
 
         // Para el enter, cacheamos el botón de enter
-        _enter = _theController.Player.Enter;
+        _select = _theController.Player.Select;
 
         _pause = _theController.Player.Pause;
 

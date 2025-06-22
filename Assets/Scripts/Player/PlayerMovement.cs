@@ -193,7 +193,7 @@ public class PlayerMovement : MonoBehaviour
 
         lastPhisicsFrameVelocity = rb.velocity;
 
-        playerAnimator.SetBool("IsWalking", Mathf.Abs(rb.velocity.x) > 0.1f);
+        playerAnimator.SetBool("Walking", Mathf.Abs(rb.velocity.x) > 0.1f);
     }
     #endregion
 

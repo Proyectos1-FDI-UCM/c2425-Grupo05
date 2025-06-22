@@ -48,7 +48,7 @@ namespace UnityEngine.InputSystem
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Enter"",
+                    ""name"": ""Select"",
                     ""type"": ""Button"",
                     ""id"": ""7e7c101e-b6e4-4fb2-8766-3679cc28c788"",
                     ""expectedControlType"": ""Button"",
@@ -264,7 +264,7 @@ namespace UnityEngine.InputSystem
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Enter"",
+                    ""action"": ""Select"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -275,7 +275,29 @@ namespace UnityEngine.InputSystem
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
-                    ""action"": ""Enter"",
+                    ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a347d42e-6a78-4c26-8e9e-51e8ad41377c"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ef1554f6-a9e7-4eee-a5a5-db94d3792444"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Select"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -997,7 +1019,7 @@ namespace UnityEngine.InputSystem
             m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
             m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
             m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
-            m_Player_Enter = m_Player.FindAction("Enter", throwIfNotFound: true);
+            m_Player_Select = m_Player.FindAction("Select", throwIfNotFound: true);
             m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
             m_Player_Restart = m_Player.FindAction("Restart", throwIfNotFound: true);
             m_Player_Return = m_Player.FindAction("Return", throwIfNotFound: true);
@@ -1078,7 +1100,7 @@ namespace UnityEngine.InputSystem
         private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
         private readonly InputAction m_Player_Move;
         private readonly InputAction m_Player_Jump;
-        private readonly InputAction m_Player_Enter;
+        private readonly InputAction m_Player_Select;
         private readonly InputAction m_Player_Pause;
         private readonly InputAction m_Player_Restart;
         private readonly InputAction m_Player_Return;
@@ -1090,7 +1112,7 @@ namespace UnityEngine.InputSystem
             public PlayerActions(@InputActionSettings wrapper) { m_Wrapper = wrapper; }
             public InputAction @Move => m_Wrapper.m_Player_Move;
             public InputAction @Jump => m_Wrapper.m_Player_Jump;
-            public InputAction @Enter => m_Wrapper.m_Player_Enter;
+            public InputAction @Select => m_Wrapper.m_Player_Select;
             public InputAction @Pause => m_Wrapper.m_Player_Pause;
             public InputAction @Restart => m_Wrapper.m_Player_Restart;
             public InputAction @Return => m_Wrapper.m_Player_Return;
@@ -1111,9 +1133,9 @@ namespace UnityEngine.InputSystem
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
-                @Enter.started += instance.OnEnter;
-                @Enter.performed += instance.OnEnter;
-                @Enter.canceled += instance.OnEnter;
+                @Select.started += instance.OnSelect;
+                @Select.performed += instance.OnSelect;
+                @Select.canceled += instance.OnSelect;
                 @Pause.started += instance.OnPause;
                 @Pause.performed += instance.OnPause;
                 @Pause.canceled += instance.OnPause;
@@ -1139,9 +1161,9 @@ namespace UnityEngine.InputSystem
                 @Jump.started -= instance.OnJump;
                 @Jump.performed -= instance.OnJump;
                 @Jump.canceled -= instance.OnJump;
-                @Enter.started -= instance.OnEnter;
-                @Enter.performed -= instance.OnEnter;
-                @Enter.canceled -= instance.OnEnter;
+                @Select.started -= instance.OnSelect;
+                @Select.performed -= instance.OnSelect;
+                @Select.canceled -= instance.OnSelect;
                 @Pause.started -= instance.OnPause;
                 @Pause.performed -= instance.OnPause;
                 @Pause.canceled -= instance.OnPause;
@@ -1341,7 +1363,7 @@ namespace UnityEngine.InputSystem
         {
             void OnMove(InputAction.CallbackContext context);
             void OnJump(InputAction.CallbackContext context);
-            void OnEnter(InputAction.CallbackContext context);
+            void OnSelect(InputAction.CallbackContext context);
             void OnPause(InputAction.CallbackContext context);
             void OnRestart(InputAction.CallbackContext context);
             void OnReturn(InputAction.CallbackContext context);

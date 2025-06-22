@@ -95,6 +95,7 @@ public class PauseMenu : MonoBehaviour
                 ResumeGame();
             }
         }
+        else if (InputManager.Instance.ReturnIsPressed()) ResumeGame();
     }
     #endregion
 
@@ -163,15 +164,19 @@ public class PauseMenu : MonoBehaviour
 
     private void HubButtonsState() //Método para eliminar el botón de reinicar nivel y levelselector del hub por estetica
     {
-
-        if (SceneManager.GetActiveScene().name == "Hub") //Si la escena se llama Hub
+        // Ciertos botones desactivados en Hub y Tutorial
+        if (SceneManager.GetActiveScene().buildIndex == (int)GameManager.MyGameScenes.Hub)
         {
-            restartButton.SetActive(false); //desactiva ambos botones
+            restartButton.SetActive(false);
+            levelSelectorButton.SetActive(false);
+        }
+        else if (SceneManager.GetActiveScene().buildIndex == (int)GameManager.MyGameScenes.Tutorial)
+        {
             levelSelectorButton.SetActive(false);
         }
         else
         {
-            restartButton.SetActive(true); // si no es así los activa
+            restartButton.SetActive(true);
             levelSelectorButton.SetActive(true);
         }
     }

@@ -47,7 +47,7 @@ public class ControlsManager : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (InputManager.Instance.EnterIsPressed())
+        if (InputManager.Instance.SelectIsPressed())
         {
             GameManager.Instance.GoToHub();
         }

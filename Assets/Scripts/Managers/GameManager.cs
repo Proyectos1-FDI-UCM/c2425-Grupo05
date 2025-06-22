@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private int roomsPassed = 0;
 
-    private enum MyGameScenes
+    public enum MyGameScenes
     {
         MainMenu = 0,
         Tutorial = 1,
@@ -194,6 +194,17 @@ public class GameManager : MonoBehaviour
     public void GoToLvl(int level)
     {
         currentLvl = level;
+        GameManager.Instance.ChangeScene((int)MyGameScenes.Hub + currentLvl);
+    }
+
+    public void GoToLvlSala(int level, int room)
+    {
+        currentLvl = level;
+
+        int nAvanzarSalas = room - 1; // Se empieza en la sala 1
+        Mathf.Clamp(nAvanzarSalas, 0, 4);
+        LevelManager.Instance.setSalasPorAvanzar(nAvanzarSalas);
+        
         GameManager.Instance.ChangeScene((int)MyGameScenes.Hub + currentLvl);
     }
 

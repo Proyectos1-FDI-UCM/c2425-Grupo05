@@ -6,6 +6,7 @@
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
+using System;
 using TMPro;
 
 //using UnityEditorInternal;
@@ -163,6 +164,9 @@ public class LevelManager : MonoBehaviour
     /// Texto que muestra el número de muertes del jugador
     /// </summary>
     private TextMeshProUGUI deathCount;
+
+    private static int salasPorAvanzar = 0; // Para pasar la información del hub a los niveles
+
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -220,9 +224,19 @@ public class LevelManager : MonoBehaviour
             StateBarController.ChangeColorState0(colorState0);
             StateBarController.ChangeColorState2(colorState2);
         }
+
+        // Avanza las salas necesarias
+        if (salasPorAvanzar > 0)
+        {
+            for (int i = 0; i < salasPorAvanzar; i++)
+            {
+                NextRoom();
+            }
+            salasPorAvanzar = 0;
+        }
+
         //Lleva al player al primer inicio de sala.
         player.GetComponent<PlayerMovement>().ResetPlayer(playerSpawnPos);
-
 
         RoomTimeRemaining = RoomMaxTime[roomNo];
         _platformMovement = FindObjectsByType<PlatformMovement>(FindObjectsSortMode.None);
@@ -386,12 +400,13 @@ public class LevelManager : MonoBehaviour
         // Solo incrementar salas pasadas si no estamos en el tutorial
         if (!isInTutorial)
         {
+            // Calcula las salas a partir del número de sala actual antes de incrementar (salaActual = roomNo + 1 + salas/nivel)
             int salaActual = roomNo + 1 + (GameManager.Instance.GetLvl() == 1 ? 0 : 1) * 5;
             if (salaActual > GameManager.Instance.GetRoomsPassed())
             {
                 GameManager.Instance.SetRoomsPassed(salaActual);
+                Debug.Log(GameManager.Instance.GetRoomsPassed() + " salas pasadas");
             }
-            Debug.Log(GameManager.Instance.GetRoomsPassed() + " salas pasadas");
         }
 
         if (roomNo < roomsAmount - 1)
@@ -419,6 +434,8 @@ public class LevelManager : MonoBehaviour
             GameManager.Instance.LevelCompleted();
         }
     }
+
+    
 
     //Métodos de conversion de variables a públicas------------------------------------
     public int GetState()
@@ -475,6 +492,19 @@ public class LevelManager : MonoBehaviour
     {
         if (player) return player;
         else return null;
+    }
+
+    public bool SalaDesbloqueada(int nivel, int sala) // (1-2, 1-5)
+    {
+        Mathf.Clamp(nivel, 1, 2);
+        Mathf.Clamp(sala, 1, 5);
+        // Hacemos sala - 1 porque si la anterior se ha pasado, la siguiente se desbloquea
+        return (nivel == 1 ? 0 : 1) * 5 + sala - 1 <= GameManager.Instance.GetRoomsPassed();
+    }
+
+    public void setSalasPorAvanzar(int n)
+    {
+        salasPorAvanzar = n;
     }
 
     //-----------------------------------------------------------------------------------

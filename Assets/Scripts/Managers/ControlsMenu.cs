@@ -93,7 +93,7 @@ public class ControlsMenu : MonoBehaviour
     {
         insideControls = !insideControls;
         ObjectPauseMenu.SetActive(insideControls); // Muestra u oculta el menú
-        EventSystem.current.SetSelectedGameObject(insideControls ? returnButton : null); // Selecciona el botón de Return automáticamente        
+        EventSystem.current.SetSelectedGameObject(insideControls ? returnButton : GetComponent<Button>().gameObject); // Selecciona el botón de Return/Controles automáticamente        
     }
 
     #endregion
