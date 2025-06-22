@@ -64,7 +64,12 @@ public class LevelEntrance : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (touchingPlayer) 
+        // Puerta 1 siempre abierta. Puerta 2 abierta si se han pasado 5 salas
+        animator.SetBool("abierto", doorLevel == 1 ? true : PlayerPrefs.GetInt("RoomsPassed", 0) >= 5);
+
+        pressE.SetActive(touchingPlayer); // La E está activa si el jugador está cerca
+
+        if (touchingPlayer)
         {
             if (InputManager.Instance.SelectIsPressed())
             {
@@ -82,11 +87,6 @@ public class LevelEntrance : MonoBehaviour
                 levelMenu.CerrarMenu();
             }
         }
-
-        // Puerta 1 siempre abierta. Puerta 2 abierta si se han pasado 5 salas
-        animator.SetBool("abierto", doorLevel == 1 ? true : PlayerPrefs.GetInt("RoomsPassed", 0) >= 5);
-
-        pressE.SetActive(touchingPlayer); // La E está activa si el jugador está cerca
     }
     
     private void OnTriggerEnter2D(Collider2D collision)

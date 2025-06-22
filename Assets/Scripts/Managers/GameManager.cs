@@ -303,9 +303,11 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Reinicia el progreso del jugador, estableciendo el nivel máximo, la cantidad de muertes y la cantidad de salas pasadas a 0
     /// </summary>
-    [ContextMenu("Reset Progress")]
+    // [ContextMenu("Reset Progress")] // Se comenta porque si no no se puede llamar
     public void ResetProgress()
     {
+        Debug.Log("RESET PROGRESS");
+
         deaths = 0;
         roomsPassed = 0;
         PlayerPrefs.SetInt("Deaths", deaths);

@@ -109,7 +109,7 @@ public class LevelSelectMenu : MonoBehaviour
         levelSelectMenu.transform.localScale = new Vector3(targetX, originalScale.y, originalScale.z);
 
         // Aparecer qFlecha
-        if (direccion == 1) { qFlecha.GetComponent<Image>().enabled = true; Debug.Log("qFlecha activada"); }
+        if (direccion == 1) qFlecha.GetComponent<Image>().enabled = true;
 
         if (direccion == -1) levelSelectMenu.SetActive(false); // Cuando termina de cerrarse, desactivarlo
     }
