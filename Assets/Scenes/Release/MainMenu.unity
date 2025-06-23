@@ -2980,7 +2980,7 @@ GameObject:
   - component: {fileID: 2017279955}
   - component: {fileID: 2017279954}
   - component: {fileID: 2017279953}
-  - component: {fileID: 2017279952}
+  - component: {fileID: 2017279956}
   m_Layer: 5
   m_Name: BorrarProgreso
   m_TagString: Untagged
@@ -3008,19 +3008,6 @@ RectTransform:
   m_AnchoredPosition: {x: 850, y: -1040}
   m_SizeDelta: {x: 300, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2017279952
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2017279950}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d5a85c98d0ce445f9637c4fed9696c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneNumber: 1
 --- !u!114 &2017279953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3065,8 +3052,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7887988406079469446}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+      - m_Target: {fileID: 2017279956}
+        m_TargetAssemblyTypeName: DeleteProgress, Assembly-CSharp
         m_MethodName: ResetProgress
         m_Mode: 1
         m_Arguments:
@@ -3115,6 +3102,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2017279950}
   m_CullTransparentMesh: 1
+--- !u!114 &2017279956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2017279950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c4581273a08d9c45a6afe99ca0fc917, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2045632527
 GameObject:
   m_ObjectHideFlags: 0
@@ -4002,17 +4001,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
---- !u!114 &7887988406079469446 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6925631106774318371, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
-  m_PrefabInstance: {fileID: 7887988406079469445}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55695a01267fa4264b28ed5ffab61a33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8480692208415996945
 GameObject:
   m_ObjectHideFlags: 0

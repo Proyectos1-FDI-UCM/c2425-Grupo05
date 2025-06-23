@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
     /// Instancia única de la clase (singleton).
     /// </summary>
     private static GameManager _instance;
-    
+
     private bool sceneWillChange;//ñapa para excepcion camerazoom
 
 
@@ -44,12 +44,12 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Máximo nivel alcanzado (está serializada para testing)
     /// </summary>
-    [SerializeField]private int maxCurrentLvl = 0;
+    [SerializeField] private int maxCurrentLvl = 0;
 
     /// <summary>
     /// Último nivel en el que has estado
     /// </summary>
-    private int currentLvl = 0; 
+    private int currentLvl = 0;
 
     /// <summary>
     /// Cantidad de muertes
@@ -105,7 +105,7 @@ public class GameManager : MonoBehaviour
 
             roomsPassed = PlayerPrefs.GetInt("RoomsPassed", 0);
             deaths = PlayerPrefs.GetInt("Deaths", 0);
-            
+
         } // if-else somos instancia nueva o no.
     }
 
@@ -158,18 +158,18 @@ public class GameManager : MonoBehaviour
     /// <returns>Nivel máximo alcanzado</returns>
     public int MaxLevel() { return maxCurrentLvl; }
 
-    
+
     /// <summary>
     /// Devuelve el nivel actual
     /// </summary>
     /// <returns>Nivel actual</returns>
-    public int GetLvl() {  return currentLvl; }
+    public int GetLvl() { return currentLvl; }
 
     /// <summary>
     /// Devuelve la cantidad de salas pasadas
     /// </summary>
     /// <returns>Salas pasadas totales</returns>
-    public int GetRoomsPassed() { return roomsPassed; }
+    public int GetRoomsPassed() { roomsPassed = PlayerPrefs.GetInt("RoomsPassed", 0); return roomsPassed; }
 
     /// <summary>
     /// Establece la cantidad de salas pasadas
@@ -204,7 +204,7 @@ public class GameManager : MonoBehaviour
         int nAvanzarSalas = room - 1; // Se empieza en la sala 1
         Mathf.Clamp(nAvanzarSalas, 0, 4);
         LevelManager.Instance.setSalasPorAvanzar(nAvanzarSalas);
-        
+
         GameManager.Instance.ChangeScene((int)MyGameScenes.Hub + currentLvl);
     }
 
@@ -215,7 +215,7 @@ public class GameManager : MonoBehaviour
     }
     public void SceneWillChange_Set(bool to)
     {
-        sceneWillChange=to;
+        sceneWillChange = to;
     }
     /// <summary>
     /// Se llama cuando se completa un nivel para volver al hub y actualizar el nivel máximo. Este se utiliza para desbloquear el siguiente nivel
@@ -233,7 +233,7 @@ public class GameManager : MonoBehaviour
 
         // Si no (nivel 1 o 2), volvemos al hub
         ChangeScene((int)MyGameScenes.Hub);
-        
+
     }
     /// <summary>
     /// Se utiliza para ir a la escena HUB. Ya sea desde el menu de pausa o desde la escena de controles
@@ -242,7 +242,7 @@ public class GameManager : MonoBehaviour
     {
         ChangeScene((int)MyGameScenes.Hub);
     }
-    
+
     public void PlayTutorial()
     {
         ChangeScene((int)MyGameScenes.Tutorial);
@@ -287,7 +287,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void PlayerDied()
     {
-        if (deaths < 999){
+        if (deaths < 999)
+        {
             deaths++;
             PlayerPrefs.SetInt("Deaths", deaths); // Guardamos las muertes en memoria
         }
@@ -299,20 +300,22 @@ public class GameManager : MonoBehaviour
     {
         return deaths;
     }
-
+    
     /// <summary>
     /// Reinicia el progreso del jugador, estableciendo el nivel máximo, la cantidad de muertes y la cantidad de salas pasadas a 0
     /// </summary>
     // [ContextMenu("Reset Progress")] // Se comenta porque si no no se puede llamar
     public void ResetProgress()
     {
-        Debug.Log("RESET PROGRESS");
-
+        Debug.Log("RESET PROGRESS"); //Debug para el .log
         deaths = 0;
         roomsPassed = 0;
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.Save(); // Esto sirve para guardar los cambios en memoria directamente
         PlayerPrefs.SetInt("Deaths", deaths);
         PlayerPrefs.SetInt("RoomsPassed", roomsPassed);
         PlayerPrefs.Save(); // Esto sirve para guardar los cambios en memoria directamente
+        Debug.Log("RESET PROGRESS ENDED"); //Debug para el .log
     }
 
     #endregion
