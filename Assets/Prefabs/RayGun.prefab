@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9000722509117991051}
   m_Layer: 0
   m_Name: RayGun
-  m_TagString: Untagged
+  m_TagString: Gun
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -93,7 +93,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9c5049e3e03116c429b6c47e9a03f5df, type: 3}
-  m_Color: {r: 1, g: 0.53396225, b: 0.560878, a: 1}
+  m_Color: {r: 1, g: 0.26699996, b: 0.31011766, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

@@ -13,7 +13,7 @@ using UnityEngine.Tilemaps;
 /// Antes de cada class, descripción de qué es y para qué sirve,
 /// usando todas las líneas que sean necesarias.
 /// </summary>
-public class Gun2 : MonoBehaviour
+public class RayGun : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
@@ -34,25 +34,23 @@ public class Gun2 : MonoBehaviour
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
 
-    [SerializeField] private float rotDelay = 1; // Retraso de rotación
-    [SerializeField] private float preShootTime = 0.5f;
-    [SerializeField] private float shootingDuration = 0.5f; // Duración del disparo
-    [SerializeField] private float cooldownTime = 1f;
-    private float shootTimer = 0f; // Timer de disparo
-    private float maxCooldown = 0f; // Timer de cooldown
-
     LevelManager levelManager;
     [SerializeField] GameObject player;
     private Transform bulletSpawnPoint;
 
-    // LineRenderer para visualizar el rayo
-    private LineRenderer _lineRenderer;
-    private RaycastHit2D hit;
-    private RaycastHit2D visualHit;
 
-    // Añade un temporizador para el tiempo de disparo fijo (0.5s)
+    private LineRenderer lineRenderer; // Linerenderer del raycast
+    private RaycastHit2D hit; // Raycast para colisiones
+    private RaycastHit2D visualHit; // Raycast para visualización
     
-    private bool shooting = false;
+
+    [SerializeField] private float rotDelay = 1; // Retraso de rotación
+    [SerializeField] private float preShootTime = 0.5f;
+    [SerializeField] private float shootingDuration = 0.5f; // Duración del disparo
+    [SerializeField] private float cooldownTime = 1f;
+    private bool shooting = false; // Bool si está en estado de disparar
+    private float shootTimer = 0f; // Timer de disparo
+    private float maxCooldown = 0f; // Timer de cooldown
 
     #endregion
 
@@ -70,17 +68,21 @@ public class Gun2 : MonoBehaviour
     /// </summary>
     void Start()
     {
+        // Si no estamos en shooter mode, nos destruimos
+        if (!GameManager.Instance.GetShooterMode()) Destroy(gameObject);
+
         levelManager = LevelManager.Instance;
         bulletSpawnPoint = transform.GetChild(0).transform;
         if (!player) player = levelManager.GetPlayer();
 
-        // Configuración del LineRenderer
-        _lineRenderer = gameObject.AddComponent<LineRenderer>();
-        _lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
-        _lineRenderer.startColor = Color.blue; // Color inicial
-        _lineRenderer.endColor = Color.blue; // Color final
-        _lineRenderer.startWidth = 0.05f; // Ancho inicial
-        _lineRenderer.endWidth = 0.05f; // Ancho final
+        // lineRenderer
+        lineRenderer = gameObject.AddComponent<LineRenderer>();
+        lineRenderer.material = new Material(Shader.Find("Sprites/Default")); // Si no le aplicamos un material, no tiene textura (rosa)
+
+        lineRenderer.startColor = Color.blue; // Color inicial
+        lineRenderer.endColor = Color.blue; // Color final
+        lineRenderer.startWidth = 0.05f; // Ancho inicial
+        lineRenderer.endWidth = 0.1f; // Ancho final
     }
 
     /// <summary>
@@ -90,44 +92,47 @@ public class Gun2 : MonoBehaviour
     void Update()
     {
         hit = Physics2D.Raycast(bulletSpawnPoint.position, transform.up); // Incluye a Player para la colisión
-        _lineRenderer.SetPosition(0, bulletSpawnPoint.position);
+        lineRenderer.SetPosition(0, bulletSpawnPoint.position);
         visualHit = Physics2D.Raycast(bulletSpawnPoint.position, transform.up, 100f, ~LayerMask.GetMask("Player")); // Excluye a Player para visualización
-        _lineRenderer.SetPosition(1, visualHit.point);
+        lineRenderer.SetPosition(1, visualHit.point);
 
         if (!shooting) // Si no shooting calculamos la rotación
         {
             if (shootTimer > maxCooldown) // Fuera de cooldown
             {
+                lineRenderer.enabled = true;
+
                 // Calcula la dirección y el ángulo hacia el jugador
                 Vector2 direction = player.transform.position - transform.position;
                 float angle = Mathf.Atan2(direction.y, direction.x);
                 Quaternion targetRotation = Quaternion.AngleAxis(angle * Mathf.Rad2Deg - 90, Vector3.forward);
                 transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 1 / rotDelay);
 
-                _lineRenderer.enabled = true;
+                // Comprueba colisión con el jugador para pasar a shooting
                 if (hit.collider && hit.collider.gameObject == player) { shootTimer = 0f; shooting = true; }
             }
             else // En cooldown
             {
+                lineRenderer.enabled = false;
+
                 shootTimer += Time.deltaTime;
-                _lineRenderer.enabled = false;
             }
         }
         else
         {
             shootTimer += Time.deltaTime;
-            _lineRenderer.startColor = Color.red;
+            lineRenderer.startColor = Color.red;
 
             if (shootTimer >= preShootTime && shootTimer < preShootTime + shootingDuration)
             {
                 Shoot();
-                _lineRenderer.endColor = Color.red;
+                lineRenderer.endColor = Color.red;
             }
             else if (shootTimer >= preShootTime + shootingDuration)
             {
                 maxCooldown = shootTimer + cooldownTime;
-                _lineRenderer.startColor = Color.blue;
-                _lineRenderer.endColor = Color.blue;
+                lineRenderer.startColor = Color.blue;
+                lineRenderer.endColor = Color.blue;
                 shooting = false;
             }
         }

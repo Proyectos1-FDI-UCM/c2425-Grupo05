@@ -61,6 +61,11 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private int roomsPassed = 0;
 
+    /// <summary>
+    /// Cantidad de salas pasadas
+    /// </summary>
+    private bool shooterMode = false;
+
     public enum MyGameScenes
     {
         MainMenu = 0,
@@ -158,6 +163,15 @@ public class GameManager : MonoBehaviour
     /// <returns>Nivel máximo alcanzado</returns>
     public int MaxLevel() { return maxCurrentLvl; }
 
+    /// <summary>
+    /// Devuelve si el modo shooter está activado
+    /// </summary>
+    public bool GetShooterMode() { return shooterMode; }
+
+    /// <summary>
+    /// Establece el modo shooter
+    /// </summary>
+    public void SetShooterMode(bool value) { shooterMode = value; }
 
     /// <summary>
     /// Devuelve el nivel actual
@@ -207,6 +221,8 @@ public class GameManager : MonoBehaviour
 
         GameManager.Instance.ChangeScene((int)MyGameScenes.Hub + currentLvl);
     }
+    
+
 
     //los dos siguientes métodos son una ñapa para la excepción de el cameraZoom
     public bool SceneWillChange()

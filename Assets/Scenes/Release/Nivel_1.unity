@@ -197,14 +197,6 @@ PrefabInstance:
       value: FastGun
       objectReference: {fileID: 0}
     - target: {fileID: 5312086341306319957, guid: 91a55d617e329ed42a7346a336151d92, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.30000004
-      objectReference: {fileID: 0}
-    - target: {fileID: 5312086341306319957, guid: 91a55d617e329ed42a7346a336151d92, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.40000004
-      objectReference: {fileID: 0}
-    - target: {fileID: 5312086341306319957, guid: 91a55d617e329ed42a7346a336151d92, type: 3}
       propertyPath: m_LocalPosition.x
       value: 141.325
       objectReference: {fileID: 0}
@@ -43663,7 +43655,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1942077990}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -51017,14 +51009,6 @@ PrefabInstance:
     - target: {fileID: 23278680575191431, guid: b849740933a47be47978385d02ca0670, type: 3}
       propertyPath: m_Name
       value: Gun
-      objectReference: {fileID: 0}
-    - target: {fileID: 5312086341306319957, guid: b849740933a47be47978385d02ca0670, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.30000004
-      objectReference: {fileID: 0}
-    - target: {fileID: 5312086341306319957, guid: b849740933a47be47978385d02ca0670, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.40000004
       objectReference: {fileID: 0}
     - target: {fileID: 5312086341306319957, guid: b849740933a47be47978385d02ca0670, type: 3}
       propertyPath: m_LocalPosition.x

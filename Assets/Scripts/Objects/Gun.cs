@@ -60,6 +60,8 @@ public class Gun : MonoBehaviour
     /// </summary>
     void Start()
     {
+        // Si no estamos en shooter mode, nos destruimos
+        if (!GameManager.Instance.GetShooterMode()) Destroy(gameObject);
         levelManager = LevelManager.Instance;
         bulletSpawnPoint = transform.GetChild(0).transform;
         if (!player) player = levelManager.GetPlayer();

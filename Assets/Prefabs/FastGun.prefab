@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9000722509117991051}
   m_Layer: 0
   m_Name: FastGun
-  m_TagString: Untagged
+  m_TagString: Gun
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.76604444, w: 0.64278764}
   m_LocalPosition: {x: -61, y: -34, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.4, z: 0.2}
+  m_LocalScale: {x: 0.30000004, y: 0.40000004, z: 0.2}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3404496320846681409}
@@ -92,7 +92,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9c5049e3e03116c429b6c47e9a03f5df, type: 3}
-  m_Color: {r: 1, g: 0.53396225, b: 0.560878, a: 1}
+  m_Color: {r: 1, g: 0.5465116, b: 0.27906972, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
