@@ -96,6 +96,8 @@ public class RayGun : MonoBehaviour
         visualHit = Physics2D.Raycast(bulletSpawnPoint.position, transform.up, 100f, ~LayerMask.GetMask("Player")); // Excluye a Player para visualización
         lineRenderer.SetPosition(1, visualHit.point);
 
+        // if (levelManager.IsTimeStopped()) return; // Si el tiempo está parado, no buscamos
+
         if (!shooting) // Si no shooting calculamos la rotación
         {
             if (shootTimer > maxCooldown) // Fuera de cooldown

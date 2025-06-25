@@ -101,7 +101,8 @@ public class Gun : MonoBehaviour
     public void Shoot()
     {
         // Instancia la bala (la velocidad se gestiona en la propia bala)
-        /*GameObject bullet = */Instantiate(bulletPrefab.gameObject, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+        Bullet bala = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+        LevelManager.Instance.AddBala(bala);
     }
 
     #endregion
