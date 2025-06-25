@@ -1,26 +1,19 @@
-
 //---------------------------------------------------------
-// Define el commportamiento de activar el menú de controles tanto como el de sus elementos
-// Amiel Ramos Juez
-// I'm Losing It
+// Breve descripción del contenido del archivo
+// Responsable de la creación de este archivo
+// Nombre del juego
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
-using UnityEditor;
-
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 // Añadir aquí el resto de directivas using
-
+using UnityEngine.UI;
 
 /// <summary>
 /// Antes de cada class, descripción de qué es y para qué sirve,
 /// usando todas las líneas que sean necesarias.
 /// </summary>
-public class ControlsMenu : MonoBehaviour
+public class ShooterModeButton : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
@@ -29,16 +22,8 @@ public class ControlsMenu : MonoBehaviour
     // públicos y de inspector se nombren en formato PascalCase
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
-    
-    [SerializeField] private GameObject ObjectPauseMenu; //Elemento del objeto de la pantalla de controles
-    [SerializeField] private GameObject returnButton; // Botón Return
-    [SerializeField] private GameObject deleteProgressButton; // Botón deleteProgress
-
-    
-    [SerializeField] private bool insideControls; // Determina si está dentro del menú de controles o no
 
     #endregion
-
 
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
@@ -64,8 +49,7 @@ public class ControlsMenu : MonoBehaviour
     /// </summary>
     void Start()
     {
-        //Se oculta al iniciar
-        ObjectPauseMenu.SetActive(false);
+        GetComponentInChildren<Text>().text = GameManager.Instance.GetShooterMode() ? "Shooter Mode: On" : "Shooter Mode: Off";
     }
 
     /// <summary>
@@ -73,11 +57,7 @@ public class ControlsMenu : MonoBehaviour
     /// </summary>
     void Update()
     {
-       // Sale con la Q del menú
-        if (InputManager.Instance.ReturnIsPressed() && insideControls)
-        {
-            ToggleControls();
-        }
+
     }
     #endregion
 
@@ -89,12 +69,10 @@ public class ControlsMenu : MonoBehaviour
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
 
-    // Método para el botón Resume
-    public void ToggleControls()
+    public void ShooterMode()
     {
-        insideControls = !insideControls;
-        ObjectPauseMenu.SetActive(insideControls); // Muestra u oculta el menú
-        EventSystem.current.SetSelectedGameObject(insideControls ? returnButton : GetComponent<Button>().gameObject); // Selecciona el botón de Return/Controles automáticamente        
+        GameManager.Instance.SetShooterMode(!GameManager.Instance.GetShooterMode());
+        GetComponentInChildren<Text>().text = GameManager.Instance.GetShooterMode() ? "Shooter Mode: On" : "Shooter Mode: Off";
     }
 
     #endregion
@@ -108,5 +86,5 @@ public class ControlsMenu : MonoBehaviour
 
     #endregion
 
-
-}
+} // class ShooterModeButton 
+// namespace
