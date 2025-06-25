@@ -83,9 +83,11 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private CambioEstado[] estados;
 
     /// <summary>
-    /// !!
+    /// Lista de tilemaps. Cada tilemap es un diccionario de clave posición y valor tilebase (info del tile);
     /// </summary>
     private List<Dictionary<Vector3Int, TileBase>> tilemapsBackup = new List<Dictionary<Vector3Int, TileBase>>(2); // Backup de los tilemaps por copia profunda
+
+    private List<Bullet> bullets; // Array de balas generadas
 
     /// <summary>
     /// NÚmero de sala en la que se encuentra el jugador. La primera room es la 0 y la última, la roomsAmount-1
@@ -351,6 +353,8 @@ public class LevelManager : MonoBehaviour
 
     private void ResetearEstados()
     {
+        LevelManager.Instance.ResetBalas();
+
         for (int i = 0; i < 2; i++)
         {
             Tilemap tilemap = estados[roomNo*2 + i].GetComponent<Tilemap>();
@@ -559,6 +563,27 @@ public class LevelManager : MonoBehaviour
     public void setSalasPorAvanzar(int n)
     {
         salasPorAvanzar = n;
+    }
+
+    public void AddBala(Bullet b)
+    {
+        if (bullets == null)
+        {
+            bullets = new List<Bullet>();
+        }
+        bullets.Add(b);
+    }
+
+    public void ResetBalas()
+    {
+        if (bullets != null)
+        {
+            foreach (Bullet b in bullets)
+            {
+                Destroy(b.gameObject);
+            }
+            bullets.Clear();
+        }
     }
 
     //-----------------------------------------------------------------------------------

@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Cantidad de salas pasadas
     /// </summary>
-    private bool shooterMode = false;
+    [SerializeField] private bool shooterMode = true;
 
     public enum MyGameScenes
     {
