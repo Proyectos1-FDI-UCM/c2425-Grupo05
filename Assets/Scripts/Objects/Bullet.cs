@@ -1,7 +1,7 @@
 //---------------------------------------------------------
-// Breve descripción del contenido del archivo
-// Responsable de la creación de este archivo
-// Nombre del juego
+// Objeto de bala
+// Amiel Ramos Juez
+// I'm Losing It
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
@@ -14,7 +14,7 @@ using UnityEngine.Tilemaps;
 /// Antes de cada class, descripción de qué es y para qué sirve,
 /// usando todas las líneas que sean necesarias.
 /// </summary>
-public class playerStateDeath : MonoBehaviour
+public class Bullet : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
@@ -23,6 +23,8 @@ public class playerStateDeath : MonoBehaviour
     // públicos y de inspector se nombren en formato PascalCase
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
+
+    [SerializeField] float bulletSpeed = 10f;
 
     #endregion
 
@@ -35,10 +37,12 @@ public class playerStateDeath : MonoBehaviour
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
 
-    Collider2D _statePlayerCollider;
+    Collider2D bulletCollider;
+    Rigidbody2D rb;
+
     Tilemap _tilemapActual;
-    LevelManager _levelManager;
-    private int _roomNo = 0;
+    Tilemap[] walls;
+    LevelManager levelManager;
 
     struct ResultadoColision
     {
@@ -62,9 +66,10 @@ public class playerStateDeath : MonoBehaviour
     /// </summary>
     void Start()
     {
-        _statePlayerCollider = GetComponent<Collider2D>();
-        _levelManager = LevelManager.Instance;
-
+        bulletCollider = GetComponent<Collider2D>();
+        rb = GetComponent<Rigidbody2D>();
+        levelManager = LevelManager.Instance;
+        rb.velocity = transform.up * bulletSpeed;
     }
 
     /// <summary>
@@ -73,25 +78,14 @@ public class playerStateDeath : MonoBehaviour
     /// </summary>
     void Update()
     {
-        // Habria que pasar todo esto a realizar la comprobacion solo cuando se cambia de estado (eventos?)
-        // Devuelves el estado que esta activo
+        int _roomNo = levelManager.GetRoomNo() * 2;
+        _tilemapActual = levelManager.GetEstados()[(levelManager.EstadoActual() == 0 ? _roomNo : _roomNo + 1)].GetComponent<Tilemap>();
 
-        if (!_levelManager.GetIsHub())
+        var colResult = IsColliderInsideTilemap(bulletCollider, _tilemapActual);
+        if (colResult.col)
         {
-            _roomNo = _levelManager.GetRoomNo() * 2;
-            _tilemapActual = _levelManager.GetEstados()[(_levelManager.EstadoActual() == 0 ? _roomNo : _roomNo + 1)].GetComponent<Tilemap>();
-
-            if (IsColliderInsideTilemap(_statePlayerCollider, _tilemapActual).col)
-            {
-                //Debug.Log("El collider está dentro del Tilemap");
-                _levelManager.ResetPlayer();
-            }
-
-            if (InputManager.Instance.RestartIsPressed())
-            {
-                _levelManager.ResetPlayer();
-            }
-
+            _tilemapActual.SetTile(new Vector3Int(colResult.pos.x, colResult.pos.y, 0), null);
+            Destroy(gameObject);
         }
     }
     #endregion
@@ -103,6 +97,11 @@ public class playerStateDeath : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
+
+    public void SetWalls(Tilemap[] t)
+    {
+        walls = t;
+    }
 
     #endregion
 
@@ -118,8 +117,8 @@ public class playerStateDeath : MonoBehaviour
         ResultadoColision res = new ResultadoColision();
 
         // Coordenadas del collider (sacadas de bounds) en cuanto al tilemap
-        Vector3Int minTile = tilemap.WorldToCell(col.bounds.min); // Posición del área de la colisión abajo izquierda
-        Vector3Int maxTile = tilemap.WorldToCell(col.bounds.max); // Posición del área de la colisión arriba derecha
+        Vector3Int minTile = tilemap.WorldToCell(col.bounds.min); // Área en posición de tilemap abajo izquierda
+        Vector3Int maxTile = tilemap.WorldToCell(col.bounds.max); // Área en posición de tilemap arriba derecha
 
         // Recorrer las celdas
         for (int x = minTile.x; x <= maxTile.x; x++)
@@ -140,8 +139,27 @@ public class playerStateDeath : MonoBehaviour
         return res;
     }
 
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.GetComponent<Tilemap>())
+        {
+            Destroy(gameObject);
+        }
+        else if (collision.gameObject.CompareTag("Wall"))
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.GetComponent<GrayZone>())
+        {
+            Destroy(gameObject);
+        }
+    }
+
     #endregion
 
-} // class playerStateDeath 
+} // class Bala
 // namespace
-

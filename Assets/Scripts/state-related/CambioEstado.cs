@@ -33,8 +33,6 @@ public class CambioEstado : MonoBehaviour
     private int State = 0;//el estado al que le corresponde en cuanto al valor del LevelManager
     [SerializeField]
     private bool Tilemap = false;//indica si se usarán tilemaps para el cambio de estado
-    [SerializeField]
-    private PlayerMovement Player;//referencia al jugador para controlar la muerte por estar dentro de un bloque
 
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
@@ -71,13 +69,13 @@ public class CambioEstado : MonoBehaviour
     /// </summary>
     void Start()
     {
-        Player = FindObjectOfType<PlayerMovement>();
-        
         _renderer = GetComponent<TilemapRenderer>();
         _colliderTile = GetComponent<TilemapCollider2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _collider = GetComponent<Collider2D>();
-        _levelManager = FindObjectOfType<LevelManager>();
+     
+        _levelManager = LevelManager.Instance;
+        
         if (_levelManager.EstadoActual() == State)
         {
             SetComponentsActive(true);
@@ -168,6 +166,7 @@ public class CambioEstado : MonoBehaviour
             Debug.LogWarning("Invalid hex color string.");
         }
     }
+    
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----

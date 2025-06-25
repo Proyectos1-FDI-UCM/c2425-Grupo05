@@ -1,12 +1,11 @@
 //---------------------------------------------------------
-// Breve descripción del contenido del archivo
-// Responsable de la creación de este archivo
-// Nombre del juego
+// Objeto de Gun
+// Amiel Ramos Juez
+// I'm Losing It
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
 using UnityEngine;
-// Añadir aquí el resto de directivas using
 using UnityEngine.Tilemaps;
 
 
@@ -14,7 +13,7 @@ using UnityEngine.Tilemaps;
 /// Antes de cada class, descripción de qué es y para qué sirve,
 /// usando todas las líneas que sean necesarias.
 /// </summary>
-public class playerStateDeath : MonoBehaviour
+public class Gun : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
@@ -35,16 +34,15 @@ public class playerStateDeath : MonoBehaviour
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
 
-    Collider2D _statePlayerCollider;
-    Tilemap _tilemapActual;
-    LevelManager _levelManager;
-    private int _roomNo = 0;
+    [SerializeField] private float fireRate = 4f;
+    [SerializeField] private float rotDelay = 1; // Retraso de rotación
+    private float shootTimer = 0f; // Timer de disparo
 
-    struct ResultadoColision
-    {
-        public bool col;
-        public Vector2Int pos;
-    }
+    LevelManager levelManager;
+    [SerializeField] GameObject player;
+    private Transform bulletSpawnPoint;
+    [SerializeField] private Bullet bulletPrefab;
+
 
     #endregion
 
@@ -62,9 +60,9 @@ public class playerStateDeath : MonoBehaviour
     /// </summary>
     void Start()
     {
-        _statePlayerCollider = GetComponent<Collider2D>();
-        _levelManager = LevelManager.Instance;
-
+        levelManager = LevelManager.Instance;
+        bulletSpawnPoint = transform.GetChild(0).transform;
+        if (!player) player = levelManager.GetPlayer();
     }
 
     /// <summary>
@@ -73,25 +71,19 @@ public class playerStateDeath : MonoBehaviour
     /// </summary>
     void Update()
     {
-        // Habria que pasar todo esto a realizar la comprobacion solo cuando se cambia de estado (eventos?)
-        // Devuelves el estado que esta activo
+        Vector2 direction = player.transform.position - transform.position; // Vector desdse la referencia hasta el objeto
+        float angle = Mathf.Atan2(direction.y, direction.x); // Atan2 calcula el ángulo entre el eje x y el vector dirección
 
-        if (!_levelManager.GetIsHub())
+        Quaternion targetRotation = Quaternion.AngleAxis(angle * Mathf.Rad2Deg - 90, Vector3.forward); // Convierte el ángulo en radianes a grados y lo aplica a la rotación del objeto
+
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 1/rotDelay); // Lerp avanza un valor hasta otro con una velocidad
+
+        if (!levelManager.IsTimeStopped()) shootTimer += Time.deltaTime;
+
+        if (shootTimer >= fireRate)
         {
-            _roomNo = _levelManager.GetRoomNo() * 2;
-            _tilemapActual = _levelManager.GetEstados()[(_levelManager.EstadoActual() == 0 ? _roomNo : _roomNo + 1)].GetComponent<Tilemap>();
-
-            if (IsColliderInsideTilemap(_statePlayerCollider, _tilemapActual).col)
-            {
-                //Debug.Log("El collider está dentro del Tilemap");
-                _levelManager.ResetPlayer();
-            }
-
-            if (InputManager.Instance.RestartIsPressed())
-            {
-                _levelManager.ResetPlayer();
-            }
-
+            Shoot();
+            shootTimer = 0f;
         }
     }
     #endregion
@@ -104,6 +96,12 @@ public class playerStateDeath : MonoBehaviour
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
 
+    public void Shoot()
+    {
+        // Instancia la bala (la velocidad se gestiona en la propia bala)
+        /*GameObject bullet = */Instantiate(bulletPrefab.gameObject, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+    }
+
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
@@ -113,35 +111,7 @@ public class playerStateDeath : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
 
-    ResultadoColision IsColliderInsideTilemap(Collider2D col, Tilemap tilemap)
-    {
-        ResultadoColision res = new ResultadoColision();
-
-        // Coordenadas del collider (sacadas de bounds) en cuanto al tilemap
-        Vector3Int minTile = tilemap.WorldToCell(col.bounds.min); // Posición del área de la colisión abajo izquierda
-        Vector3Int maxTile = tilemap.WorldToCell(col.bounds.max); // Posición del área de la colisión arriba derecha
-
-        // Recorrer las celdas
-        for (int x = minTile.x; x <= maxTile.x; x++)
-        {
-            for (int y = minTile.y; y <= maxTile.y; y++)
-            {
-                // Si hay un tile en las coordenadas que especifican la celda del tilemap:
-                if (tilemap.GetTile(new Vector3Int(x, y, 0)) != null)
-                {
-                    res.col = true;
-                    res.pos.x = x;
-                    res.pos.y = y;
-                    return res;
-                }
-            }
-        }
-        res.col = false;
-        return res;
-    }
-
     #endregion
 
-} // class playerStateDeath 
+} // class Gun
 // namespace
-

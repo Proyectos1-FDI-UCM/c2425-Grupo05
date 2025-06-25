@@ -41,7 +41,7 @@ public class SlowMotionController : MonoBehaviour
 
     void Update()
     {
-
+        if (Time.timeScale == 0f) return; // Si el juego está pausado, salimos
         if (levelManager.GetIsHub() || levelManager.GetIsTutorial()) return;
         isAtLevelStart = levelManager.IsTimeStopped();
 

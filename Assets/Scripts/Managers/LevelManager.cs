@@ -8,9 +8,9 @@
 
 using System;
 using TMPro;
-
-//using UnityEditorInternal;
 using UnityEngine;
+using UnityEngine.Tilemaps;
+using System.Collections.Generic;
 
 /// <summary>
 /// Componente que se encarga de la gestión de un nivel concreto.
@@ -81,6 +81,11 @@ public class LevelManager : MonoBehaviour
     /// Array de objetos de estado de las salas a los que se les asigna el estado correspondiente
     /// </summary>
     [SerializeField] private CambioEstado[] estados;
+
+    /// <summary>
+    /// !!
+    /// </summary>
+    private List<Dictionary<Vector3Int, TileBase>> tilemapsBackup = new List<Dictionary<Vector3Int, TileBase>>(2); // Backup de los tilemaps por copia profunda
 
     /// <summary>
     /// NÚmero de sala en la que se encuentra el jugador. La primera room es la 0 y la última, la roomsAmount-1
@@ -156,11 +161,6 @@ public class LevelManager : MonoBehaviour
     private Vector3 playerSpawnPos;
 
     /// <summary>
-    /// Número de muertes del jugador
-    /// </summary>
-    private int deaths = 0;
-
-    /// <summary>
     /// Texto que muestra el número de muertes del jugador
     /// </summary>
     private TextMeshProUGUI deathCount;
@@ -180,8 +180,6 @@ public class LevelManager : MonoBehaviour
             // Somos la primera y única instancia
             _instance = this;
         }
-
-
     }
 
     private void Start()
@@ -194,7 +192,6 @@ public class LevelManager : MonoBehaviour
 
         GameManager.Instance.SceneWillChange_Set(false);
         Camera = FindObjectOfType<Camera>();
-        deaths = GameManager.Instance.AskDeaths();
         //Setea el tiempo a 0
         StateTime = 0f;
 
@@ -208,7 +205,7 @@ public class LevelManager : MonoBehaviour
         else
         {
             deathCount = GameObject.Find("CountText").GetComponent<TextMeshProUGUI>();
-            deathCount.text = DeathCountString(deaths);
+            deathCount.text = DeathCountString(GameManager.Instance.AskDeaths());
 
             Camera.transform.position = CameraPos[roomNo];
             playerSpawnPos = PlayerSpawnPosScene[roomNo].transform.position;
@@ -223,6 +220,8 @@ public class LevelManager : MonoBehaviour
             StateBarController = FindObjectOfType<StateBarController>();
             StateBarController.ChangeColorState0(colorState0);
             StateBarController.ChangeColorState2(colorState2);
+
+            GuardarEstados();
         }
 
         // Avanza las salas necesarias
@@ -316,6 +315,57 @@ public class LevelManager : MonoBehaviour
        
     }
 
+    private void GuardarEstados()
+    {
+
+        tilemapsBackup.Add(new Dictionary<Vector3Int, TileBase>());
+        tilemapsBackup.Add(new Dictionary<Vector3Int, TileBase>());
+
+        int j = 0;
+        for (int i = roomNo * 2; i < roomNo * 2 + 2; i++)
+        {
+
+            Tilemap tilemap = estados[i].gameObject.GetComponent<Tilemap>();
+
+            if (tilemap != null)
+            {
+                BoundsInt bounds = tilemap.cellBounds;
+                Vector3Int minTile = bounds.min;
+                Vector3Int maxTile = bounds.max;
+
+                // Recorrer las celdas
+                for (int x = minTile.x; x <= maxTile.x; x++)
+                {
+                    for (int y = minTile.y; y <= maxTile.y; y++)
+                    {
+                        Vector3Int position = new Vector3Int(x, y, 0);
+                        TileBase tile = tilemap.GetTile(position);
+                        if (tile != null) tilemapsBackup[j][position] = tile;
+                    }
+                }
+            }
+
+            j++; // Alternamos entre los dos backups
+        }
+    }
+
+    private void ResetearEstados()
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            Tilemap tilemap = estados[roomNo*2 + i].GetComponent<Tilemap>();
+
+            foreach (var tmInfo in tilemapsBackup[i])
+            {
+                // Esto comprueba si en el tilemap es nulo y en el backup no (o sea, que se ha eliminado el tile)
+                if (tilemap.GetTile(tmInfo.Key) == null && tmInfo.Value != null)
+                {
+                    tilemap.SetTile(tmInfo.Key, tmInfo.Value);
+                }
+            }
+        }
+    }
+
     #endregion
 
     // ---- MÉTODOS PÚBLICOS ----
@@ -356,6 +406,9 @@ public class LevelManager : MonoBehaviour
     //Se añade valor al contador de muertes
     public void ResetPlayer()
     {
+
+        ResetearEstados();
+
         AudioSource _glass = GetComponent<AudioManager>()?.Glass;
         if (!_glass.isPlaying)
         {
@@ -376,8 +429,7 @@ public class LevelManager : MonoBehaviour
         RoomTimeRemaining = RoomMaxTime[roomNo];
 
         GameManager.Instance.PlayerDied();
-        deaths = GameManager.Instance.AskDeaths();
-        deathCount.text = DeathCountString(deaths);
+        deathCount.text = DeathCountString(GameManager.Instance.AskDeaths());
     }
 
     //Cambia entre estado 1 (0) y estado 2 (2)
@@ -422,6 +474,8 @@ public class LevelManager : MonoBehaviour
             {
                 _sigSala.Play();
             }
+
+            GuardarEstados();
         }
         else
         {

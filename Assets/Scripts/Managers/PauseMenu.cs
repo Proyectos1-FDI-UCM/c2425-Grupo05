@@ -152,14 +152,12 @@ public class PauseMenu : MonoBehaviour
     //Método que hace la pausa e inovca al menú
     private void TooglePause()
     {
-
         Paused = true;
         Time.timeScale = 0f; // Para el tiempo del juego
+        Debug.Log("Pausa activada, TimeScale: " + Time.timeScale);
         ObjectPauseMenu.SetActive(Paused); // Muestra u oculta el menú
         EventSystem.current.SetSelectedGameObject(PauseMenuFirst); // El menú de pausa al ser iniciado, también es seleccionado al primer boton de este, para indicar al jugador desde donde empieza a navegar por él
         playermovement.enabled = false; // El personaje realmente se queda quieto
-      
-
     }
 
     private void HubButtonsState() //Método para eliminar el botón de reinicar nivel y levelselector del hub por estetica

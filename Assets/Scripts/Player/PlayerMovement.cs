@@ -202,17 +202,9 @@ public class PlayerMovement : MonoBehaviour
 
     public void ResetPlayer(Vector3 pos)
     {
-        if (rb != null)
-        {
-            rb.velocity = Vector3.zero;
-            rb.transform.position = pos;
-        }
-        else
-        {
-            rb = gameObject.GetComponent<Rigidbody2D>();
-            rb.velocity = Vector3.zero;
-            rb.transform.position = pos;
-        }
+        if (!rb) rb = gameObject.GetComponent<Rigidbody2D>();
+        rb.velocity = Vector3.zero;
+        rb.transform.position = pos;
     }
     public void Spring(float i) // Accion del jugador con el muelle
     {

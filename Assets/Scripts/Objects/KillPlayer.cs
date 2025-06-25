@@ -90,11 +90,15 @@ public class KillPlayer : MonoBehaviour
     //Detecta colisión del gameobject con el player. Si no es nula se resetea al player
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        PlayerMovement playerMovement = collision.gameObject.GetComponent<PlayerMovement>();
-
-        if (playerMovement != null)
+        if (collision.gameObject.GetComponent<PlayerMovement>())
         {
             LevelManager.Instance.ResetPlayer();
+
+            // Si es bala destruirla
+            if (gameObject.tag == "Bullet")
+            {
+                Destroy(gameObject);
+            }
         }
     }
 
