@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4180563769712301794}
   - component: {fileID: 7218114810072444481}
   - component: {fileID: 3027254593244106087}
-  m_Layer: 7
+  m_Layer: 12
   m_Name: Estado1_Template
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -268,6 +268,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b80d84705eefbbb40b1f446335ba4e5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  State1: 1
+  State: 0
   Tilemap: 1
-  Player: {fileID: 0}

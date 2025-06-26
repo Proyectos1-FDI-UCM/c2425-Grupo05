@@ -88,6 +88,7 @@ public class LevelManager : MonoBehaviour
     private List<Dictionary<Vector3Int, TileBase>> tilemapsBackup = new List<Dictionary<Vector3Int, TileBase>>(2); // Backup de los tilemaps por copia profunda
 
     private List<Bullet> bullets; // Array de balas generadas
+    private List<GameObject> enemies; // Par de enemigos generados y su posición
 
     /// <summary>
     /// NÚmero de sala en la que se encuentra el jugador. La primera room es la 0 y la última, la roomsAmount-1
@@ -326,7 +327,7 @@ public class LevelManager : MonoBehaviour
         int j = 0;
         for (int i = roomNo * 2; i < roomNo * 2 + 2; i++)
         {
-
+            tilemapsBackup[j].Clear();
             Tilemap tilemap = estados[i].gameObject.GetComponent<Tilemap>();
 
             if (tilemap != null)
@@ -353,14 +354,16 @@ public class LevelManager : MonoBehaviour
 
     private void ResetearEstados()
     {
+        
         LevelManager.Instance.ResetBalas();
-
         for (int i = 0; i < 2; i++)
         {
             Tilemap tilemap = estados[roomNo*2 + i].GetComponent<Tilemap>();
+            tilemap.ClearAllTiles();
 
             foreach (var tmInfo in tilemapsBackup[i])
             {
+
                 // Esto comprueba si en el tilemap es nulo y en el backup no (o sea, que se ha eliminado el tile)
                 if (tilemap.GetTile(tmInfo.Key) == null && tmInfo.Value != null)
                 {
@@ -410,8 +413,8 @@ public class LevelManager : MonoBehaviour
     //Se añade valor al contador de muertes
     public void ResetPlayer()
     {
-
         ResetearEstados();
+        ResetEnemies();
 
         AudioSource _glass = GetComponent<AudioManager>()?.Glass;
         if (!_glass.isPlaying)
@@ -478,8 +481,8 @@ public class LevelManager : MonoBehaviour
             {
                 _sigSala.Play();
             }
-
             GuardarEstados();
+            ResetEnemies();
         }
         else
         {
@@ -587,6 +590,30 @@ public class LevelManager : MonoBehaviour
                 }
             }
             bullets.Clear();
+        }
+    }
+
+    public void AddEnemy(GameObject enemy)
+    {
+        if (enemies == null)
+        {
+            enemies = new List<GameObject>();
+        }
+        enemies.Add(enemy);
+    }
+
+    public void ResetEnemies()
+    {
+        if (enemies != null)
+        {
+            for (int i = 0; i < enemies.Count; i++)
+            {
+                GameObject enemy = enemies[i];
+                if (enemy != null)
+                {
+                    enemy.GetComponent<basicEnemy>()?.ResetEnemy();
+                }
+            }
         }
     }
 

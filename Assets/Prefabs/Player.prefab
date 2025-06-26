@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2219782600938109995}
   m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -139,6 +139,9 @@ MonoBehaviour:
   ground:
     serializedVersion: 2
     m_Bits: 128
+  stateTilemap:
+    serializedVersion: 2
+    m_Bits: 4096
   isGrounded: 0
   justJumped: 0
   coyotetime: 0
@@ -164,8 +167,6 @@ MonoBehaviour:
   timeToCompletelyDischarge: 3
   maxCooldown: 5
   cooldownTimer: 0
-  useTimer: 0
-  maxUseDuration: 3
 --- !u!1 &655208770346927901
 GameObject:
   m_ObjectHideFlags: 0
@@ -179,7 +180,7 @@ GameObject:
   - component: {fileID: 1564437124096737926}
   m_Layer: 6
   m_Name: sprite
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -284,7 +285,7 @@ GameObject:
   - component: {fileID: 4277151448236244579}
   m_Layer: 0
   m_Name: UpLeftCollider
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -361,7 +362,7 @@ GameObject:
   - component: {fileID: 7638707560569984267}
   m_Layer: 0
   m_Name: UpRightCollider
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -438,7 +439,7 @@ GameObject:
   - component: {fileID: 8288547083308845381}
   m_Layer: 0
   m_Name: FeetPos
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -515,7 +516,7 @@ GameObject:
   - component: {fileID: 840987673431279397}
   m_Layer: 0
   m_Name: UpCenterCollider
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -593,7 +594,7 @@ GameObject:
   - component: {fileID: 2367628404344221007}
   m_Layer: 6
   m_Name: StateCollider
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

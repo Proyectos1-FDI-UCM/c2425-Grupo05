@@ -19,8 +19,8 @@ TagManager:
   - Pickable
   - Picker
   - background
-  - 
-  - 
+  - Enemy
+  - StateTilemap
   - 
   - 
   - 

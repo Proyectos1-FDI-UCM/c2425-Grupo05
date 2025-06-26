@@ -36,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Animator playerAnimator;
     [SerializeField] private AudioManager audioManager;
     public LayerMask ground;
+    public LayerMask stateTilemap;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -234,7 +235,13 @@ public class PlayerMovement : MonoBehaviour
         Collider2D[] hitColliders = Physics2D.OverlapBoxAll(jumpCollider.bounds.center, jumpCollider.bounds.size, 0);
         foreach (var hitCollider in hitColliders)
         {
-            if (hitCollider.gameObject != gameObject && ((1 << hitCollider.gameObject.layer) & ground) != 0)
+            if (
+                hitCollider.gameObject != gameObject &&
+                (
+                    ((1 << hitCollider.gameObject.layer) & ground) != 0 ||
+                    ((1 << hitCollider.gameObject.layer) & stateTilemap) != 0
+                )
+            )
             {
                 isGrounded = true;
                 coyotetime = true;
@@ -386,8 +393,8 @@ public class PlayerMovement : MonoBehaviour
 
             }
 
-            //salto(continuación)
-            if (isAccelerating && jumpTimeCounter < jumpTime)
+            // salto(continuación) SOLO si el botón de salto sigue presionado
+            if (isAccelerating && jumpTimeCounter < jumpTime && !jumpWasReleased)
             {
                 rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + jumpForce);
                 jumpTimeCounter += Time.fixedDeltaTime;//Time.fixedDeltaTime para el fixedUpdate
