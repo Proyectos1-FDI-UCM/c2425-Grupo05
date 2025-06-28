@@ -45,7 +45,7 @@ public class ChangeScene : MonoBehaviour
     {
         if (Keyboard.current.escapeKey.wasPressedThisFrame)
         {
-            QuitGame();
+            // QuitGame();
         }
     }
     #endregion

@@ -212,7 +212,7 @@ MonoBehaviour:
   m_ActionsAsset: {fileID: -944628639613478452, guid: 842a061437231409385e5d08046b3753, type: 3}
   m_PointAction: {fileID: -1654692200621890270, guid: 842a061437231409385e5d08046b3753, type: 3}
   m_MoveAction: {fileID: -8784545083839296357, guid: 842a061437231409385e5d08046b3753, type: 3}
-  m_SubmitAction: {fileID: 392368643174621059, guid: 842a061437231409385e5d08046b3753, type: 3}
+  m_SubmitAction: {fileID: 9111864190264875795, guid: 842a061437231409385e5d08046b3753, type: 3}
   m_CancelAction: {fileID: 7727032971491509709, guid: 842a061437231409385e5d08046b3753, type: 3}
   m_LeftClickAction: {fileID: 3001919216989983466, guid: 842a061437231409385e5d08046b3753, type: 3}
   m_MiddleClickAction: {fileID: -2185481485913320682, guid: 842a061437231409385e5d08046b3753, type: 3}
@@ -814,7 +814,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7966080858036198732, guid: 1f2b5c3b9e3f047829e30da603853657, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ChangeToNextScene
+      value: ExitGame
       objectReference: {fileID: 0}
     - target: {fileID: 7966080858036198732, guid: 1f2b5c3b9e3f047829e30da603853657, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName

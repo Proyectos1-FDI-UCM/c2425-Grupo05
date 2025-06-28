@@ -15682,6 +15682,10 @@ PrefabInstance:
       propertyPath: playermovement
       value: 
       objectReference: {fileID: 1254707098}
+    - target: {fileID: 2402587767504193655, guid: af968b4bb22da8044a7b5feb7465d53a, type: 3}
+      propertyPath: m_SubmitAction
+      value: 
+      objectReference: {fileID: 9111864190264875795, guid: 842a061437231409385e5d08046b3753, type: 3}
     - target: {fileID: 3434554371544939585, guid: af968b4bb22da8044a7b5feb7465d53a, type: 3}
       propertyPath: m_IsActive
       value: 1
