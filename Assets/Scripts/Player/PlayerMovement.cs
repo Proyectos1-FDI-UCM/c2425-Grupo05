@@ -55,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
     private Collider2D upLeftCollider;
     private Collider2D upRightCollider;
     private Collider2D upCenterCollider;
-
+    private Collider2D wallDetector;
 
     //para efectuar salto
     PlatformMovement platform;
@@ -85,6 +85,9 @@ public class PlayerMovement : MonoBehaviour
     //input del inputManager
     Vector2 moveInput;
 
+    //Para detectar pared enfrente
+    private bool wallInFront;
+    
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -109,6 +112,9 @@ public class PlayerMovement : MonoBehaviour
 
         _child = transform.GetChild(3).gameObject;
         upCenterCollider = _child.GetComponent<Collider2D>();
+
+        _child = transform.GetChild(6).gameObject;
+        wallDetector = _child.GetComponent<Collider2D>();
         #endregion
 
 
@@ -255,6 +261,11 @@ public class PlayerMovement : MonoBehaviour
                     platform = hitCollider.gameObject.GetComponent<PlatformMovement>();
                 }
             }
+        }
+        Collider2D[] wallColliders = Physics2D.OverlapBoxAll(wallDetector.bounds.center, wallDetector.bounds.size, 0);
+        foreach (var wallCollider in wallColliders)
+        {
+            wallInFront = wallCollider.gameObject != gameObject && ((1 << wallCollider.gameObject.layer) & ground) != 0;
         }
     }
 
@@ -416,7 +427,7 @@ public class PlayerMovement : MonoBehaviour
 
 
         // Step sounds
-        if (isGrounded && Mathf.Abs(rb.velocity.x) > 0.1f)
+        if (isGrounded && Mathf.Abs(rb.velocity.x) > 0.1f && !wallInFront)   
         {
             stepTimer -= Time.fixedDeltaTime;
             if (stepTimer <= 0f)
