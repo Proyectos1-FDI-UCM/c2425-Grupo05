@@ -741,134 +741,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &453241429
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 453241431}
-  - component: {fileID: 453241430}
-  m_Layer: 0
-  m_Name: FinalSong
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!82 &453241430
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 453241429}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
---- !u!4 &453241431
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 453241429}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -107.77572, y: -38.44016, z: -0.065320365}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &514707751
 GameObject:
   m_ObjectHideFlags: 0
@@ -28123,8 +27995,9 @@ MonoBehaviour:
     Coronel\r\nAdri\xE1n Erustes Mart\xEDn\r\nV\xEDctor \xC1lvarez Peral\r\n\xD3scar
     Silva Urbina\r\n\r\nAssets\r\nArte: Antonio Bucero Coronel,  V\xEDctor \xC1lvarez
     Peral,  Adri\xE1n de Miguel Cerezo,  Adri\xE1n Erustes Mart\xEDn \r\n\r\nM\xFAsica:
-    Sacada de Incompetech.com - \"The Way Out\" & \"In a HeartBeat\"\r\n\r\nEfectos
-    de sonido: Sacados de freesound.org y Leohpaz SFX Bundle"
+    Sacada de Incompetech.com - \"The Way Out\" & \"In a HeartBeat\"\r\n& In Another
+    Life- Ost de \"Todo al mismo tiempo en todas partes\"\n\nEfectos de sonido: Sacados
+    de freesound.org y Leohpaz SFX Bundle"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -28501,7 +28374,7 @@ PlayableDirector:
   - key: {fileID: 6692229547381203149, guid: e54e287aaeff85043906608bc4ae2e89, type: 2}
     value: {fileID: 284537240}
   - key: {fileID: -4061752886406536454, guid: e54e287aaeff85043906608bc4ae2e89, type: 2}
-    value: {fileID: 453241430}
+    value: {fileID: 0}
   - key: {fileID: 3716679717317132011, guid: e54e287aaeff85043906608bc4ae2e89, type: 2}
     value: {fileID: 1626276144}
   - key: {fileID: 4488977751384743820, guid: e54e287aaeff85043906608bc4ae2e89, type: 2}
@@ -28560,4 +28433,3 @@ SceneRoots:
   - {fileID: 374026508}
   - {fileID: 514707754}
   - {fileID: 23622325}
-  - {fileID: 453241431}
