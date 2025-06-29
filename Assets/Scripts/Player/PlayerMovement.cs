@@ -262,11 +262,17 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
+        //PARA DETECTAR SI ESTA ANDANDO CONTRA UN MURO
         Collider2D[] wallColliders = Physics2D.OverlapBoxAll(wallDetector.bounds.center, wallDetector.bounds.size, 0);
+        bool foundWall = false;
         foreach (var wallCollider in wallColliders)
         {
-            wallInFront = wallCollider.gameObject != gameObject && ((1 << wallCollider.gameObject.layer) & ground) != 0;
-        }
+            if (wallCollider.gameObject != gameObject &&((1 << wallCollider.gameObject.layer) & ground) != 0)
+            {
+                foundWall = true;
+            }
+        } 
+        wallInFront = foundWall;
     }
 
     /// <summary>
