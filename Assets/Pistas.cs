@@ -25,6 +25,9 @@ public class Pistas : MonoBehaviour
     [SerializeField] private GameObject pista1;
     [SerializeField] private GameObject pista2;
     [SerializeField] private GameObject pista3;
+    [SerializeField] private GameObject[] camino1;
+    [SerializeField] private GameObject[] camino2;
+    [SerializeField] private GameObject[] camino3;
     [SerializeField] private int contadorPista1;
     [SerializeField] private int contadorPista2;
     [SerializeField] private int contadorPista3;
@@ -59,6 +62,12 @@ public class Pistas : MonoBehaviour
         pista1.SetActive(false);
         pista2.SetActive(false);
         pista3.SetActive(false);
+        for (int i = 0; i < 5; i++)
+        {
+            camino1[i].SetActive(false);
+            camino2[i].SetActive(false);
+            camino3[i].SetActive(false);
+        }
     }
 
     /// <summary>
@@ -66,17 +75,34 @@ public class Pistas : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (LevelManager.Instance.GetDeathsInRoom() == 10)
+        if (LevelManager.Instance.GetIsInGrayZone() == true)
         {
-            pista1.SetActive(true);
-        }
-        if (LevelManager.Instance.GetDeathsInRoom() == 20)
+            if (LevelManager.Instance.GetDeathsInRoom() >= contadorPista1 && LevelManager.Instance.GetDeathsInRoom() < contadorPista2)
+            {
+                pista1.SetActive(true);
+            }
+            if (LevelManager.Instance.GetDeathsInRoom() >= contadorPista2 && LevelManager.Instance.GetDeathsInRoom() < contadorPista3)
+            {
+                pista1.SetActive(false);
+                pista2.SetActive(true);
+            }
+            if (LevelManager.Instance.GetDeathsInRoom() >= contadorPista3)
+            {
+                Debug.Log(LevelManager.Instance.GetDeathsInRoom());
+                pista2.SetActive(false);
+                pista3.SetActive(true);
+            }
+            if (LevelManager.Instance.GetDeathsInRoom() == 0) 
+            {
+                pista1.SetActive(false);
+                pista2.SetActive(false);
+                pista3.SetActive(false);
+            }
+        } else
         {
-            pista2.SetActive(true);
-        }
-        if (LevelManager.Instance.GetDeathsInRoom() >= 30)
-        {
-            pista3.SetActive(true);
+            pista1.SetActive(false);
+            pista2.SetActive(false);
+            pista3.SetActive(false);
         }
     }
     #endregion
@@ -89,6 +115,10 @@ public class Pistas : MonoBehaviour
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
 
+    public void Pista1()
+    {
+        camino1[LevelManager.Instance.GetRoomNo()].SetActive(true);
+    }
     #endregion
     
     // ---- MÉTODOS PRIVADOS ----

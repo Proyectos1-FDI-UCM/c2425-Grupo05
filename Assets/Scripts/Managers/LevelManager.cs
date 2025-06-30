@@ -101,6 +101,7 @@ public class LevelManager : MonoBehaviour
     /// Color en hexadecimal que se asigna tanto a las plataformas como a las barras de estado según al estado y la sala que correspondan. Estado 2
     /// </summary>
     [SerializeField] private string colorState2 = "";
+
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -163,6 +164,10 @@ public class LevelManager : MonoBehaviour
      /// Muertes por sala
      /// </summary>
     private int deathsInRoom = 0;
+    /// <summary>
+    /// Booleana que comprueba si esta en la zona gris
+    /// </summary>
+    private bool isInGrayZone = false;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -231,9 +236,10 @@ public class LevelManager : MonoBehaviour
 
     private void Update()
     {
-
+        isInGrayZone = true;
         if (!timeLocked && !grayZone[roomNo].IsTimeStopped())
         {
+            isInGrayZone = false;
             if (RoomTimeRemaining > 0)
             {
                 RoomTimeRemaining -= Time.deltaTime;
@@ -353,8 +359,8 @@ public class LevelManager : MonoBehaviour
             {
                 _platformMovement[i].ResetPlatform();
             }
-        
-       
+
+        deathsInRoom++;
         RoomTimeRemaining = RoomMaxTime[roomNo];
 
         GameManager.Instance.PlayerDied();
@@ -379,6 +385,7 @@ public class LevelManager : MonoBehaviour
     // Si se llega al máximo de salas transporta al jugador a la escena Hub, desbloqueando el siguiente nivel
     public void NextRoom()
     {
+        deathsInRoom = 0;
         if (roomNo < roomsAmount - 1)
         {
             roomNo++;
@@ -453,6 +460,11 @@ public class LevelManager : MonoBehaviour
     public int GetDeathsInRoom()
     {
         return deathsInRoom;
+    }
+
+    public bool GetIsInGrayZone()
+    {
+        return isInGrayZone;
     }
 
     //-----------------------------------------------------------------------------------
