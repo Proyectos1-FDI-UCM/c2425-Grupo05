@@ -46,6 +46,9 @@ public class GameManager : MonoBehaviour
     /// </summary>
     [SerializeField]private int maxCurrentLvl = 0;
 
+    /// <summary>
+    /// Número máximo de niveles sin contar el tutorial
+    /// </summary>
     private int lastLevel = 2;
 
     /// <summary>
@@ -179,7 +182,7 @@ public class GameManager : MonoBehaviour
     public void LevelCompleted()
     {
         if (currentLvl >= maxCurrentLvl) { maxCurrentLvl = currentLvl; }
-        if (currentLvl == lastLevel) { ChangeScene(6); }
+        if (currentLvl == lastLevel) { ChangeScene(6); } //Pantalla final es la escena 6
         else { ChangeScene(3); }//el hub es la escena 3.
         
     }
