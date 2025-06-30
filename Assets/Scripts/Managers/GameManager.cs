@@ -46,6 +46,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     [SerializeField]private int maxCurrentLvl = 0;
 
+    private int lastLevel = 2;
+
     /// <summary>
     /// Último nivel en el que has estado
     /// </summary>
@@ -177,7 +179,8 @@ public class GameManager : MonoBehaviour
     public void LevelCompleted()
     {
         if (currentLvl >= maxCurrentLvl) { maxCurrentLvl = currentLvl; }
-        ChangeScene(3);//el hub es la escena 3.
+        if (currentLvl == lastLevel) { ChangeScene(6); }
+        else { ChangeScene(3); }//el hub es la escena 3.
         
     }
     /// <summary>
