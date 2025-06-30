@@ -62,8 +62,9 @@ public class Pistas : MonoBehaviour
         pista1.SetActive(false);
         pista2.SetActive(false);
         pista3.SetActive(false);
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < camino1.Length; i++)
         {
+            Debug.Log(camino1.Length);
             camino1[i].SetActive(false);
             camino2[i].SetActive(false);
             camino3[i].SetActive(false);
@@ -103,6 +104,10 @@ public class Pistas : MonoBehaviour
             pista1.SetActive(false);
             pista2.SetActive(false);
             pista3.SetActive(false);
+            camino1[LevelManager.Instance.GetRoomNo()].SetActive(false);
+            camino2[LevelManager.Instance.GetRoomNo()].SetActive(false);
+            camino3[LevelManager.Instance.GetRoomNo()].SetActive(false);
+
         }
     }
     #endregion
@@ -118,9 +123,25 @@ public class Pistas : MonoBehaviour
     public void Pista1()
     {
         camino1[LevelManager.Instance.GetRoomNo()].SetActive(true);
+        camino2[LevelManager.Instance.GetRoomNo()].SetActive(false);
+        camino3[LevelManager.Instance.GetRoomNo()].SetActive(false);
+    }
+
+    public void Pista2()
+    {
+        camino1[LevelManager.Instance.GetRoomNo()].SetActive(false);
+        camino2[LevelManager.Instance.GetRoomNo()].SetActive(true);
+        camino3[LevelManager.Instance.GetRoomNo()].SetActive(false);
+    }
+
+    public void Pista3()
+    {
+        camino1[LevelManager.Instance.GetRoomNo()].SetActive(false);
+        camino2[LevelManager.Instance.GetRoomNo()].SetActive(false);
+        camino3[LevelManager.Instance.GetRoomNo()].SetActive(true);
     }
     #endregion
-    
+
     // ---- MÉTODOS PRIVADOS ----
     #region Métodos Privados
     // Documentar cada método que aparece aquí
@@ -128,7 +149,7 @@ public class Pistas : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
 
-    #endregion   
+    #endregion
 
 } // class Pistas 
 // namespace
