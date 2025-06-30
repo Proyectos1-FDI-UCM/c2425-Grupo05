@@ -9,34 +9,25 @@ Víctor Álvarez Peral -
 Antonio Bucero Coronel
 
 ## Descripción
-Te encuentras en un mundo regido por 2 reglas. 
-La primera es una barra de estados que rige la aparición de plataformas. 
-¡Encuentra el timing!
+I'm Losing It es un juego de puzles con cierto toque plataformero que desafía al jugador, presentándole un mundo donde el tiempo rige la aparición de plataformas y desafía al jugador a pensar una estrategia en un nivel cambiante, donde debe buscar el camino correcto a la salida, antes de que el temporizador indique 0. 
 
-La segunda es un cronometro que te presiona a la hora de resolver el nivel. 
-¡Encuentra una estrategia!
+## Historia
+"Tienes que avanzar" 
 
-## Objetivo
-"Tienes que ir hacia delante"
+Un anciano que padece demencia,  en un intento de reencontrarse así mismo, conoce a y deja su salud a manos de su espíritu interno, que debe atravesar sus difusas memorias para poder avanzar en su enfermedad. Déjate llevar a las profundidades del cerebro, donde avanzar es la única salida y la duda es tu mayor enemigo.
 
-El objetivo del juego es pasarse todas las salas que están en los niveles del juego, resolviendo puzzles y maniobrando por plataformas para llegar a la última pantalla de ganar del juego.
-
-## Cómo se juega
-Los controles del juego son:  
-las teclas A y D o las flechas en el teclado para movimiento horizontal(Joystick en mando)  
-La barra de espacio en teclado para saltar(A en mando de Xbox)  
-La tecla de escape en el teclado para pausar(botón de opciones en mando)  
-La tecla E del teclado para seleccionar(botón X en mando de Xbox)  
-La tecla R del teclado para reiniciar la sala en la que te encuentras(Presionar el joystick izquierdo en mando)
+## Controles
+![Captura de pantalla 2025-06-23 182945](https://github.com/user-attachments/assets/0f0138a3-0102-4d8d-b66c-dbb6c391c92f)
 
 ## Fotos: 
-![image](https://github.com/user-attachments/assets/c3ef6787-9da2-48ca-951c-0ae12eb5aaa5)
+![Captura de pantalla 2025-06-29 165022](https://github.com/user-attachments/assets/14ac1fdc-614a-4876-a5d1-9826d685528e)
 
-![image](https://github.com/user-attachments/assets/e8a90dd8-761b-4779-87eb-525e723e5d6b)
+![Captura de pantalla 2025-06-29 164901](https://github.com/user-attachments/assets/bab21cd8-aea7-4ac4-893c-5eb398f33dbb)
 
-![image](https://github.com/user-attachments/assets/07b31b36-ace1-45bc-8eb9-1e95f6e57361)
+![Captura de pantalla 2025-06-29 164824](https://github.com/user-attachments/assets/790f7552-f71d-47ce-ac03-ea872eedd838)
+
 
 ## Trailer: 
-[https://youtu.be/-rezQT5Uka4](https://youtu.be/TARMvs47jvc?si=a-9eACH9ZUMUz92X)
+[https://youtu.be/V4p7tNweu_8?si=HNglPZYhVrTTAoPE](https://youtu.be/V4p7tNweu_8?si=HNglPZYhVrTTAoPE)
 
 
