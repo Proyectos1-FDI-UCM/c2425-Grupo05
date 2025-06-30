@@ -10,6 +10,7 @@ using TMPro;
 
 //using UnityEditorInternal;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Componente que se encarga de la gestión de un nivel concreto.
@@ -158,6 +159,10 @@ public class LevelManager : MonoBehaviour
     /// Texto que muestra el número de muertes del jugador
     /// </summary>
     private TextMeshProUGUI deathCount;
+     /// <summary>
+     /// Muertes por sala
+     /// </summary>
+    private int deathsInRoom = 0;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -177,6 +182,7 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
+        
         AudioSource _enterLevel = GetComponent<AudioManager>()?.EnterLevel;
         if (_enterLevel != null && !_enterLevel.isPlaying && !isInHub)
         {
@@ -442,6 +448,11 @@ public class LevelManager : MonoBehaviour
     public float getRoomTimeRemaining()
     {
         return RoomTimeRemaining;
+    }
+
+    public int GetDeathsInRoom()
+    {
+        return deathsInRoom;
     }
 
     //-----------------------------------------------------------------------------------
