@@ -42,6 +42,9 @@ public class Pistas : MonoBehaviour
     // primera palabra en minúsculas y el resto con la 
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
+    private bool greenPressed = false;
+    private bool yellowPressed = false;
+    private bool redPressed = false;
 
 
     #endregion
@@ -76,18 +79,24 @@ public class Pistas : MonoBehaviour
     /// </summary>
     void Update()
     {
+        if (LevelManager.Instance.GetDeathsInRoom() == 0)
+        {
+            greenPressed = false;
+            yellowPressed = false;
+            redPressed = false;
+        }
         if (LevelManager.Instance.GetIsInGrayZone() == true)
         {
-            if (LevelManager.Instance.GetDeathsInRoom() >= contadorPista1 && LevelManager.Instance.GetDeathsInRoom() < contadorPista2)
+            if (LevelManager.Instance.GetDeathsInRoom() >= contadorPista1)
             {
                 pista1.SetActive(true);
             }
-            if (LevelManager.Instance.GetDeathsInRoom() >= contadorPista2 && LevelManager.Instance.GetDeathsInRoom() < contadorPista3)
+            if (LevelManager.Instance.GetDeathsInRoom() >= contadorPista2 && greenPressed == true)
             {
                 pista1.SetActive(false);
                 pista2.SetActive(true);
             }
-            if (LevelManager.Instance.GetDeathsInRoom() >= contadorPista3)
+            if (LevelManager.Instance.GetDeathsInRoom() >= contadorPista3 && yellowPressed == true)
             {
                 Debug.Log(LevelManager.Instance.GetDeathsInRoom());
                 pista2.SetActive(false);
@@ -125,6 +134,7 @@ public class Pistas : MonoBehaviour
         camino1[LevelManager.Instance.GetRoomNo()].SetActive(true);
         camino2[LevelManager.Instance.GetRoomNo()].SetActive(false);
         camino3[LevelManager.Instance.GetRoomNo()].SetActive(false);
+        greenPressed = true;
     }
 
     public void Pista2()
@@ -132,6 +142,7 @@ public class Pistas : MonoBehaviour
         camino1[LevelManager.Instance.GetRoomNo()].SetActive(false);
         camino2[LevelManager.Instance.GetRoomNo()].SetActive(true);
         camino3[LevelManager.Instance.GetRoomNo()].SetActive(false);
+        yellowPressed = true;
     }
 
     public void Pista3()
