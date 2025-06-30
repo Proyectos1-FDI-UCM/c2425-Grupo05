@@ -86,13 +86,16 @@ public class Menu : MonoBehaviour
        //Si detecta la tecla/botón que activa el menu de pausa
         if (InputManager.Instance.PauseIsPressed())   
         {
-            if (!Paused) //Si no estaba pausado se pausa
+            if (SceneManager.GetActiveScene().name != "Pantalla Final")
             {
-                TooglePause();
-            }
-            else //Si lo estaba vuelve el juego a su estado normal
-            {
-                ResumeGame();
+                if (!Paused) //Si no estaba pausado se pausa
+                {
+                    TooglePause();
+                }
+                else //Si lo estaba vuelve el juego a su estado normal
+                {
+                    ResumeGame();
+                }
             }
         }
     }
